@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mugi Ramen &amp; Izakaya</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/classical-48be7531-0163-46df-8139-e4ab66773657/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&amp;display=swap">
+  <script src="./image-slot.js"></script>
+  <style>
+    body { margin: 0; }
+    a { color: var(--color-accent-700); }
+    a:hover { color: var(--color-accent-800); }
+    .jp { font-family: "Noto Serif JP", var(--font-heading), serif; }
+    @keyframes steamRise {
+      0% { opacity: 0; transform: translateY(0) scaleX(1); }
+      25% { opacity: .55; }
+      80% { opacity: .15; }
+      100% { opacity: 0; transform: translateY(-130px) scaleX(1.4); }
+    }
+    @keyframes heroFade {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .marquee-track { animation: marquee 32s linear infinite; }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    @keyframes tabFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes tabSlideIn { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes tabScaleIn { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: scale(1); } }
+    @keyframes riseIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</helmet>
+
+<div style="background:var(--color-bg);color:var(--color-text);min-height:100vh;font-family:var(--font-body)">
+
+  <!-- NAV -->
+  <div class="nav" style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 92%, transparent);backdrop-filter:blur(6px)">
+    <div class="nav-brand" style="display:flex;align-items:center;gap:8px">
+      <span class="jp" style="font-size:20px;color:var(--color-accent-700)">麦</span>
+      MUGI <span style="font-weight:400;opacity:.7">Ramen &amp; Izakaya</span>
+    </div>
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+      <a href="#" onClick="{{ t.select }}" aria-current="{{ t.current }}" style="cursor:pointer">{{ t.label }}</a>
+    </sc-for>
+    <div style="display:flex;gap:4px;align-items:center;margin-left:var(--space-2);font-size:13px">
+      <sc-for list="{{ langOpts }}" as="lg" hint-placeholder-count="2">
+        <a href="#" onClick="{{ lg.select }}" style="{{ lg.style }}">{{ lg.label }}</a>
+      </sc-for>
+    </div>
+    <a class="btn btn-primary" href="tel:+84966750202" style="margin-left:var(--space-2)">{{ txt.reserve }}</a>
+  </div>
+
+  <!-- HOME TAB -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div style="{{ tabAnim }}">
+      <!-- HERO -->
+      <div style="position:relative;height:88vh;min-height:560px;overflow:hidden;background:radial-gradient(ellipse at center 40%, var(--color-neutral-800), var(--color-neutral-900) 75%)">
+        <div style="position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:360px;height:360px">
+          <div style="position:absolute;left:38%;bottom:64%;width:16px;height:70px;background:color-mix(in srgb, #fff 70%, transparent);filter:blur(9px);border-radius:50%;animation:steamRise 4.5s ease-in-out infinite"></div>
+          <div style="position:absolute;left:52%;bottom:66%;width:14px;height:60px;background:color-mix(in srgb, #fff 60%, transparent);filter:blur(8px);border-radius:50%;animation:steamRise 4.5s ease-in-out infinite 1.5s"></div>
+          <div style="position:absolute;left:46%;bottom:63%;width:12px;height:50px;background:color-mix(in srgb, #fff 55%, transparent);filter:blur(7px);border-radius:50%;animation:steamRise 4.5s ease-in-out infinite 3s"></div>
+          <div style="position:absolute;left:8%;bottom:8%;width:84%;height:150px;border-radius:0 0 170px 170px;background:linear-gradient(180deg, var(--color-accent-700), var(--color-neutral-800));box-shadow:var(--shadow-lg)"></div>
+          <div style="position:absolute;left:14%;bottom:52%;width:72%;height:40px;border-radius:50%;background:linear-gradient(180deg, var(--color-accent-500), var(--color-accent-700))"></div>
+          <div style="position:absolute;left:20%;bottom:56%;width:60%;height:16px;border-radius:50%;background:var(--color-neutral-900);opacity:.35"></div>
+          <div style="position:absolute;right:6%;bottom:40%;width:5px;height:150px;background:var(--color-accent-300);transform:rotate(18deg);border-radius:3px"></div>
+          <div style="position:absolute;right:12%;bottom:40%;width:5px;height:150px;background:var(--color-accent-300);transform:rotate(10deg);border-radius:3px"></div>
+        </div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;animation:heroFade 1.2s ease both .3s">
+          <div class="jp" style="color:var(--color-accent-300);font-size:20px;letter-spacing:.2em;margin-bottom:var(--space-2)">麦 らーめん・居酒屋</div>
+          <h1 style="color: var(--color-neutral-100); font-size: 100px; margin: 0; letter-spacing: .02em">MUGI</h1>
+          <h2 style="color:var(--color-accent-200);font-weight:400;font-size:29px;margin-top:var(--space-1);font-style:italic">Ramen &amp; Izakaya</h2>
+          <p style="color:var(--color-neutral-300);font-size:18px;margin-top:var(--space-3);max-width:460px">{{ txt.heroDesc }}</p>
+        </div>
+      </div>
+
+      <!-- SHORT ABOUT + SPECIALS + SOCIAL -->
+      <div style="max-width:920px;margin:0 auto;padding:var(--space-8) var(--space-4)">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:start">
+          <div>
+            <h6 style="color:var(--color-accent-700)">{{ txt.aboutHeading }}</h6>
+            <p style="text-align:justify;font-size:16px;line-height:1.7">{{ txt.aboutBody }}</p>
+            <a class="btn btn-ghost" onClick="{{ goAbout }}" style="cursor:pointer;padding-left:0">{{ txt.readStory }}</a>
+          </div>
+          <div>
+            <h6 style="color:var(--color-accent-700)">{{ txt.specialsHeading }}</h6>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <div class="card"><span class="card-kicker">{{ txt.signatureTag }}</span><div class="card-title">Tonkotsu Shoyu Ramen</div><p class="card-body">{{ txt.specialDesc1 }}</p></div>
+              <div class="card"><span class="card-kicker">{{ txt.izakayaTag }}</span><div class="card-title">Yakitori Skewer Set</div><p class="card-body">{{ txt.specialDesc2 }}</p></div>
+            </div>
+            <a class="btn btn-ghost" onClick="{{ goPromo }}" style="cursor:pointer;padding-left:0;margin-top:var(--space-2)">{{ txt.seePromo }}</a>
+          </div>
+        </div>
+      </div>
+      <div style="height:3px;background:linear-gradient(90deg, var(--color-accent-700), var(--color-accent-400), var(--color-accent-700));opacity:.35"></div>
+
+      <!-- SIGNATURE SPOTLIGHTS -->
+      <sc-for list="{{ spotlights }}" as="sp" hint-placeholder-count="3">
+        <div data-reveal="" style="max-width:1100px;margin:0 auto;padding:var(--space-8) var(--space-4);display:grid;grid-template-columns:{{ sp.gridCols }};gap:var(--space-8);align-items:center;transition:opacity .85s ease,transform .85s ease">
+          <sc-if value="{{ sp.showImgFirst }}" hint-placeholder-val="{{ true }}">
+            <image-slot id="{{ sp.slot }}" shape="rounded" radius="4" placeholder="{{ sp.imgLabel }}" style="width:100%;aspect-ratio:3/2" class="plate"></image-slot>
+          </sc-if>
+          <div>
+            <div style="display:flex;align-items:baseline;gap:var(--space-3);margin-bottom:var(--space-3)">
+              <span style="font-family:var(--font-heading);font-size:64px;line-height:1;color:var(--color-accent);opacity:.18;user-select:none">{{ sp.num }}</span>
+              <h6 style="color:var(--color-accent-700);margin:0">{{ sp.kicker }}</h6>
+            </div>
+            <h2 style="font-size:36px;margin:0 0 var(--space-3)">{{ sp.title }}</h2>
+            <p style="font-size:16px;line-height:1.75;text-align:justify">{{ sp.body }}</p>
+          </div>
+          <sc-if value="{{ sp.showImgLast }}" hint-placeholder-val="{{ false }}">
+            <image-slot id="{{ sp.slot }}" shape="rounded" radius="4" placeholder="{{ sp.imgLabel }}" style="width:100%;aspect-ratio:3/2" class="plate"></image-slot>
+          </sc-if>
+        </div>
+        <div style="height:1px;background:var(--color-divider);max-width:1100px;margin:0 auto"></div>
+      </sc-for>
+
+      <!-- KITCHEN DISH ROW -->
+      <div style="background:var(--color-surface);padding:var(--space-6) 0;border-top:2px solid var(--color-accent-600)">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0 var(--space-6);margin-bottom:var(--space-4)">
+          <h6 style="color:var(--color-accent-700);letter-spacing:.12em;margin:0">FROM THE KITCHEN</h6>
+          <a class="btn btn-ghost" href="#" onClick="{{ goMenu }}" style="cursor:pointer;font-size:13px;padding-right:0">View menu →</a>
+        </div>
+        <div class="marquee-wrap" style="overflow:hidden">
+          <div class="marquee-track" style="display:flex;gap:var(--space-3);width:max-content;padding:0 var(--space-2)">
+            <sc-for list="{{ kitchenDishesLoop }}" as="k" hint-placeholder-count="16">
+              <div style="flex:none;width:160px;cursor:pointer" onClick="{{ goMenu }}">
+                <image-slot id="{{ k.id }}" shape="rounded" radius="4" placeholder="{{ k.name }}" style="width:160px;height:120px" class="plate"></image-slot>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </sc-if>
+
+  <!-- ABOUT TAB -->
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ tabAnim }}">
+      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
+        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">私たちについて</div>
+        <h1 style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.ourStory }}</h1>
+      </div>
+      <div ref="{{ storyRef }}" style="max-width:760px;margin:0 auto;padding:var(--space-8) var(--space-4);display:flex;flex-direction:column;gap:var(--space-8)">
+        <sc-for list="{{ storySteps }}" as="s" hint-placeholder-count="5">
+          <div data-reveal="{{ s.id }}" style="opacity:0;animation:riseIn .6s ease-in-out {{ s.delay }} both;display:grid;grid-template-columns:{{ s.imgFirst }};gap:var(--space-6);align-items:center">
+            <sc-if value="{{ s.showImgFirst }}" hint-placeholder-val="{{ true }}">
+              <image-slot id="{{ s.id }}" shape="rounded" radius="4" placeholder="{{ s.imgLabel }}" style="width:100%;aspect-ratio:4/3" class="plate"></image-slot>
+            </sc-if>
+            <div>
+              <h6 style="color:var(--color-accent-700)">{{ s.kicker }}</h6>
+              <h3>{{ s.title }}</h3>
+              <p style="text-align:justify;font-size:15px;line-height:1.7">{{ s.body }}</p>
+            </div>
+            <sc-if value="{{ s.showImgLast }}" hint-placeholder-val="{{ false }}">
+              <image-slot id="{{ s.id }}" shape="rounded" radius="4" placeholder="{{ s.imgLabel }}" style="width:100%;aspect-ratio:4/3" class="plate"></image-slot>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- MENU TAB -->
+  <sc-if value="{{ isMenu }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ tabAnim }}">
+      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
+        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">メニュー</div>
+        <h1 style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">The Menu Book</h1>
+        <p style="color:var(--color-neutral-300);font-size:14px">Ramen, izakaya grills, small plates and more</p>
+      </div>
+      <div style="display: flex; justify-content: center; padding-top: var(--space-4)">
+        <div class="seg">
+          <sc-for list="{{ menuLocationOpts }}" as="lo" hint-placeholder-count="3">
+            <label class="seg-opt"><input type="radio" name="menuloc" checked="{{ lo.active }}" onChange="{{ lo.select }}">{{ lo.label }}</label>
+          </sc-for>
+        </div>
+      </div>
+      <div style="max-width:1040px;margin:0 auto;padding:var(--space-4) var(--space-4) var(--space-6)">
+
+        <sc-for list="{{ activeCategoryGroups }}" as="grp" hint-placeholder-count="1">
+          <div style="display: flex; justify-content: center; margin-bottom: var(--space-6)">
+          <div class="seg" style="flex-wrap:wrap">
+            <sc-for list="{{ categories }}" as="c" hint-placeholder-count="6">
+              <label class="seg-opt"><input type="radio" name="menucat" checked="{{ c.active }}" onChange="{{ c.select }}">{{ c.label }}</label>
+            </sc-for>
+          </div>
+        </div><div style="margin-bottom:var(--space-8)">
+            <h4 style="border-bottom:1px solid var(--color-divider);padding-bottom:var(--space-2)">{{ grp.label }} <span class="jp text-muted" style="font-size:14px">{{ grp.jp }}</span></h4>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-4);margin-top:var(--space-4)">
+              <sc-for list="{{ grp.dishes }}" as="d" hint-placeholder-count="4">
+                <div class="card elev-sm" style="opacity:0;animation:riseIn .5s ease-in-out {{ d.delay }} both;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow-md)">
+                  <image-slot id="{{ d.id }}" shape="rounded" radius="4" placeholder="{{ d.name }} photo" style="width:100%;aspect-ratio:4/3" class="plate"></image-slot>
+                  <div class="card-title">{{ d.name }}</div>
+                  <p class="card-body">{{ d.desc }}</p>
+                  <div class="card-meta">{{ d.price }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- LOCATION TAB -->
+  <sc-if value="{{ isLocation }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ tabAnim }}">
+      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
+        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">場所</div>
+        <h1 style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2); font-weight: 700">{{ txt.findUs }}</h1>
+        <p style="color:var(--color-neutral-400);font-size:14px;margin-top:var(--space-1)">{{ txt.threeLocations }}</p>
+      </div>
+
+      <!-- Branch sections -->
+      <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
+        <div style="border-bottom:1px solid var(--color-divider)">
+
+        <div style="max-width:1080px;margin:0 auto;padding:var(--space-8) var(--space-8) calc(var(--space-8) * 1.6)">
+
+            <h3 style="margin: 0 0 var(--space-4); font-size: 40px; font-weight: 700; text-align: left; padding-left: var(--space-8); white-space: nowrap">{{ loc.short }}</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:start">
+              <!-- Details -->
+              <div style="min-width: 0; padding-left: var(--space-8); width: 465px; height: 339px">
+                <p style="font-size: 16px; line-height: 1.7; overflow-wrap: break-word; margin: 0 0 var(--space-3); text-align: left">{{ loc.addressLine1 }}<br>{{ loc.addressLine2 }}</p>
+                <div class="hr" style="margin:var(--space-3) 0"></div>
+                <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 28px;font-size:15px;margin-bottom:var(--space-3)">
+                  <span style="color:var(--color-neutral-500);font-size:13px;letter-spacing:.06em;text-transform:uppercase">{{ txt.lunch }}</span><span>{{ loc.lunch }}</span>
+                  <span style="color:var(--color-neutral-500);font-size:13px;letter-spacing:.06em;text-transform:uppercase">{{ txt.dinner }}</span><span>{{ loc.dinner }}</span>
+                  <span style="color:var(--color-neutral-500);font-size:13px;letter-spacing:.06em;text-transform:uppercase">{{ txt.seats }}</span><span>{{ loc.seats }}</span>
+                </div>
+                <div class="hr" style="margin:var(--space-3) 0"></div>
+                <sc-for list="{{ loc.bullets }}" as="b" hint-placeholder-count="3">
+                  <div style="display:flex;gap:10px;font-size:14px;margin-bottom:8px;line-height:1.5"><span style="color:var(--color-accent-600);flex:none;font-size:16px">—</span><span>{{ b }}</span></div>
+                </sc-for>
+                <div style="display:flex;gap:var(--space-2);margin-top:var(--space-4);flex-wrap:wrap">
+                  <a class="btn btn-primary" href="{{ loc.tel }}">{{ txt.callToReserve }}</a>
+                  <a class="btn btn-secondary" href="{{ loc.mapUrl }}" target="_blank" rel="noopener">{{ txt.openInMaps }}</a>
+                </div>
+              </div><div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);width:320px;margin:0 auto">
+
+                <image-slot id="{{ loc.id }}-pa" shape="rounded" radius="4" placeholder="interior" style="width: 154px; aspect-ratio: 1/1; height: 153px" class="plate"></image-slot><image-slot id="{{ loc.id }}-pb" shape="rounded" radius="4" placeholder="food" style="width:100%;aspect-ratio:1/1" class="plate"></image-slot>
+                <image-slot id="{{ loc.id }}-pc" shape="rounded" radius="4" placeholder="ambiance" style="width:100%;aspect-ratio:1/1" class="plate"></image-slot>
+                <image-slot id="{{ loc.id }}-pd" shape="rounded" radius="4" placeholder="storefront" style="width:100%;aspect-ratio:1/1" class="plate"></image-slot>
+              </div>
+              <!-- 2×2 photo grid -->
+
+            </div>
+          </div></div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <!-- PROMOTION TAB -->
+  <sc-if value="{{ isPromo }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ tabAnim }}">
+      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
+        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">お知らせ</div>
+        <h1 style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.promoHeading }}</h1>
+      </div>
+      <div style="max-width:840px;margin:0 auto;padding:var(--space-8) var(--space-4)">
+        <div class="card elev-md" style="padding:var(--space-6);border-color:var(--color-accent)">
+          <span class="tag tag-accent" style="background-color: var(--color-accent-100); font-size: 15px; font-style: normal; text-align: left"><b>{{ txt.currentPromoTag }}</b></span>
+          <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:var(--space-6);margin-top:var(--space-3);align-items:center">
+            <image-slot id="promo-current" shape="rounded" radius="4" placeholder="promo photo" style="width:100%;aspect-ratio:4/3" class="plate"></image-slot>
+            <div>
+              <h3 style="margin-bottom:var(--space-1)">{{ currentPromo.title }}</h3>
+              <p class="text-muted" style="font-size:13px;margin-bottom:var(--space-3)">{{ currentPromo.date }}</p>
+              <p style="font-size:15px;line-height:1.7">{{ currentPromo.body }}</p>
+              <a class="btn btn-primary" style="margin-top:var(--space-2)" onClick="{{ goHome }}">{{ txt.bookTable }}</a>
+            </div>
+          </div>
+        </div>
+
+        <h6 style="color:var(--color-accent-700);margin-top:var(--space-8)">{{ txt.pastPromoHeading }}</h6>
+        <div class="hr" style="margin-top:var(--space-2)"></div>
+        <sc-for list="{{ pastPromos }}" as="p" hint-placeholder-count="4">
+          <div style="display:flex;gap:var(--space-4);padding:var(--space-4) 0;border-bottom:1px solid var(--color-divider)">
+            <div style="min-width:90px;font-size:12px;color:var(--color-accent-700);font-family:var(--font-heading);font-variant-numeric:tabular-nums">{{ p.date }}</div>
+            <div>
+              <div class="card-title" style="font-size:15px">{{ p.title }}</div>
+              <p class="card-body" style="opacity:.8;margin-top:2px">{{ p.blurb }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- FOOTER (every tab) -->
+  <div style="background:var(--color-neutral-900);color:var(--color-neutral-300);padding:var(--space-8) var(--space-6)">
+    <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1.6fr;gap:calc(var(--space-8) * 2)">
+
+      <div style="min-width:0">
+        <h3 style="color: var(--color-neutral-100); font-size: 35px">Mugi Ramen &amp; Izakaya</h3>
+        <div class="jp" style="color:var(--color-accent-300);font-size:15px;margin-top:-8px;margin-bottom:var(--space-3)">麦 ラーメン・居酒屋</div>
+        <h6 style="color:var(--color-accent-300);margin-top:var(--space-4)">{{ txt.footerHours }}</h6>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span>{{ txt.lunch }}</span><span>10:30 – 14:00</span></div>
+
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span>{{ txt.dinner }}</span><span>17:00 – 22:00</span></div><div style="display:flex;gap:var(--space-2);margin-top:var(--space-4);flex-wrap:wrap">
+          <a class="btn btn-secondary" style="color:var(--color-neutral-200);border-color:var(--color-neutral-700)" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook</a>
+          <a class="btn btn-primary" href="tel:+84966750202" style="color:var(--color-accent-300);border-color:var(--color-accent-600)">{{ txt.reserve }}</a>
+        </div>
+      </div><div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
+          <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
+            <div>
+              <div style="color: var(--color-neutral-100); font-family: var(--font-heading); font-size: 16px; margin-bottom: 8px; font-weight: 500">{{ loc.short }}</div>
+              <div style="font-size:13px;line-height:1.8">{{ loc.addressLine1 }} {{ loc.addressLine2 }}</div>
+              <a href="{{ loc.tel }}" style="display:inline-block;font-size:13px;color:var(--color-accent-300);margin-top:6px">{{ loc.phone }}</a>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;transitionStyle&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;fade&quot;, &quot;options&quot;: [&quot;fade&quot;, &quot;slide&quot;, &quot;scale&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Motion&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 'home', menuCategory: 'ramen', menuLocation: 'golden-palace', lang: (typeof localStorage !== 'undefined' && localStorage.getItem('mugi_lang')) || 'vi' };
+
+  menuLocations = [
+    { key: 'golden-palace', label: 'Golden Palace, Mễ Trì' },
+    { key: 'phan-chu-trinh', label: 'Phan Chu Trinh' },
+    { key: 'mon-city', label: 'Mon City, Hàm Nghi' },
+  ];
+
+  storyData = [
+    { id: 'story-1', kicker: 'How it started', kickerVi: 'Khởi đầu', title: 'Two Countries, One Bowl', titleVi: 'Hai Đất Nước, Một Tô Mì', imgLabel: 'founders / opening day photo',
+      body: `Mugi opened in Hanoi from a simple pairing: Japanese ramen craft and Vietnamese hospitality. The name means "wheat" in Japanese — the grain at the heart of every noodle we pull.`,
+      bodyVi: `Mugi ra đời tại Hà Nội từ sự kết hợp giản dị: nghệ thuật làm ramen Nhật Bản và sự hiếu khách của người Việt. Cái tên "Mugi" có nghĩa là "lúa mạch" trong tiếng Nhật — loại hạt làm nên mọi sợi mì mà chúng tôi kéo tay.`, imgFirst: true },
+    { id: 'story-2', kicker: 'The broth', kickerVi: 'Nước dùng', title: 'Hours, Not Minutes', titleVi: 'Hàng Giờ, Không Phải Vài Phút', imgLabel: 'open kitchen / broth simmering',
+      body: `Pork bones and dashi simmer from early morning, watched over in an open kitchen you can see from your seat. Nothing here is instant — the broth sets the pace for the whole night.`,
+      bodyVi: `Xương heo và dashi được hầm từ sáng sớm, dưới sự trông coi tại một khu bếp mở mà bạn có thể nhìn thấy ngay từ chỗ ngồi. Không có gì ở đây là tức thời — nước dùng chính là thứ định hình nhịp điệu cho cả buổi tối.`, imgFirst: false },
+    { id: 'story-3', kicker: 'After the bowl', kickerVi: 'Sau tô mì', title: 'The Izakaya Table', titleVi: 'Bàn Izakaya', imgLabel: 'grill station / skewers',
+      body: `As the evening goes on, the ramen counter turns into an izakaya: charcoal skewers, shared plates, cold beer. It's the part of a Japanese night out that Hanoi took to immediately.`,
+      bodyVi: `Khi đêm xuống, quầy ramen dần chuyển mình thành một izakaya: xiên nướng than hoa, các đĩa nhỏ chia sẻ, bia lạnh. Đây là phần của một buổi tối kiểu Nhật mà Hà Nội đã đón nhận ngay từ đầu.`, imgFirst: true },
+    { id: 'story-4', kicker: 'The room', kickerVi: 'Không gian', title: 'Hanoi, Reimagined', titleVi: 'Hà Nội, Một Góc Nhìn Mới', imgLabel: 'dining room interior',
+      body: `Warm wood, low light, a counter seat by the kitchen. Mugi is built to feel like a neighborhood spot in Tokyo, dropped into a Hanoi street — familiar to regulars, easy for first-time visitors.`,
+      bodyVi: `Gỗ ấm, ánh sáng dịu, một chỗ ngồi ngay cạnh bếp. Mugi được xây dựng để mang cảm giác như một quán quen ở Tokyo, đặt giữa một con phố Hà Nội — thân thuộc với khách quen, dễ gần với người lần đầu ghé qua.`, imgFirst: false },
+    { id: 'story-5', kicker: 'What stays the same', kickerVi: 'Điều không thay đổi', title: 'Our Promise', titleVi: 'Lời Hứa Của Chúng Tôi', imgLabel: 'chef plating a dish',
+      body: `Noodles made fresh, ingredients sourced with care, and a bowl that tastes the same on your fiftieth visit as your first. That consistency is the only promise we make.`,
+      bodyVi: `Mì luôn được làm mới, nguyên liệu được chọn lựa cẩn thận, và một tô mì có vị không đổi dù là lần ghé thứ nhất hay lần thứ năm mươi. Sự nhất quán đó là lời hứa duy nhất chúng tôi đưa ra.`, imgFirst: true },
+  ];
+
+  menuData = [
+    { key: 'ramen', label: 'Ramen', jp: 'ラーメン', dishes: [
+      { id: 'd-tonkotsu', name: 'Tonkotsu Ramen', desc: 'Rich pork bone broth, chashu pork, soft egg, scallion, nori.', descVi: 'Nước dùng xương heo đậm đà, thịt heo chashu, trứng lòng đào, hành lá, rong biển.', price: '135,000₫' },
+      { id: 'd-shoyu', name: 'Shoyu Ramen', desc: 'Clear soy-seasoned broth, bamboo shoots, menma, spring onion.', descVi: 'Nước dùng trong vị nước tương, măng tre, menma, hành lá.', price: '125,000₫' },
+      { id: 'd-shio', name: 'Shio Ramen', desc: 'Light salt broth, seaweed, soft egg — clean and delicate.', descVi: 'Nước dùng vị muối nhẹ, rong biển, trứng lòng đào — thanh và tinh tế.', price: '125,000₫' },
+      { id: 'd-miso', name: 'Miso Ramen', desc: 'Sapporo-style miso broth, sweet corn, butter, ground pork.', descVi: 'Nước dùng miso kiểu Sapporo, bắp ngọt, bơ, thịt heo băm.', price: '135,000₫' },
+      { id: 'd-tantan', name: 'Tantan Ramen', desc: 'Spicy sesame broth, minced pork, chili oil, scallion.', descVi: 'Nước dùng mè cay, thịt heo băm, dầu ớt, hành lá.', price: '140,000₫' },
+      { id: 'd-coldramen', name: 'Mugi Cold Ramen', desc: 'Chilled noodles, sesame dressing, cucumber, soft egg. Seasonal.', descVi: 'Mì lạnh, sốt mè, dưa chuột, trứng lòng đào. Theo mùa.', price: '130,000₫' },
+    ]},
+    { key: 'grill', label: 'Izakaya Grill', jp: '焼き鳥', dishes: [
+      { id: 'd-negima', name: 'Negima', desc: 'Grilled chicken thigh and leek skewer.', descVi: 'Xiên đùi gà và hành baro nướng.', price: '35,000₫' },
+      { id: 'd-butabara', name: 'Butabara', desc: 'Grilled pork belly skewer, charcoal-finished.', descVi: 'Xiên ba chỉ heo nướng than hoa.', price: '35,000₫' },
+      { id: 'd-gyuharami', name: 'Gyu Harami', desc: 'Grilled beef skirt skewer.', descVi: 'Xiên thịt bò nướng.', price: '45,000₫' },
+      { id: 'd-ebi', name: 'Ebi', desc: 'Grilled shrimp skewer, lightly salted.', descVi: 'Xiên tôm nướng, ướp muối nhẹ.', price: '40,000₫' },
+      { id: 'd-shishito', name: 'Shishito Peppers', desc: 'Charred blistered peppers, sea salt.', descVi: 'Ớt nướng cháy xém, muối biển.', price: '30,000₫' },
+    ]},
+    { key: 'plates', label: 'Small Plates', jp: '一品料理', dishes: [
+      { id: 'd-gyoza', name: 'Gyoza', desc: 'Pan-seared pork dumplings, ponzu dip. 6 pcs.', descVi: 'Bánh xếp thịt heo áp chảo, chấm sốt ponzu. 6 chiếc.', price: '55,000₫' },
+      { id: 'd-karaage', name: 'Karaage', desc: 'Japanese fried chicken, kewpie mayo.', descVi: 'Gà rán kiểu Nhật, sốt mayonnaise kewpie.', price: '65,000₫' },
+      { id: 'd-takoyaki', name: 'Takoyaki', desc: 'Octopus balls, bonito flakes, okonomiyaki sauce.', descVi: 'Bánh bạch tuộc, vảy cá bào, sốt okonomiyaki.', price: '60,000₫' },
+      { id: 'd-edamame', name: 'Edamame', desc: 'Steamed soybeans, sea salt.', descVi: 'Đậu nành non hấp, muối biển.', price: '35,000₫' },
+      { id: 'd-agedashi', name: 'Agedashi Tofu', desc: 'Silken tofu, dashi broth, grated daikon.', descVi: 'Đậu phụ non, nước dùng dashi, củ cải bào.', price: '55,000₫' },
+    ]},
+    { key: 'rice', label: 'Rice & Don', jp: '丼物', dishes: [
+      { id: 'd-gyudon', name: 'Gyudon', desc: 'Simmered beef and onion over rice, soft egg.', descVi: 'Thịt bò và hành ninh mềm trên cơm, trứng lòng đào.', price: '95,000₫' },
+      { id: 'd-unagidon', name: 'Unagi Don', desc: 'Grilled eel, sweet soy glaze, over rice.', descVi: 'Lươn nướng sốt nước tương ngọt, trên cơm.', price: '145,000₫' },
+      { id: 'd-katsucurry', name: 'Katsu Curry Rice', desc: 'Fried pork cutlet, Japanese curry sauce.', descVi: 'Thịt heo tẩm bột chiên, sốt cà ri kiểu Nhật.', price: '110,000₫' },
+      { id: 'd-teriyakibowl', name: 'Chicken Teriyaki Bowl', desc: 'Grilled chicken teriyaki over rice, greens.', descVi: 'Gà nướng teriyaki trên cơm, rau xanh.', price: '95,000₫' },
+    ]},
+    { key: 'dessert', label: 'Desserts', jp: 'デザート', dishes: [
+      { id: 'd-matchapudding', name: 'Matcha Pudding', desc: 'Matcha pudding, sweet red bean, fresh milk.', descVi: 'Bánh pudding matcha, đậu đỏ ngọt, sữa tươi.', price: '45,000₫' },
+      { id: 'd-sesameicecream', name: 'Black Sesame Ice Cream', desc: 'House-made black sesame ice cream.', descVi: 'Kem mè đen tự làm.', price: '40,000₫' },
+      { id: 'd-purplemochi', name: 'Purple Sweet Potato Mochi', desc: 'Soft mochi, purple sweet potato filling.', descVi: 'Mochi mềm, nhân khoai lang tím.', price: '45,000₫' },
+    ]},
+    { key: 'drinks', label: 'Drinks', jp: '飲み物', dishes: [
+      { id: 'd-ramune', name: 'Japanese Ramune', desc: 'Strawberry or lychee flavor, classic marble soda.', descVi: 'Vị dâu hoặc vải, soda bi cổ điển.', price: '35,000₫' },
+      { id: 'd-genmaicha', name: 'Hot Genmaicha', desc: 'Roasted green tea with toasted rice.', descVi: 'Trà xanh rang với gạo lứt rang.', price: '30,000₫' },
+      { id: 'd-vncoffee', name: 'Vietnamese Iced Coffee', desc: 'Robusta coffee, condensed milk, over ice.', descVi: 'Cà phê robusta, sữa đặc, đá.', price: '35,000₫' },
+      { id: 'd-draftbeer', name: 'Asahi / Sapporo Draft', desc: 'Japanese draft beer, 330ml.', descVi: 'Bia hơi Nhật Bản, 330ml.', price: '55,000₫' },
+      { id: 'd-umeshu', name: 'Umeshu Sour', desc: 'Plum wine, soda, lemon.', descVi: 'Rượu mơ, soda, chanh.', price: '65,000₫' },
+    ]},
+  ];
+
+  locationData = [
+    { short: 'Mon City, Hàm Nghi', addressLine1: 'Số 37 Lô TT01 Mon City, Ngõ 4 Hàm Nghi,', addressLine2: 'Từ Liêm, Hà Nội',
+      lunch: '10:30 – 14:00', dinner: '17:00 – 22:00', seats: 60, phone: '0966 75 0202', tel: 'tel:+84966750202',
+      bullets: ['Easy parking, quieter dinner service', 'Full izakaya grill menu until close', 'Delivery available through local apps'],
+      bulletsVi: ['Dễ dàng đỗ xe, không gian buổi tối yên tĩnh hơn', 'Đầy đủ menu nướng izakaya đến giờ đóng cửa', 'Có giao hàng qua các ứng dụng nội địa'],
+      mapUrl: 'https://www.google.com/maps/search/?api=1&query=37+Lo+TT01+Mon+City+Ngo+4+Ham+Nghi+Tu+Liem+Hanoi' },
+    { short: 'Golden Palace, Mễ Trì', addressLine1: 'Lô B1.9, Tầng hầm B1, Tòa nhà Golden Palace, Số 99 Mễ Trì,', addressLine2: 'Từ Liêm, Hà Nội',
+      lunch: '10:30 – 14:00', dinner: '17:00 – 22:00', seats: 50, phone: '0866 60 7560', tel: 'tel:+84866607560',
+      bullets: ['Basement dining, easy building parking', 'Popular with office groups nearby', 'Full izakaya grill menu until close'],
+      bulletsVi: ['Không gian ăn ở tầng hầm, dễ đỗ xe trong tòa nhà', 'Được các nhóm văn phòng gần đó ưa thích', 'Đầy đủ menu nướng izakaya đến giờ đóng cửa'],
+      mapUrl: 'https://www.google.com/maps/search/?api=1&query=Golden+Palace+99+Me+Tri+Tu+Liem+Hanoi' },
+    { short: 'Phan Chu Trinh', addressLine1: 'Số 23 Phan Chu Trinh,', addressLine2: 'Cửa Nam, Hà Nội',
+      lunch: '10:30 – 14:00', dinner: '17:00 – 22:00', seats: 75, phone: '0866 75 3375', tel: 'tel:+84866753375',
+      bullets: ['Private rooms for parties of 6 to 8', 'Office lunch sets from 89,000₫, weekdays', 'Tables can be decorated for celebrations on request'],
+      bulletsVi: ['Phòng riêng cho nhóm 6 đến 8 người', 'Set trưa văn phòng từ 89.000₫, các ngày trong tuần', 'Có thể trang trí bàn theo yêu cầu cho các buổi tiệc'],
+      mapUrl: 'https://www.google.com/maps/search/?api=1&query=23+Phan+Chu+Trinh+Cua+Nam+Hanoi' },
+  ];
+
+  featuredIds = ['d-tonkotsu', 'd-negima', 'd-gyoza', 'd-unagidon', 'd-matchapudding', 'd-takoyaki', 'd-tantan', 'd-butabara'];
+  _featuredDishes = null;
+  _locations = null;
+
+  pastPromos = [
+    { date: 'Jul 2026', dateVi: 'Tháng 7, 2026', title: 'Rainy Season Ramen Set', titleVi: 'Set Ramen Mùa Mưa', blurb: 'Bowl + skewer + drink combo, weekdays only.', blurbVi: 'Combo tô mì + xiên + đồ uống, chỉ áp dụng ngày thường.' },
+    { date: 'May 2026', dateVi: 'Tháng 5, 2026', title: "Mugi's 2nd Anniversary", titleVi: 'Sinh Nhật 2 Tuổi Của Mugi', blurb: 'Free bowl for every 10th guest, both locations.', blurbVi: 'Miễn phí một tô mì cho mỗi khách thứ 10, tại cả hai địa điểm.' },
+    { date: 'Mar 2026', dateVi: 'Tháng 3, 2026', title: 'Sakura Season Menu', titleVi: 'Menu Mùa Hoa Anh Đào', blurb: 'Limited cherry blossom jelly and matcha specials.', blurbVi: 'Món đặc biệt giới hạn: chè hoa anh đào và matcha.' },
+    { date: 'Jan 2026', dateVi: 'Tháng 1, 2026', title: 'Tet Opening Hours', titleVi: 'Giờ Mở Cửa Ngày Tết', blurb: 'Updated holiday hours and reservation notice.', blurbVi: 'Cập nhật giờ mở cửa ngày lễ và thông báo đặt bàn.' },
+  ];
+
+  currentPromo = {
+    title: 'Summer Ramen Nights', titleVi: 'Đêm Ramen Mùa Hè', date: 'Aug 1 – Aug 31, 2026', dateVi: '1 – 31 Tháng 8, 2026',
+    body: '20% off every ramen bowl after 8pm, plus a free plate of gyoza with any izakaya skewer set. Dine-in only, both locations.',
+    bodyVi: 'Giảm 20% cho mọi tô ramen sau 8 giờ tối, kèm một đĩa gyoza miễn phí khi mua bất kỳ set xiên izakaya. Chỉ áp dụng khi dùng tại quán, ở cả hai địa điểm.',
+  };
+
+  spotlights = [
+    { id: 'sp-bowl', num: '01', kicker: 'The Bowl', kickerVi: 'Tô Mì', title: 'Built on Bone Broth', titleVi: 'Xây Từ Nước Hầm Xương',
+      body: 'Every bowl starts the night before. Pork bones, kombu, and time — our tonkotsu simmers eighteen hours minimum. The result is a broth that coats the spoon and stays with you long after the bowl is empty.',
+      bodyVi: 'Mỗi tô mì bắt đầu từ đêm trước. Xương heo, kombu, và thời gian — tonkotsu của chúng tôi được hầm tối thiểu mười tám giờ. Kết quả là một loại nước dùng bám trên thìa và còn đọng lại rất lâu sau khi tô đã hết.',
+      imgFirst: true, slot: 'sp-bowl-img', imgLabel: 'tonkotsu ramen bowl' },
+    { id: 'sp-grill', num: '02', kicker: 'The Grill', kickerVi: 'Bếp Nướng', title: 'Charcoal After Dark', titleVi: 'Than Hồng Khi Đêm Xuống',
+      body: 'When the ramen crowd thins, the charcoal tray comes out. Negima, butabara, gyu harami — skewers grilled to order, eaten with cold beer while the kitchen stays open late into a Hanoi evening.',
+      bodyVi: 'Khi khách ăn ramen thưa dần, khay than hoa được mang ra. Negima, butabara, gyu harami — các xiên nướng theo yêu cầu, ăn cùng bia lạnh khi bếp vẫn mở cửa muộn vào một buổi tối Hà Nội.',
+      imgFirst: false, slot: 'sp-grill-img', imgLabel: 'izakaya grill skewers on charcoal' },
+    { id: 'sp-kitchen', num: '03', kicker: 'The Kitchen', kickerVi: 'Nhà Bếp', title: 'Open, by Design', titleVi: 'Mở, Theo Chủ Đích',
+      body: 'The pass is glass — you watch every bowl leave. We built the kitchen open because we have nothing to hide and a few things to show: the discipline of Japanese cooking, alive in a Hanoi dining room.',
+      bodyVi: 'Khu vực bếp là kính trong suốt — bạn có thể quan sát từng tô mì được mang ra. Chúng tôi thiết kế bếp mở vì không có gì để giấu và có vài điều muốn cho bạn thấy: sự kỷ luật của nấu ăn Nhật Bản, hiện diện sống động trong một phòng ăn ở Hà Nội.',
+      imgFirst: true, slot: 'sp-kitchen-img', imgLabel: 'open kitchen chef at work' },
+  ];
+
+  steps = [
+    { num: '01', label: 'Order at the Counter', desc: 'Choose your broth, your toppings, your spice level.' },
+    { num: '02', label: 'Watch the Kitchen', desc: 'The pass is open. Every step is visible from your seat.' },
+    { num: '03', label: 'Share the Table', desc: 'Skewers arrive. Cold drinks pour. The evening stretches.' },
+  ];
+
+  renderVals() {
+    if (!this.storyRef) this.storyRef = React.createRef();
+    const tab = this.state.tab;
+    const lang = this.state.lang;
+    const isVi = lang === 'vi';
+    const t = (en, vi) => isVi ? vi : en;
+    const setTab = (t2) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ tab: t2 }); window.scrollTo(0, 0); };
+    const setLang = (l) => () => { if (typeof localStorage !== 'undefined') localStorage.setItem('mugi_lang', l); this.setState({ lang: l }); };
+    const tabs = [
+      { key: 'home', label: t('Home', 'Trang Chủ') }, { key: 'about', label: t('About', 'Giới Thiệu') }, { key: 'menu', label: 'Menu' },
+      { key: 'location', label: t('Location', 'Địa Điểm') }, { key: 'promotion', label: t('Promotions', 'Ưu Đãi') },
+    ].map(tb => ({ label: tb.label, current: tab === tb.key ? 'page' : undefined, select: setTab(tb.key) }));
+    const langOpts = ['en', 'vi'].map(l => ({
+      key: l, label: l.toUpperCase(), select: setLang(l),
+      style: `cursor:pointer;padding:2px 5px;color:${l === lang ? 'var(--color-accent-700)' : 'var(--color-neutral-500)'};font-weight:${l === lang ? '600' : '400'}`,
+    }));
+
+    const loc = this.state.menuLocation;
+    const availAt = (d) => !d.locs || d.locs.includes(loc);
+    const menuLocationOpts = this.menuLocations.map(l => ({
+      label: l.label, active: l.key === loc,
+      select: () => this.setState({ menuLocation: l.key }),
+    }));
+    const menuGroupsForLocation = this.menuData
+      .map(g => ({ ...g, dishes: g.dishes.filter(availAt) }))
+      .filter(g => g.dishes.length > 0);
+    const activeGroup = menuGroupsForLocation.find(g => g.key === this.state.menuCategory) || menuGroupsForLocation[0];
+    const categories = menuGroupsForLocation.map(g => ({
+      label: g.label, active: activeGroup && g.key === activeGroup.key,
+      select: () => this.setState({ menuCategory: g.key }),
+    }));
+    const activeGroupWithDelay = activeGroup
+      ? { ...activeGroup, dishes: activeGroup.dishes.map((d, i) => ({ ...d, desc: isVi ? d.descVi : d.desc, delay: (i * 60) + 'ms' })) }
+      : { label: '', jp: '', dishes: [] };
+
+    const speed = 350;
+    const style = this.props.transitionStyle || 'fade';
+    const animName = style === 'slide' ? 'tabSlideIn' : style === 'scale' ? 'tabScaleIn' : 'tabFadeIn';
+    const tabAnim = `animation:${animName} ${speed}ms cubic-bezier(.4,0,.2,1) both`;
+
+    const storySteps = this.storyData.map((s, i) => ({
+      ...s, kicker: isVi ? s.kickerVi : s.kicker, title: isVi ? s.titleVi : s.title, body: isVi ? s.bodyVi : s.body,
+      imgFirst: s.imgFirst ? '1fr 1.3fr' : '1.3fr 1fr',
+      showImgFirst: s.imgFirst, showImgLast: !s.imgFirst,
+      delay: (i * 90) + 'ms',
+    }));
+
+    if (!this._featuredDishes) {
+      const allDishes = this.menuData.flatMap(g => g.dishes);
+      const base = this.featuredIds.map(id => allDishes.find(d => d.id === id)).filter(Boolean).map(d => ({ name: d.name, slotId: 'feat-' + d.id }));
+      this._featuredDishes = [...base, ...base];
+    }
+    const featuredDishes = this._featuredDishes;
+
+    const spotlights = this.spotlights.map(s => ({
+      ...s,
+      kicker: isVi ? s.kickerVi : s.kicker, title: isVi ? s.titleVi : s.title, body: isVi ? s.bodyVi : s.body,
+      gridCols: s.imgFirst ? '1fr 1.1fr' : '1.1fr 1fr',
+      showImgFirst: s.imgFirst,
+      showImgLast: !s.imgFirst,
+    }));
+
+    if (!this._locations) {
+      const mapQueries = [
+        'Mon+City+Ngo+4+Ham+Nghi+Tu+Liem+Hanoi',
+        'Golden+Palace+99+Me+Tri+Tu+Liem+Hanoi',
+        '23+Phan+Chu+Trinh+Cua+Nam+Hanoi',
+      ];
+      this._locations = this.locationData.map((l, i) => ({
+        ...l, id: 'loc-' + i, num: String(i + 1).padStart(2, '0'),
+        mapSrc: 'https://maps.google.com/maps?q=' + mapQueries[i] + '+Vietnam&output=embed',
+      }));
+    }
+    const locations = this._locations.map(l => ({ ...l, bullets: isVi ? l.bulletsVi : l.bullets }));
+
+    const pastPromos = this.pastPromos.map(p => ({ ...p, date: isVi ? p.dateVi : p.date, title: isVi ? p.titleVi : p.title, blurb: isVi ? p.blurbVi : p.blurb }));
+    const currentPromo = { ...this.currentPromo, date: isVi ? this.currentPromo.dateVi : this.currentPromo.date, title: isVi ? this.currentPromo.titleVi : this.currentPromo.title, body: isVi ? this.currentPromo.bodyVi : this.currentPromo.body };
+
+    return {
+      tabs, langOpts, isHome: tab === 'home', isAbout: tab === 'about', isMenu: tab === 'menu',
+      isLocation: tab === 'location', isPromo: tab === 'promotion',
+      goAbout: setTab('about'), goMenu: setTab('menu'), goPromo: setTab('promotion'),
+      goHome: setTab('home'), goLocation: setTab('location'),
+      storyRef: this.storyRef, storySteps,
+      categories, activeCategoryGroups: [activeGroupWithDelay],
+      menuLocationOpts,
+      locations,
+      tabAnim,
+      txt: {
+        reserve: t('Reserve a Table', 'Đặt Bàn'),
+        heroDesc: t('Hand-pulled bowls and open-flame izakaya nights, in the heart of Hanoi.', 'Từng tô mì kéo tay và những đêm izakaya bên lửa than, ngay giữa lòng Hà Nội.'),
+        aboutHeading: t('About the shop', 'Về Nhà Hàng'),
+        aboutBody: t(`Mugi is a Hanoi ramen house built on a simple belief: broth deserves patience. We simmer pork bones and dashi for hours in an open kitchen you can watch from your seat, then send bowls out beside the grilled skewers and shared plates of a Japanese izakaya. It's a Vietnamese neighborhood's warmth, served in a Japanese bowl.`, `Mugi là một quán ramen tại Hà Nội, ra đời từ một niềm tin đơn giản: nước dùng cần có sự kiên nhẫn. Chúng tôi hầm xương heo và dashi trong nhiều giờ tại một khu bếp mở mà bạn có thể quan sát ngay từ chỗ ngồi, rồi mang những tô ramen ra cùng các món xiên nướng và đĩa nhỏ chia sẻ kiểu izakaya Nhật Bản. Đó là sự ấm áp của một góc phố Việt Nam, được phục vụ trong một tô ramen Nhật.`),
+        readStory: t('Read our full story →', 'Xem đầy đủ câu chuyện của chúng tôi →'),
+        ourStory: t('Our Story', 'Câu Chuyện Của Chúng Tôi'),
+        findUs: t('Find Us', 'Tìm Chúng Tôi'),
+        threeLocations: t('Three locations in Hanoi', 'Ba địa điểm tại Hà Nội'),
+        lunch: t('Lunch', 'Trưa'), dinner: t('Dinner', 'Tối'), seats: t('Seats', 'Số ghế'),
+        callToReserve: t('Call to Reserve', 'Gọi Đặt Bàn'), openInMaps: t('Open in Maps', 'Xem Trên Bản Đồ'),
+        promoHeading: t('Promotions & News', 'Ưu Đãi & Tin Tức'),
+        currentPromoTag: t('Current Promotion', 'Ưu Đãi Hiện Tại'),
+        bookTable: t('Book a table', 'Đặt Bàn'),
+        pastPromoHeading: t('Past Promotions & News', 'Ưu Đãi & Tin Tức Trước Đây'),
+        footerHours: t('Hours', 'Giờ Mở Cửa'),
+        specialsHeading: t("Today's specials", 'Ưu Đãi Hôm Nay'),
+        signatureTag: t('Signature', 'Đặc Trưng'), izakayaTag: t('Izakaya', 'Izakaya'),
+        specialDesc1: t('18-hour pork broth, chashu, soft egg.', 'Nước dùng heo hầm 18 giờ, chashu, trứng lòng đào.'),
+        specialDesc2: t('Five grilled skewers, charcoal-finished.', 'Năm xiên nướng, hoàn thiện trên than hoa.'),
+        seePromo: t('See current promotion →', 'Xem ưu đãi hiện tại →'),
+      },
+      currentPromo, pastPromos,
+      featuredDishes: [...featuredDishes, ...featuredDishes],
+      spotlights,
+      steps: this.steps,
+      kitchenDishesLoop: [
+        { id: 'kd-tonkotsu', name: 'Tonkotsu Ramen' },
+        { id: 'kd-tantan', name: 'Tantan Ramen' },
+        { id: 'kd-miso', name: 'Miso Ramen' },
+        { id: 'kd-negima', name: 'Negima' },
+        { id: 'kd-butabara', name: 'Butabara' },
+        { id: 'kd-gyoza', name: 'Gyoza' },
+        { id: 'kd-karaage', name: 'Karaage' },
+        { id: 'kd-unagidon', name: 'Unagi Don' },
+        { id: 'kd-tonkotsu-2', name: 'Tonkotsu Ramen' },
+        { id: 'kd-tantan-2', name: 'Tantan Ramen' },
+        { id: 'kd-miso-2', name: 'Miso Ramen' },
+        { id: 'kd-negima-2', name: 'Negima' },
+        { id: 'kd-butabara-2', name: 'Butabara' },
+        { id: 'kd-gyoza-2', name: 'Gyoza' },
+        { id: 'kd-karaage-2', name: 'Karaage' },
+        { id: 'kd-unagidon-2', name: 'Unagi Don' },
+      ],
+    };
+  }
+}
+
+</script>
+</body>
+</html>
