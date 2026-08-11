@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 20 240 310" width="240" height="310">
+  <title>Mugi Ramen &amp; Izakaya</title>
+
+  <!-- ICON -->
+  <g fill="none" stroke="#D8AE56" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M60,38 L60,168 C60,205 86,226 120,226 C154,226 180,205 180,168 L180,38"/>
+    <path d="M60,38 C92,54 120,70 120,92"/>
+    <path d="M180,38 C148,54 120,70 120,92"/>
+    <path d="M60,92 C92,110 120,128 120,150"/>
+    <path d="M180,92 C148,110 120,128 120,150"/>
+    <path d="M60,150 C92,168 120,184 120,206"/>
+    <path d="M180,150 C148,168 120,184 120,206"/>
+    <path d="M120,206 L120,226"/>
+  </g>
+
+  <!-- WORDMARK -->
+  <text x="120" y="288" text-anchor="middle"
+        font-family="Poppins, 'Arial Black', Arial, sans-serif"
+        font-weight="600" font-size="46" letter-spacing="8"
+        fill="#F7F3EC">MUGI</text>
+
+  <text x="123" y="316" text-anchor="middle"
+        font-family="Poppins, Arial, sans-serif"
+        font-weight="600" font-size="14" letter-spacing="3.5"
+        fill="#E8C97A">Ramen &amp; Izakaya</text>
+</svg>

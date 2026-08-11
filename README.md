@@ -8,8 +8,8 @@ Promotions live as tabs on a single page, with English/Vietnamese toggle.
 No build step. Serve the folder with any static file server and open it:
 
 ```sh
-python3 -m http.server 8934
-# then open http://localhost:8934/index.html
+python3 -m http.server 4321
+# then open http://localhost:4321/index.html
 ```
 
 ## How it works

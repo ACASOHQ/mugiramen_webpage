@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 260" width="240" height="260">
+  <title>Mugi Ramen &amp; Izakaya — Icon</title>
+  <g fill="none" stroke="#D8AE56" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <!-- outer frame: open top, straight sides, rounded U bottom -->
+    <path d="M60,38 L60,168 C60,205 86,226 120,226 C154,226 180,205 180,168 L180,38"/>
+    <!-- leaf tier 1 (top) -->
+    <path d="M60,38 C92,54 120,70 120,92"/>
+    <path d="M180,38 C148,54 120,70 120,92"/>
+    <!-- leaf tier 2 (middle) -->
+    <path d="M60,92 C92,110 120,128 120,150"/>
+    <path d="M180,92 C148,110 120,128 120,150"/>
+    <!-- leaf tier 3 (lower) -->
+    <path d="M60,150 C92,168 120,184 120,206"/>
+    <path d="M180,150 C148,168 120,184 120,206"/>
+    <!-- stem to base -->
+    <path d="M120,206 L120,226"/>
+  </g>
+</svg>

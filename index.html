@@ -9,6 +9,7 @@
 <body>
 <x-dc>
 <helmet>
+  <link rel="icon" type="image/svg+xml" href="assets/mugi-icon.svg">
   <link rel="stylesheet" href="_ds/classical-48be7531-0163-46df-8139-e4ab66773657/styles.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&amp;display=swap">
   <script src="./image-slot.js"></script>
@@ -45,17 +46,17 @@
   <!-- NAV -->
   <div class="nav" style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 92%, transparent);backdrop-filter:blur(6px)">
     <div class="nav-brand" style="display:flex;align-items:center;gap:8px">
-      <span class="jp" style="font-size:20px;color:var(--color-accent-700)">麦</span>
+      <img src="assets/mugi-icon.svg" alt="Mugi icon" style="height:26px;width:auto">
       MUGI <span style="font-weight:400;opacity:.7">Ramen &amp; Izakaya</span>
+      <div style="display:flex;gap:4px;align-items:center;font-size:13px;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:3px 6px;margin-left:var(--space-2)">
+        <sc-for list="{{ langOpts }}" as="lg" hint-placeholder-count="2">
+          <a href="#" onClick="{{ lg.select }}" style="{{ lg.style }}">{{ lg.label }}</a>
+        </sc-for>
+      </div>
     </div>
     <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
       <a href="#" onClick="{{ t.select }}" aria-current="{{ t.current }}" style="cursor:pointer">{{ t.label }}</a>
     </sc-for>
-    <div style="display:flex;gap:4px;align-items:center;margin-left:var(--space-2);font-size:13px">
-      <sc-for list="{{ langOpts }}" as="lg" hint-placeholder-count="2">
-        <a href="#" onClick="{{ lg.select }}" style="{{ lg.style }}">{{ lg.label }}</a>
-      </sc-for>
-    </div>
     <a class="btn btn-primary" href="tel:+84966750202" style="margin-left:var(--space-2)">{{ txt.reserve }}</a>
   </div>
 
@@ -76,9 +77,8 @@
         </div>
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;animation:heroFade 1.2s ease both .3s">
           <div class="jp" style="color:var(--color-accent-300);font-size:20px;letter-spacing:.2em;margin-bottom:var(--space-2)">麦 らーめん・居酒屋</div>
-          <h1 style="color: var(--color-neutral-100); font-size: 100px; margin: 0; letter-spacing: .02em">MUGI</h1>
-          <h2 style="color:var(--color-accent-200);font-weight:400;font-size:29px;margin-top:var(--space-1);font-style:italic">Ramen &amp; Izakaya</h2>
-          <p style="color:var(--color-neutral-300);font-size:18px;margin-top:var(--space-3);max-width:460px">{{ txt.heroDesc }}</p>
+          <img src="assets/mugi-logo-full-dark.svg" alt="Mugi" style="width:320px;height:auto;margin:0;display:block">
+          <p style="color:var(--color-neutral-300);font-size:18px;margin-top:var(--space-2);max-width:460px">{{ txt.heroDesc }}</p>
         </div>
       </div>
 
@@ -195,17 +195,59 @@
             </sc-for>
           </div>
         </div><div style="margin-bottom:var(--space-8)">
-            <h4 style="border-bottom:1px solid var(--color-divider);padding-bottom:var(--space-2)">{{ grp.label }} <span class="jp text-muted" style="font-size:14px">{{ grp.jp }}</span></h4>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-4);margin-top:var(--space-4)">
-              <sc-for list="{{ grp.dishes }}" as="d" hint-placeholder-count="4">
-                <div class="card elev-sm" style="opacity:0;animation:riseIn .5s ease-in-out {{ d.delay }} both;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow-md)">
-                  <image-slot id="{{ d.id }}" shape="rounded" radius="4" placeholder="{{ d.name }} photo" style="width:100%;aspect-ratio:4/3" class="plate"></image-slot>
-                  <div class="card-title">{{ d.name }}</div>
-                  <p class="card-body">{{ d.desc }}</p>
-                  <div class="card-meta">{{ d.price }}</div>
+            <h4 style="border-bottom:1px solid var(--color-divider);padding-bottom:var(--space-2)">{{ grp.label }} <sc-if value="{{ grp.hasJp }}" hint-placeholder-val="{{ false }}"><span class="jp text-muted" style="font-size:14px">{{ grp.jp }}</span></sc-if></h4>
+
+            <sc-if value="{{ grp.isCards }}" hint-placeholder-val="{{ true }}">
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-4);margin-top:var(--space-4)">
+                <sc-for list="{{ grp.dishes }}" as="d" hint-placeholder-count="4">
+                  <div class="card elev-sm" style="opacity:0;animation:riseIn .5s ease-in-out {{ d.delay }} both;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow-md)">
+                    <image-slot id="{{ d.id }}" shape="rounded" radius="4" placeholder="{{ d.name }} photo" style="width:100%;aspect-ratio:4/3" class="plate"></image-slot>
+                    <div class="card-title">{{ d.name }}</div>
+                    <sc-if value="{{ d.hasJp }}" hint-placeholder-val="{{ false }}">
+                      <div class="jp text-muted" style="font-size:11px;margin-top:-4px">{{ d.jp }}</div>
+                    </sc-if>
+                    <sc-if value="{{ d.hasDesc }}" hint-placeholder-val="{{ true }}">
+                      <p class="card-body">{{ d.desc }}</p>
+                    </sc-if>
+                    <div class="card-meta">{{ d.price }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ grp.hasAddOns }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top:var(--space-6)">
+                  <h6 style="color:var(--color-accent-700)">{{ txt.toppings }}</h6>
+                  <div class="hr" style="margin:6px 0 var(--space-2)"></div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px var(--space-4)">
+                    <sc-for list="{{ grp.addOns }}" as="a" hint-placeholder-count="7">
+                      <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-bottom:1px solid var(--color-divider)">
+                        <span>{{ a.name }}</span><span class="text-muted">{{ a.price }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
                 </div>
+              </sc-if>
+            </sc-if>
+
+            <sc-if value="{{ grp.isList }}" hint-placeholder-val="{{ false }}">
+              <sc-for list="{{ grp.subgroups }}" as="sub" hint-placeholder-count="2">
+                <h6 style="color:var(--color-accent-700);margin-top:var(--space-4)">{{ sub.title }}</h6>
+                <div class="hr" style="margin:6px 0 var(--space-2)"></div>
+                <sc-for list="{{ sub.items }}" as="it" hint-placeholder-count="4">
+                  <div style="display:flex;justify-content:space-between;gap:var(--space-3);padding:7px 0;border-bottom:1px solid var(--color-divider);font-size:14px">
+                    <div style="min-width:0">
+                      <span>{{ it.name }}</span>
+                      <sc-if value="{{ it.hasJp }}" hint-placeholder-val="{{ false }}">
+                        <span class="jp text-muted" style="font-size:11px;margin-left:6px">{{ it.jp }}</span>
+                      </sc-if>
+                      <sc-if value="{{ it.hasDesc }}" hint-placeholder-val="{{ false }}">
+                        <div class="text-muted" style="font-size:12px">{{ it.desc }}</div>
+                      </sc-if>
+                    </div>
+                    <div style="white-space:nowrap;font-family:var(--font-heading);text-align:right">{{ it.priceDisplay }}</div>
+                  </div>
+                </sc-for>
               </sc-for>
-            </div>
+            </sc-if>
           </div>
         </sc-for>
       </div>
@@ -300,8 +342,11 @@
     <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1.6fr;gap:calc(var(--space-8) * 2)">
 
       <div style="min-width:0">
-        <h3 style="color: var(--color-neutral-100); font-size: 35px">Mugi Ramen &amp; Izakaya</h3>
-        <div class="jp" style="color:var(--color-accent-300);font-size:15px;margin-top:-8px;margin-bottom:var(--space-3)">麦 ラーメン・居酒屋</div>
+        <div style="position:relative">
+          <img src="assets/mugi-icon.svg" alt="Mugi icon" style="position:absolute;left:-46px;top:2px;height:34px;width:auto">
+          <h3 style="color: var(--color-neutral-100); font-size: 35px; margin-bottom:0">Mugi Ramen &amp; Izakaya</h3>
+          <div class="jp" style="color:var(--color-accent-300);font-size:15px;margin-top:4px;margin-bottom:var(--space-3)">麦 ラーメン・居酒屋</div>
+        </div>
         <h6 style="color:var(--color-accent-300);margin-top:var(--space-4)">{{ txt.footerHours }}</h6>
         <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span>{{ txt.lunch }}</span><span>10:30 – 14:00</span></div>
 
@@ -354,47 +399,293 @@ class Component extends DCLogic {
       bodyVi: `Mì luôn được làm mới, nguyên liệu được chọn lựa cẩn thận, và một tô mì có vị không đổi dù là lần ghé thứ nhất hay lần thứ năm mươi. Sự nhất quán đó là lời hứa duy nhất chúng tôi đưa ra.`, imgFirst: true },
   ];
 
+  // ── Shared menu book (transcribed from menus/*.md) ──────────────────────
+  // Category/dish content shared across locations, before location-specific
+  // omissions/overrides/additions are applied by buildLocationMenu().
+  menuBook = [
+    { key: 'ramen', labelVi: 'Ramen', labelEn: 'Ramen', layout: 'cards',
+      addOns: [
+        { nameVi: 'Trứng ngâm tương', nameEn: 'Soy Sauce Egg', price: '15.000₫' },
+        { nameVi: 'Thịt tan tan', nameEn: 'Spicy Minced Pork', price: '25.000₫' },
+        { nameVi: 'Măng muối', nameEn: 'Menma', price: '25.000₫' },
+        { nameVi: 'Thịt xá xíu', nameEn: 'Chashu', price: '25.000₫' },
+        { nameVi: 'Mì', nameEn: 'Noodle', price: '20.000₫' },
+        { nameVi: 'Rong biển', nameEn: 'Seaweed', price: '20.000₫' },
+        { nameVi: 'Cơm', nameEn: 'Rice', price: '15.000₫' },
+      ],
+      dishes: [
+        { id: 'ramen-tonkotsu-shoyu-toku', nameEn: 'Tokusei Tonkotsu Shoyu Ramen', nameVi: 'Tokusei Tonkotsu Shoyu Ramen', nameJp: '特製豚骨醤油ラーメン', price: '189.000₫' },
+        { id: 'ramen-tonkotsu-shoyu', nameEn: 'Tonkotsu Shoyu Ramen', nameVi: 'Tonkotsu Shoyu Ramen', nameJp: '豚骨醤油ラーメン', price: '149.000₫' },
+        { id: 'ramen-tonkotsu-miso-toku', nameEn: 'Tokusei Tonkotsu Miso Ramen', nameVi: 'Tokusei Tonkotsu Miso Ramen', nameJp: '特製豚骨味噌ラーメン', price: '199.000₫' },
+        { id: 'ramen-tonkotsu-miso', nameEn: 'Tonkotsu Miso Ramen', nameVi: 'Tonkotsu Miso Ramen', nameJp: '豚骨味噌ラーメン', price: '159.000₫' },
+        { id: 'ramen-wafu-tonkotsu-toku', nameEn: 'Tokusei Wafu Tonkotsu Ramen', nameVi: 'Tokusei Wafu Tonkotsu Ramen', nameJp: '特製和風豚骨ラーメン', price: '189.000₫' },
+        { id: 'ramen-wafu-tonkotsu', nameEn: 'Wafu Tonkotsu Ramen', nameVi: 'Wafu Tonkotsu Ramen', nameJp: '和風豚骨ラーメン', price: '149.000₫' },
+        { id: 'ramen-tantan-toku', nameEn: 'Toku Tantan Ramen', nameVi: 'Toku Tantan Ramen', nameJp: '特担々麺', price: '159.000₫' },
+        { id: 'ramen-tantan', nameEn: 'Tantan Ramen', nameVi: 'Tantan Ramen', nameJp: '担々麺', price: '119.000₫' },
+        { id: 'ramen-miso-toku', nameEn: 'Toku Miso Ramen', nameVi: 'Toku Miso Ramen', nameJp: '特味噌ラーメン', price: '159.000₫' },
+        { id: 'ramen-miso', nameEn: 'Miso Ramen', nameVi: 'Miso Ramen', nameJp: '味噌ラーメン', price: '109.000₫' },
+        { id: 'ramen-shoyu-toku', nameEn: 'Toku Shoyu Ramen', nameVi: 'Toku Shoyu Ramen', nameJp: '特醤油ラーメン', price: '149.000₫' },
+        { id: 'ramen-shoyu', nameEn: 'Shoyu Ramen', nameVi: 'Shoyu Ramen', nameJp: '醤油ラーメン', price: '109.000₫' },
+        { id: 'ramen-shio-toku', nameEn: 'Toku Shio Ramen', nameVi: 'Toku Shio Ramen', nameJp: '特塩ラーメン', price: '139.000₫' },
+        { id: 'ramen-shio', nameEn: 'Shio Ramen', nameVi: 'Shio Ramen', nameJp: '塩ラーメン', price: '99.000₫' },
+        { id: 'ramen-cold-sesame-shoyu', nameVi: 'Mỳ Ramen Lạnh vị Xốt Mè/vị Shoyu', nameEn: 'Cold Ramen with Sesame/Shoyu Sauce', nameJp: '冷やし中華ごまだれ/醤油', price: '139.000₫' },
+        { id: 'ramen-tsukemen', nameVi: 'Mỳ Chấm', nameEn: 'Wafu Tonkotsu Tsukemen', nameJp: '和風豚骨つけ麺', price: '149.000₫' },
+        { id: 'ramen-mazesoba', nameVi: 'Mỳ Trộn', nameEn: 'Japanese Mixed Noodles', nameJp: '混ぜ蕎麦', price: '149.000₫' },
+      ]},
+
+    { key: 'sashimi', labelVi: 'Sashimi', labelEn: 'Sashimi', layout: 'cards', dishes: [
+      { id: 'sashimi-mixed-special', nameVi: 'Sashimi Tổng Hợp Đặc Biệt', nameEn: 'Special Mixed Sashimi', nameJp: '特刺身盛り合わせ', price: '999.000₫' },
+      { id: 'sashimi-mix6', nameVi: 'Sashimi Mix 6', nameEn: 'Sashimi Mix 6', nameJp: '刺身盛り合わせ6種', price: '450.000₫' },
+      { id: 'sashimi-mix4', nameVi: 'Sashimi Mix 4', nameEn: 'Sashimi Mix 4', nameJp: '刺身盛り合わせ4種', price: '369.000₫' },
+      { id: 'sashimi-otoro', nameVi: 'Sashimi Bụng Cá Ngừ Vây Xanh', nameEn: 'Fatty Tuna Belly Sashimi', nameJp: '本まぐろ大トロ刺身', price: '590.000₫' },
+      { id: 'sashimi-salmon-belly', nameVi: 'Sashimi Bụng Cá Hồi', nameEn: 'Salmon Belly Sashimi', nameJp: 'トロサーモン刺身', price: '175.000₫' },
+      { id: 'sashimi-salmon', nameVi: 'Sashimi Cá Hồi', nameEn: 'Salmon Sashimi', nameJp: 'サーモン刺身', price: '165.000₫' },
+      { id: 'sashimi-nishin-egg', nameVi: 'Sashimi Cá Trích Ép Trứng', nameEn: 'Nishin-with-egg Sashimi', nameJp: '子持ちニシン刺身', price: '165.000₫' },
+      { id: 'sashimi-surf-clam', nameVi: 'Sashimi Sò Đỏ', nameEn: 'Surf Clam Sashimi', nameJp: 'ホッキ刺身', price: '165.000₫' },
+      { id: 'sashimi-scallop', nameVi: 'Sashimi Sò Điệp', nameEn: 'Scallop Sashimi', nameJp: 'ホタテ刺身', price: '165.000₫' },
+      { id: 'sashimi-tuna', nameVi: 'Sashimi Cá Ngừ', nameEn: 'Tuna Sashimi', nameJp: 'マグロ刺身', price: '165.000₫' },
+      { id: 'sashimi-swordfish', nameVi: 'Sashimi Cá Kiếm', nameEn: 'Swordfish Sashimi', nameJp: 'メカジキ刺身', price: '139.000₫' },
+      { id: 'sashimi-octopus', nameVi: 'Sashimi Bạch Tuộc', nameEn: 'Octopus Sashimi', nameJp: 'タコ刺身', price: '139.000₫' },
+      { id: 'sashimi-oyster', nameVi: 'Sashimi Hàu Nhật', nameEn: 'Oyster Sashimi', nameJp: 'カキ刺身', desc: '1 piece.', descVi: '1 con.', price: '89.000₫' },
+    ]},
+
+    { key: 'sushi', labelVi: 'Sushi', labelEn: 'Sushi', layout: 'cards', dishes: [
+      { id: 'sushi-set-a', nameVi: 'Sushi Tổng Hợp A', nameEn: 'Sushi Tổng Hợp A', nameJp: '寿司盛り合わせA', price: '299.000₫' },
+      { id: 'sushi-set-b', nameVi: 'Sushi Tổng Hợp B', nameEn: 'Sushi Tổng Hợp B', nameJp: '寿司盛り合わせB', price: '185.000₫' },
+      { id: 'sushi-maki-salmon', nameVi: 'Cơm Cuộn Cá Hồi', nameEn: 'Salmon Maki Sushi', nameJp: 'サーモンの巻き寿司', price: '75.000₫' },
+      { id: 'sushi-maki-tuna', nameVi: 'Cơm Cuộn Cá Ngừ', nameEn: 'Tuna Maki Sushi', nameJp: 'マグロの巻き寿司', price: '55.000₫' },
+      { id: 'sushi-nigiri-scallop', nameVi: 'Sushi Sò Điệp', nameEn: 'Scallop Sushi', nameJp: 'ホタテ寿司', price: '65.000₫' },
+      { id: 'sushi-nigiri-nishin', nameVi: 'Sushi Cá Trích Ép Trứng', nameEn: 'Nishin-with-egg Sushi', nameJp: '子持ちニシン寿司', price: '55.000₫' },
+      { id: 'sushi-nigiri-eel', nameVi: 'Sushi Lươn Nhật', nameEn: 'Eel Sushi', nameJp: 'うなぎ寿司', price: '55.000₫' },
+      { id: 'sushi-nigiri-salmon', nameVi: 'Sushi Cá Hồi', nameEn: 'Salmon Sushi', nameJp: 'サーモン寿司', price: '55.000₫' },
+      { id: 'sushi-nigiri-tuna', nameVi: 'Sushi Cá Ngừ', nameEn: 'Tuna Sushi', nameJp: 'マグロ寿司', price: '39.000₫' },
+      { id: 'sushi-nigiri-octopus', nameVi: 'Sushi Bạch Tuộc', nameEn: 'Octopus Sushi', nameJp: 'タコ寿司', price: '35.000₫' },
+      { id: 'sushi-nigiri-tamago', nameVi: 'Sushi Trứng Ngọt', nameEn: 'Tamago Sushi', nameJp: '玉子寿司', price: '35.000₫' },
+      { id: 'sushi-gunkan-wakame', nameVi: 'Gunkan Rong Biển Trộn Mè', nameEn: 'Goma Wakame Gunkan', nameJp: 'ごま和え海藻軍艦', price: '39.000₫' },
+      { id: 'sushi-gunkan-crab', nameVi: 'Gunkan Trứng Cua', nameEn: 'Egg Crab Gunkan', nameJp: 'カニ卵軍艦', price: '59.000₫' },
+      { id: 'sushi-gunkan-seafood', nameVi: 'Gunkan Hải Sản Tổng Hợp', nameEn: 'Mixed Seafood Gunkan', nameJp: '海鮮ミックス軍艦', price: '59.000₫' },
+      { id: 'sushi-gunkan-eel', nameVi: 'Gunkan Lươn Nhật', nameEn: 'Eel Gunkan', nameJp: 'うなぎ軍艦', price: '55.000₫' },
+    ]},
+
+    { key: 'rolls', labelVi: 'Cơm Cuộn', labelEn: 'Sushi Rolls', layout: 'cards', dishes: [
+      { id: 'roll-eel-avocado', nameVi: 'Cơm Cuộn Lươn Bơ', nameEn: 'Eel & Avocado Roll', nameJp: '鰻アボカドロール', price: '179.000₫' },
+      { id: 'roll-salmon', nameVi: 'Cơm Cuộn Phủ Cá Hồi', nameEn: 'Salmon Roll', nameJp: 'サーモンロール', price: '140.000₫' },
+      { id: 'roll-seafood-mix', nameVi: 'Cơm Cuộn Hải Sản Tổng Hợp', nameEn: 'Mixed Seafood Roll', nameJp: '海鮮ミックスロール', price: '135.000₫' },
+      { id: 'roll-avocado', nameVi: 'Cơm Cuộn Phủ Bơ', nameEn: 'Avocado Roll', nameJp: 'アボカドロール', price: '120.000₫' },
+      { id: 'roll-mixed-eel-crab-avocado', nameVi: 'Cơm Cuộn Tổng Hợp Lươn Cua Bơ', nameEn: 'Mixed Sushi Roll (Eel, Crab, Avocado…)', nameJp: 'ミックスの海苔巻き（鰻、蟹、アボカドなど）', price: '120.000₫' },
+      { id: 'roll-california', nameVi: 'Cơm Cuộn Phủ Trứng Cá', nameEn: 'California Roll', nameJp: 'カリフォルニアロール', price: '110.000₫' },
+    ]},
+
+    { key: 'salad', labelVi: 'Salad', labelEn: 'Salad', layout: 'cards', dishes: [
+      { id: 'salad-salmon-avocado', nameVi: 'Salad Bơ Cá Hồi', nameEn: 'Salmon and Avocado Salad', nameJp: 'サーモンとアボカドのサラダ', price: '139.000₫' },
+      { id: 'salad-seafood', nameVi: 'Salad Hải Sản', nameEn: 'Seafood Salad', nameJp: '海鮮サラダ', price: '139.000₫' },
+      { id: 'salad-tuna', nameVi: 'Salad Cá Ngừ', nameEn: 'Tuna Salad', nameJp: 'まぐろサラダ', price: '129.000₫' },
+      { id: 'salad-seaweed-tobiko', nameVi: 'Salad Trứng Cua Rong Biển', nameEn: 'Fresh Seaweed Salad with Tobiko', nameJp: '海藻とびっ子のサラダ', price: '99.000₫' },
+      { id: 'salad-sea-grapes', nameVi: 'Salad Rong Nho', nameEn: 'Sea Grapes Salad', nameJp: '海ぶどうサラダ', price: '105.000₫' },
+      { id: 'salad-wakame', nameVi: 'Salad Rong Biển', nameEn: 'Wakame Seaweed Salad', nameJp: '海藻サラダ', price: '55.000₫' },
+      { id: 'salad-potato', nameVi: 'Salad Khoai Tây', nameEn: 'Potato Salad', nameJp: 'ポテトサラダ', price: '45.000₫' },
+    ]},
+
+    { key: 'otsumami', labelVi: 'Món Nhậu', labelEn: 'Otsumami', layout: 'cards', dishes: [
+      { id: 'otsu-egg-roll', nameVi: 'Trứng Cuộn Kiểu Nhật', nameEn: 'Japanese Egg Rolls', nameJp: 'だし巻き卵', price: '75.000₫' },
+      { id: 'otsu-umaki', nameVi: 'Trứng Cuộn Lươn Nhật', nameEn: 'Umaki', nameJp: 'う巻き', price: '130.000₫' },
+      { id: 'otsu-gyoza', nameVi: 'Há Cảo', nameEn: 'Gyoza', nameJp: '餃子', price: '65.000₫' },
+      { id: 'otsu-edamame', nameVi: 'Đậu Lông', nameEn: 'Edamame', nameJp: '枝豆', price: '50.000₫' },
+      { id: 'otsu-chilled-tofu', nameVi: 'Đậu Phụ Lạnh', nameEn: 'Chilled Tofu', nameJp: '冷や奴', price: '40.000₫' },
+      { id: 'otsu-wasabi-octopus', nameVi: 'Bạch Tuộc Wasabi', nameEn: 'Wasabi Octopus', nameJp: 'タコわさび', price: '105.000₫' },
+      { id: 'otsu-stingray-fin', nameVi: 'Vi Cá Đuối Nướng', nameEn: 'Grilled Stingray Fin', nameJp: 'エイヒレの炙り焼き', price: '130.000₫' },
+      { id: 'otsu-squid-tempura', nameVi: 'Mực Khô Chiên Tempura', nameEn: 'Dried Squid Tempura', nameJp: '干しイカ天ぷら', price: '90.000₫' },
+      { id: 'otsu-fries', nameVi: 'Khoai Tây Chiên', nameEn: 'Fried Potato', nameJp: 'ポテトフライ', price: '55.000₫' },
+      { id: 'otsu-ginkgo', nameVi: 'Bạch Quả Rang Muối', nameEn: 'Salt Roasted Ginkgo Nuts', nameJp: '銀杏塩炒り', price: '50.000₫' },
+      { id: 'otsu-beef-steak', nameVi: 'Bò Fuji Áp Chảo', nameEn: 'Australian Beef Steak', nameJp: 'オーストラリア産牛ステーキ', price: '320.000₫' },
+      { id: 'otsu-blackcod-teriyaki', nameVi: 'Cá Tuyết Xốt Teriyaki', nameEn: 'Teriyaki Black Cod', nameJp: '銀鱈照り焼き', price: '320.000₫' },
+      { id: 'otsu-salmon-teriyaki', nameVi: 'Cá Hồi Xốt Teriyaki', nameEn: 'Teriyaki Salmon', nameJp: 'サーモン照り焼き', price: '199.000₫' },
+      { id: 'otsu-eel-kappayaki', nameVi: 'Lươn Nhật Sốt Kappayaki', nameEn: 'Kappayaki Eel', nameJp: 'うなぎのカッパ焼き', price: '155.000₫' },
+      { id: 'otsu-chicken-teriyaki', nameVi: 'Đùi Gà Sốt Teriyaki', nameEn: 'Teriyaki Chicken Thigh', nameJp: '鶏モモ照り焼き', price: '105.000₫' },
+      { id: 'otsu-tonpeiyaki', nameVi: 'Bánh Tonpeiyaki', nameEn: 'Tonpeiyaki', nameJp: 'とん平焼き', price: '105.000₫' },
+      { id: 'otsu-fried-tofu-mushroom', nameVi: 'Đậu Hũ Chiên Giòn Sốt Nấm', nameEn: 'Deep-fried Tofu with Mushroom Sauce', nameJp: 'きのこソースがけ揚げ豆腐', price: '55.000₫' },
+      { id: 'otsu-shrimp-garlic', nameVi: 'Tôm Sú Xào Ngổng Tỏi', nameEn: 'Stir-fried Shrimp with Garlic Sprouts', nameJp: 'エビとにんにくの芽の炒め', price: '155.000₫' },
+      { id: 'otsu-squid-garlic', nameVi: 'Râu Mực Xào Ngổng Tỏi', nameEn: 'Stir-fried Squid Tentacles with Garlic Sprouts', nameJp: 'イカゲソとにんにくの芽の炒め', price: '125.000₫' },
+    ]},
+
+    { key: 'agemono', labelVi: 'Đồ Chiên', labelEn: 'Agemono (Fried)', layout: 'cards', dishes: [
+      { id: 'age-tempura-set', nameVi: 'Tempura Tổng Hợp', nameEn: 'Assorted Tempura', nameJp: '天ぷら盛り合わせ', price: '159.000₫' },
+      { id: 'age-fried-chicken', nameVi: 'Gà Chiên Kiểu Nhật', nameEn: 'Japanese Fried Chicken with Tartar Sauce', nameJp: '唐揚げ', price: '89.000₫' },
+      { id: 'age-okonomiyaki', nameVi: 'Bánh Xèo Nhật', nameEn: 'Okonomiyaki', nameJp: 'お好み焼き', price: '105.000₫' },
+      { id: 'age-chicken-cartilage', nameVi: 'Sụn Gà Chiên', nameEn: 'Deep Fried Chicken Cartilage', nameJp: '軟骨唐揚げ', price: '79.000₫' },
+      { id: 'age-takoyaki', nameVi: 'Bánh Bạch Tuộc', nameEn: 'Takoyaki', nameJp: 'たこ焼き', price: '59.000₫' },
+      { id: 'age-pork-katsu', nameVi: 'Thịt Heo Chiên Xù', nameEn: 'Breaded Fried Pork', nameJp: '豚カツ', price: '125.000₫' },
+      { id: 'age-shrimp-fry', nameVi: 'Tôm Sú Chiên Xù', nameEn: 'Breaded Fried Shrimp', nameJp: 'エビフライ', price: '139.000₫' },
+      { id: 'age-baby-shrimp', nameVi: 'Tôm Ngọt Chiên Kiểu Nhật', nameEn: 'Deep-fried Baby Shrimp', nameJp: '小エビ唐揚げ', price: '85.000₫' },
+    ]},
+
+    { key: 'yakimono', labelVi: 'Đồ Nướng', labelEn: 'Yakimono (Grilled)', layout: 'cards', dishes: [
+      { id: 'yaki-atka-mackerel', nameVi: 'Cá Tuyết Nướng Muối', nameEn: 'Grilled Atka Mackerel', nameJp: 'ホッケの塩焼き', price: '320.000₫' },
+      { id: 'yaki-atka-mackerel-semidried', nameVi: 'Cá Hokke 1 Nắng Nướng', nameEn: 'Semi-dried Grilled Atka Mackerel', nameJp: 'ホッケの一夜干し焼き', price: '265.000₫' },
+      { id: 'yaki-salmon-salt', nameVi: 'Cá Hồi Nướng Muối', nameEn: 'Salt-grilled Salmon', nameJp: 'サーモン塩焼き', price: '219.000₫' },
+      { id: 'yaki-ayu-sweetfish', nameVi: 'Cá Đắng Nướng Muối', nameEn: 'Grilled Ayu Sweetfish', nameJp: '鮎の塩焼き', price: '189.000₫' },
+      { id: 'yaki-saba', nameVi: 'Cá Saba Nướng Muối', nameEn: 'Salt-grilled Saba', nameJp: 'サバの塩焼き', price: '115.000₫' },
+      { id: 'yaki-saury', nameVi: 'Cá Thu Đao Nướng Muối', nameEn: 'Salt-grilled Saury', nameJp: 'さんまの塩焼き', price: '115.000₫' },
+      { id: 'yaki-salmon-head', nameVi: 'Đầu Cá Hồi Nướng Muối', nameEn: 'Grilled Salmon Head', nameJp: 'サーモンカマ焼き', price: '89.000₫' },
+      { id: 'yaki-squid-tentacles', nameVi: 'Râu Mực Nướng Xốt', nameEn: 'Grilled Squid Tentacles', nameJp: 'イカゲソ焼き', price: '108.000₫' },
+      { id: 'yaki-chicken-negima', nameVi: 'Đùi Gà Xiên Hành Nướng', nameEn: 'Grilled Chicken with Green Onion', nameJp: '鶏ねぎま', price: '165.000₫' },
+      { id: 'yaki-king-oyster-mushroom', nameVi: 'Nấm Đùi Gà Nướng', nameEn: 'Grilled King Oyster Mushroom', nameJp: 'エリンギ焼き', price: '50.000₫' },
+    ]},
+
+    { key: 'rice', labelVi: 'Cơm', labelEn: 'Rice', layout: 'cards', dishes: [
+      { id: 'rice-eel-bowl', nameVi: 'Cơm Lươn Nướng', nameEn: 'Eel Bowl', nameJp: 'うな丼', price: '199.000₫' },
+      { id: 'rice-gyudon', nameVi: 'Cơm Thố Bò Xào', nameEn: 'Gyudon', nameJp: '牛丼', price: '109.000₫' },
+      { id: 'rice-teriyaki-chicken-bowl', nameVi: 'Cơm Thố Gà Xốt Teriyaki', nameEn: 'Teriyaki Chicken Bowl', nameJp: '鶏の照り焼き丼', price: '110.000₫' },
+      { id: 'rice-seafood-bowl', nameVi: 'Cơm Sushi Hải Sản Tổng Hợp', nameEn: 'Raw Seafood Bowl', nameJp: '海鮮丼', price: '165.000₫' },
+      { id: 'rice-salmon-avocado-bowl', nameVi: 'Cơm Thố Sushi Cá Hồi Và Bơ', nameEn: 'Salmon and Avocado Bowl', nameJp: 'サーモン丼', price: '179.000₫' },
+      { id: 'rice-oyakodon', nameVi: 'Cơm Thố Gà Xốt Trứng', nameEn: 'Oyakodon', nameJp: '親子丼', price: '99.000₫' },
+      { id: 'rice-katsudon', nameVi: 'Cơm Thố Heo Chiên Xù Xốt Trứng', nameEn: 'Katsudon', nameJp: 'カツ丼', price: '139.000₫' },
+      { id: 'rice-spicy-pork-fried', nameVi: 'Cơm Chiên Thịt Cay', nameEn: 'Spicy Pork Fried Rice', nameJp: '旨辛ミンチチャーハン', price: '89.000₫' },
+      { id: 'rice-seafood-fried', nameVi: 'Cơm Chiên Hải Sản', nameEn: 'Seafood Fried Rice', nameJp: '海鮮チャーハン', price: '119.000₫' },
+      { id: 'rice-shrimp-curry', nameVi: 'Cơm Cà Ri Tôm Chiên Xù', nameEn: 'Fried Shrimp Curry', nameJp: 'エビフライカレー', price: '156.000₫' },
+      { id: 'rice-tonkatsu-curry', nameVi: 'Cơm Cà Ri Heo Chiên Xù', nameEn: 'Tonkatsu Curry', nameJp: 'とんかつカレーライス', price: '165.000₫' },
+      { id: 'rice-chicken-cutlet-curry', nameVi: 'Cơm Cà Ri Gà Chiên', nameEn: 'Chicken Cutlet Curry', nameJp: 'チキンカツカレー', price: '145.000₫' },
+    ]},
+
+    { key: 'udon', labelVi: 'Mì Udon', labelEn: 'Udon', layout: 'cards', dishes: [
+      { id: 'udon-tempura', nameVi: 'Mì Udon Ăn Kèm Tempura', nameEn: 'Tempura Udon', nameJp: '天ぷらうどん', price: '165.000₫' },
+      { id: 'udon-beef', nameVi: 'Mì Udon Thịt Bò', nameEn: 'Beef Udon', nameJp: '牛肉うどん', price: '150.000₫' },
+      { id: 'udon-stirfried-beef-seafood', nameVi: 'Mì Udon Xào Thịt Bò/Hải Sản', nameEn: 'Stir-fried Udon Noodle with Beef/Seafood', nameJp: '牛肉・海鮮焼きうどん', price: '150.000₫' },
+      { id: 'udon-curry', nameVi: 'Mì Udon Cà Ri', nameEn: 'Curry Udon Noodle', nameJp: 'カレーうどん', price: '145.000₫' },
+      { id: 'udon-chawanmushi', nameVi: 'Trứng Hấp', nameEn: 'Savory Steamed Egg Custard', nameJp: '茶碗蒸し', price: '45.000₫' },
+      { id: 'udon-miso-soup', nameVi: 'Súp Miso', nameEn: 'Miso Soup', nameJp: '味噌汁', price: '25.000₫' },
+    ]},
+
+    { key: 'drinks', labelVi: 'Đồ Uống', labelEn: 'Drinks', layout: 'list', subgroups: [
+      { titleVi: 'Nước uống', titleEn: 'Soft Drinks', items: [
+        { nameVi: 'Trà Olong/Mugi', nameEn: 'Trà Olong/Mugi', price: '5.000₫' },
+        { nameVi: 'Nước Dasani', nameEn: 'Nước Dasani', price: '15.000₫' },
+        { nameVi: 'Coca Cola', nameEn: 'Coca Cola', price: '25.000₫' },
+        { nameVi: '7-Up', nameEn: '7-Up', price: '25.000₫' },
+        { nameVi: 'Tonic', nameEn: 'Tonic', price: '25.000₫' },
+        { nameVi: 'Soda', nameEn: 'Soda', price: '25.000₫' },
+      ]},
+      { titleVi: 'Nước hoa quả', titleEn: 'Fresh Juice', items: [
+        { nameVi: 'Nước Cam Tươi', nameEn: 'Orange Juice', price: '45.000₫' },
+        { nameVi: 'Nước Ép Dứa', nameEn: 'Pineapple Juice', price: '45.000₫' },
+        { nameVi: 'Nước Ép Dưa Hấu', nameEn: 'Watermelon Juice', price: '45.000₫' },
+        { nameVi: 'Nước Chanh Tươi', nameEn: 'Fresh Lime Juice', price: '30.000₫' },
+      ]},
+      { titleVi: 'Trà', titleEn: 'Tea', items: [
+        { nameVi: 'Trà Việt Quất', nameEn: 'Blueberry Tea', price: '39.000₫' },
+        { nameVi: 'Trà Đào Chanh Leo', nameEn: 'Peach & Passion Fruit Tea', price: '39.000₫' },
+        { nameVi: 'Trà Cam Đào Dâu Tây', nameEn: 'Orange, Peach & Strawberry Tea', price: '39.000₫' },
+        { nameVi: 'Trà Xoài Lá Dứa', nameEn: 'Mango & Pandan Leaf Tea', price: '39.000₫' },
+        { nameVi: 'Trà Nhiệt Đới', nameEn: 'Tropical Fruit Tea', price: '45.000₫' },
+      ]},
+      { titleVi: 'Khác', titleEn: 'Others', items: [
+        { nameVi: 'Kem Mochi', nameEn: 'Yukimi Daifuku', price: '35.000₫' },
+        { nameVi: 'Kem Gelato', nameEn: 'Gelato (Vanilla/Green Tea)', price: '25.000₫' },
+      ]},
+    ]},
+
+    { key: 'alcohol', labelVi: 'Đồ Uống Có Cồn', labelEn: 'Alcoholic Drinks', layout: 'list', subgroups: [
+      { titleVi: 'Sake', titleEn: 'Sake', items: [
+        { nameVi: 'Gensen Karakuchi Yoshinogawa 15%', nameEn: 'Gensen Karakuchi Yoshinogawa 15%', descVi: 'Hương vị: khô, nhẹ nhàng. Gạo: Niigata.', desc: 'Dry & light-bodied. Niigata rice.', sizes: [{ label: '1800ml', price: '1.500.000₫' }, { label: '720ml', price: '650.000₫' }] },
+        { nameVi: 'Suishin Kome No Kiwami Junmai 15%', nameEn: 'Suishin Kome No Kiwami Junmai 15%', descVi: 'Hương vị: Umami, nhẹ nhàng. Gạo: Aiyama.', desc: 'Umami & light-bodied. Aiyama rice.', sizes: [{ label: '1800ml', price: '1.700.000₫' }, { label: '720ml', price: '850.000₫' }] },
+        { nameVi: 'Tokubetsu Honjozo Hakkaisan 15,5%', nameEn: 'Tokubetsu Honjozo Hakkaisan 15.5%', descVi: 'Hương vị: Umami, nhẹ nhàng. Gạo: Aiyama.', desc: 'Umami & light-bodied. Aiyama rice.', sizes: [{ label: '1800ml', price: '2.200.000₫' }, { label: '720ml', price: '1.100.000₫' }] },
+        { nameVi: 'Ginkanmuri Ozeki 15-16%', nameEn: 'Ginkanmuri Ozeki 15–16%', descVi: 'Hương vị: nhẹ nhàng, cân bằng, ngọt nhẹ.', desc: 'Light, balanced, light sweet.', sizes: [{ label: '1800ml', price: '1.350.000₫' }, { label: '280ml', price: '240.000₫' }] },
+        { nameVi: 'Vẩy Vàng Keiju Junkinpakuiri 15%', nameEn: 'Vẩy Vàng Keiju Junkinpakuiri 15%', descVi: 'Hương vị: mang hương thơm êm dịu, ngọt ngào. Gạo: Akira.', desc: 'Delicate and smooth, with a sweet fragrance. Akira rice.', sizes: [{ label: '1800ml', price: '1.900.000₫' }] },
+        { nameVi: 'Dassai 23 Junmai Daiginjo 15-16%', nameEn: 'Dassai 23 Junmai Daiginjo 15–16%', descVi: 'Hương vị: ngọt thơm, tinh tế. Gạo: Yamadanishiki.', desc: 'Gently sweet, aromatic, smooth. Yamadanishiki rice.', sizes: [{ label: '720ml', price: '3.750.000₫' }] },
+      ]},
+      { titleVi: 'Cocktail', titleEn: 'Cocktail', items: [
+        { nameVi: 'Cocktail Sake Đào', nameEn: 'Peach Sake Cocktail', price: '98.000₫' },
+        { nameVi: 'Cocktail Sake Chanh Leo', nameEn: 'Passion Fruit Sake Cocktail', price: '98.000₫' },
+        { nameVi: 'Cocktail Sake Dâu Tây', nameEn: 'Strawberry Sake Cocktail', price: '98.000₫' },
+        { nameVi: 'Whiskey Pha Soda', nameEn: 'Whiskey with Soda', price: '98.000₫' },
+        { nameVi: 'Gin Tonic', nameEn: 'Gin Tonic', price: '98.000₫' },
+        { nameVi: 'Mojito', nameEn: 'Mojito', price: '98.000₫' },
+        { nameVi: 'Rượu Mơ', nameEn: 'Umeshu (Plum Wine)', price: '98.000₫' },
+      ]},
+      { titleVi: 'Bia', titleEn: 'Beer', items: [
+        { nameVi: 'Sapporo', nameEn: 'Sapporo', price: '40.000₫' },
+        { nameVi: 'Saigon', nameEn: 'Saigon', price: '30.000₫' },
+        { nameVi: 'Tiger', nameEn: 'Tiger', price: '35.000₫' },
+      ]},
+      { titleVi: 'Soju', titleEn: 'Soju', items: [
+        { nameVi: 'Soju Hàn Quốc', nameEn: 'Korean Soju', price: '130.000₫' },
+      ]},
+      { titleVi: 'Phí mang rượu vào nhà hàng', titleEn: 'Corkage Fees', items: [
+        { nameVi: 'Rượu Mạnh', nameEn: 'Other Liquor', price: '400.000₫/chai' },
+        { nameVi: 'Rượu Vang', nameEn: 'Wine', price: '200.000₫/chai' },
+        { nameVi: 'Rượu Quê', nameEn: 'Vietnamese Liquor', price: '100.000₫/chai' },
+      ]},
+    ]},
+  ];
+
+  // Builds a location's category list from menuBook, applying that
+  // location's real differences (item removals/overrides/additions) —
+  // see menus/*.md for the page-by-page comparison each of these encodes.
+  buildLocationMenu(locKey, opts = {}) {
+    const { removeIds = [], overrides = {}, extraDishes = {}, subgroupOverrides = {} } = opts;
+    return this.menuBook.map(cat => {
+      const newCat = { ...cat, key: locKey + '-' + cat.key };
+      if (cat.dishes) {
+        let dishes = cat.dishes.filter(d => !removeIds.includes(d.id));
+        dishes = dishes.map(d => overrides[d.id] ? { ...d, ...overrides[d.id] } : d);
+        if (extraDishes[cat.key]) dishes = dishes.concat(extraDishes[cat.key]);
+        newCat.dishes = dishes.map(d => ({ ...d, id: locKey + '-' + d.id, locs: [locKey] }));
+      }
+      if (cat.subgroups) {
+        newCat.subgroups = cat.subgroups.map(sub => {
+          const items = subgroupOverrides[sub.titleEn] ? subgroupOverrides[sub.titleEn](sub.items) : sub.items;
+          return { ...sub, items: items.map(it => ({ ...it, locs: [locKey] })) };
+        });
+      }
+      return newCat;
+    });
+  }
+
   menuData = [
-    { key: 'ramen', label: 'Ramen', jp: 'ラーメン', dishes: [
-      { id: 'd-tonkotsu', name: 'Tonkotsu Ramen', desc: 'Rich pork bone broth, chashu pork, soft egg, scallion, nori.', descVi: 'Nước dùng xương heo đậm đà, thịt heo chashu, trứng lòng đào, hành lá, rong biển.', price: '135,000₫' },
-      { id: 'd-shoyu', name: 'Shoyu Ramen', desc: 'Clear soy-seasoned broth, bamboo shoots, menma, spring onion.', descVi: 'Nước dùng trong vị nước tương, măng tre, menma, hành lá.', price: '125,000₫' },
-      { id: 'd-shio', name: 'Shio Ramen', desc: 'Light salt broth, seaweed, soft egg — clean and delicate.', descVi: 'Nước dùng vị muối nhẹ, rong biển, trứng lòng đào — thanh và tinh tế.', price: '125,000₫' },
-      { id: 'd-miso', name: 'Miso Ramen', desc: 'Sapporo-style miso broth, sweet corn, butter, ground pork.', descVi: 'Nước dùng miso kiểu Sapporo, bắp ngọt, bơ, thịt heo băm.', price: '135,000₫' },
-      { id: 'd-tantan', name: 'Tantan Ramen', desc: 'Spicy sesame broth, minced pork, chili oil, scallion.', descVi: 'Nước dùng mè cay, thịt heo băm, dầu ớt, hành lá.', price: '140,000₫' },
-      { id: 'd-coldramen', name: 'Mugi Cold Ramen', desc: 'Chilled noodles, sesame dressing, cucumber, soft egg. Seasonal.', descVi: 'Mì lạnh, sốt mè, dưa chuột, trứng lòng đào. Theo mùa.', price: '130,000₫' },
-    ]},
-    { key: 'grill', label: 'Izakaya Grill', jp: '焼き鳥', dishes: [
-      { id: 'd-negima', name: 'Negima', desc: 'Grilled chicken thigh and leek skewer.', descVi: 'Xiên đùi gà và hành baro nướng.', price: '35,000₫' },
-      { id: 'd-butabara', name: 'Butabara', desc: 'Grilled pork belly skewer, charcoal-finished.', descVi: 'Xiên ba chỉ heo nướng than hoa.', price: '35,000₫' },
-      { id: 'd-gyuharami', name: 'Gyu Harami', desc: 'Grilled beef skirt skewer.', descVi: 'Xiên thịt bò nướng.', price: '45,000₫' },
-      { id: 'd-ebi', name: 'Ebi', desc: 'Grilled shrimp skewer, lightly salted.', descVi: 'Xiên tôm nướng, ướp muối nhẹ.', price: '40,000₫' },
-      { id: 'd-shishito', name: 'Shishito Peppers', desc: 'Charred blistered peppers, sea salt.', descVi: 'Ớt nướng cháy xém, muối biển.', price: '30,000₫' },
-    ]},
-    { key: 'plates', label: 'Small Plates', jp: '一品料理', dishes: [
-      { id: 'd-gyoza', name: 'Gyoza', desc: 'Pan-seared pork dumplings, ponzu dip. 6 pcs.', descVi: 'Bánh xếp thịt heo áp chảo, chấm sốt ponzu. 6 chiếc.', price: '55,000₫' },
-      { id: 'd-karaage', name: 'Karaage', desc: 'Japanese fried chicken, kewpie mayo.', descVi: 'Gà rán kiểu Nhật, sốt mayonnaise kewpie.', price: '65,000₫' },
-      { id: 'd-takoyaki', name: 'Takoyaki', desc: 'Octopus balls, bonito flakes, okonomiyaki sauce.', descVi: 'Bánh bạch tuộc, vảy cá bào, sốt okonomiyaki.', price: '60,000₫' },
-      { id: 'd-edamame', name: 'Edamame', desc: 'Steamed soybeans, sea salt.', descVi: 'Đậu nành non hấp, muối biển.', price: '35,000₫' },
-      { id: 'd-agedashi', name: 'Agedashi Tofu', desc: 'Silken tofu, dashi broth, grated daikon.', descVi: 'Đậu phụ non, nước dùng dashi, củ cải bào.', price: '55,000₫' },
-    ]},
-    { key: 'rice', label: 'Rice & Don', jp: '丼物', dishes: [
-      { id: 'd-gyudon', name: 'Gyudon', desc: 'Simmered beef and onion over rice, soft egg.', descVi: 'Thịt bò và hành ninh mềm trên cơm, trứng lòng đào.', price: '95,000₫' },
-      { id: 'd-unagidon', name: 'Unagi Don', desc: 'Grilled eel, sweet soy glaze, over rice.', descVi: 'Lươn nướng sốt nước tương ngọt, trên cơm.', price: '145,000₫' },
-      { id: 'd-katsucurry', name: 'Katsu Curry Rice', desc: 'Fried pork cutlet, Japanese curry sauce.', descVi: 'Thịt heo tẩm bột chiên, sốt cà ri kiểu Nhật.', price: '110,000₫' },
-      { id: 'd-teriyakibowl', name: 'Chicken Teriyaki Bowl', desc: 'Grilled chicken teriyaki over rice, greens.', descVi: 'Gà nướng teriyaki trên cơm, rau xanh.', price: '95,000₫' },
-    ]},
-    { key: 'dessert', label: 'Desserts', jp: 'デザート', dishes: [
-      { id: 'd-matchapudding', name: 'Matcha Pudding', desc: 'Matcha pudding, sweet red bean, fresh milk.', descVi: 'Bánh pudding matcha, đậu đỏ ngọt, sữa tươi.', price: '45,000₫' },
-      { id: 'd-sesameicecream', name: 'Black Sesame Ice Cream', desc: 'House-made black sesame ice cream.', descVi: 'Kem mè đen tự làm.', price: '40,000₫' },
-      { id: 'd-purplemochi', name: 'Purple Sweet Potato Mochi', desc: 'Soft mochi, purple sweet potato filling.', descVi: 'Mochi mềm, nhân khoai lang tím.', price: '45,000₫' },
-    ]},
-    { key: 'drinks', label: 'Drinks', jp: '飲み物', dishes: [
-      { id: 'd-ramune', name: 'Japanese Ramune', desc: 'Strawberry or lychee flavor, classic marble soda.', descVi: 'Vị dâu hoặc vải, soda bi cổ điển.', price: '35,000₫' },
-      { id: 'd-genmaicha', name: 'Hot Genmaicha', desc: 'Roasted green tea with toasted rice.', descVi: 'Trà xanh rang với gạo lứt rang.', price: '30,000₫' },
-      { id: 'd-vncoffee', name: 'Vietnamese Iced Coffee', desc: 'Robusta coffee, condensed milk, over ice.', descVi: 'Cà phê robusta, sữa đặc, đá.', price: '35,000₫' },
-      { id: 'd-draftbeer', name: 'Asahi / Sapporo Draft', desc: 'Japanese draft beer, 330ml.', descVi: 'Bia hơi Nhật Bản, 330ml.', price: '55,000₫' },
-      { id: 'd-umeshu', name: 'Umeshu Sour', desc: 'Plum wine, soda, lemon.', descVi: 'Rượu mơ, soda, chanh.', price: '65,000₫' },
-    ]},
+    // Golden Palace / Mễ Trì — full menu book, no omissions (menus/golden-palace.md)
+    ...this.buildLocationMenu('golden-palace'),
+
+    // Mỹ Đình / Mon City — several items missing vs. the book, a different
+    // sushi-roll lineup, a swapped yakimono dish, renamed rice bowls, and a
+    // different Others (dessert) drinks list (menus/mon-city.md)
+    ...this.buildLocationMenu('mon-city', {
+      removeIds: ['sashimi-mixed-special', 'sashimi-otoro', 'sashimi-swordfish', 'roll-seafood-mix', 'salad-tuna', 'salad-sea-grapes', 'otsu-umaki', 'udon-chawanmushi'],
+      overrides: {
+        'roll-mixed-eel-crab-avocado': { nameVi: 'Cơm Cuộn Tổng Hợp', nameEn: 'Mixed Sushi Roll', nameJp: 'ミックスの海苔巻き' },
+        'yaki-squid-tentacles': { nameVi: 'Mực Ống Nướng', nameEn: 'Grilled Squid', nameJp: 'イカのグリル' },
+        'rice-eel-bowl': { nameVi: 'Cơm Lươn Nồi Đá', nameEn: 'Grilled Eel Rice Bowl', nameJp: '石焼ひつまぶし' },
+        'rice-seafood-bowl': { nameVi: 'Cơm Hải Sản', nameEn: 'Seafood Rice Bowl' },
+        'rice-salmon-avocado-bowl': { nameVi: 'Cơm Cá Hồi', nameEn: 'Salmon Rice Bowl' },
+      },
+      extraDishes: {
+        rolls: [
+          { id: 'roll-fried-shrimp', nameVi: 'Cơm Cuộn Tôm Chiên', nameEn: 'Fried Shrimp Roll', nameJp: 'エビフライロール', price: '99.000₫' },
+          { id: 'roll-eel-plain', nameVi: 'Cơm Cuộn Lươn', nameEn: 'Eel Roll', nameJp: '鰻ロール', price: '140.000₫' },
+        ],
+      },
+      subgroupOverrides: {
+        'Others': (items) => items
+          .filter(it => it.nameEn !== 'Yukimi Daifuku')
+          .map(it => it.nameEn === 'Gelato (Vanilla/Green Tea)' ? { ...it, nameEn: 'Gelato (Vanilla/Green Tea/Young Coconut)' } : it),
+      },
+    }),
+
+    // Phan Chu Trinh — matches the book almost exactly; the real differences
+    // are higher drink prices and a different Sake lineup (menus/phan-chu-trinh.md)
+    ...this.buildLocationMenu('phan-chu-trinh', {
+      subgroupOverrides: {
+        'Soft Drinks': (items) => items.map(it => it.nameEn === 'Nước Dasani' ? { ...it, price: '20.000₫' } : it),
+        'Fresh Juice': (items) => items.map(it => ({ ...it, price: it.nameEn === 'Fresh Lime Juice' ? '35.000₫' : '55.000₫' })),
+        'Tea': (items) => items.map(it => ({ ...it, price: '45.000₫' })),
+        'Sake': () => [
+          { nameVi: 'Dassai 23 Junmai Daiginjo 15-16%', nameEn: 'Dassai 23 Junmai Daiginjo 15–16%', descVi: 'Hương vị: ngọt thơm, tinh tế. Gạo: Yamadanishiki.', desc: 'Gently sweet, aromatic, smooth. Yamadanishiki rice.', sizes: [{ label: '720ml', price: '3.750.000₫' }] },
+          { nameVi: 'Hakkaisan Honjozo 15%', nameEn: 'Hakkaisan Honjozo 15%', descVi: 'Hương vị: tinh khiết, khô. Gạo: Gohya.', desc: 'Fresh, dry. Gohyakumangoku rice.', sizes: [{ label: '720ml', price: '1.250.000₫' }] },
+          { nameVi: 'Ginkanmuri Ozeki 15-16%', nameEn: 'Ginkanmuri Ozeki 15–16%', descVi: 'Hương vị: nhẹ nhàng, cân bằng, ngọt nhẹ.', desc: 'Light, balanced, light sweet.', sizes: [{ label: '1800ml', price: '1.350.000₫' }, { label: '280ml', price: '240.000₫' }] },
+          { nameVi: 'Junmai Suishin Karakuchi 15%', nameEn: 'Junmai Suishin Karakuchi 15%', descVi: 'Hương vị: khô, nhẹ nhàng, êm dịu. Gạo: Nakateshin.', desc: 'Dry, light, smooth. Nakateshin rice.', sizes: [{ label: '1800ml', price: '1.750.000₫' }] },
+          { nameVi: 'Komagura MY-60 15%', nameEn: 'Komagura MY-60 15%', descVi: 'Hương vị: hơi khô, nhẹ nhàng, tinh tế. Gạo: Yamada.', desc: 'Light-dried, soft, smooth. Yamada rice.', sizes: [{ label: '720ml', price: '1.250.000₫' }] },
+        ],
+      },
+    }),
   ];
 
   locationData = [
@@ -472,21 +763,51 @@ class Component extends DCLogic {
 
     const loc = this.state.menuLocation;
     const availAt = (d) => !d.locs || d.locs.includes(loc);
+    const localizeName = (it) => (isVi ? (it.nameVi || it.name) : (it.nameEn || it.name));
+    const localizeDesc = (it) => (isVi ? (it.descVi || it.desc) : it.desc);
     const menuLocationOpts = this.menuLocations.map(l => ({
       label: l.label, active: l.key === loc,
       select: () => this.setState({ menuLocation: l.key }),
     }));
     const menuGroupsForLocation = this.menuData
-      .map(g => ({ ...g, dishes: g.dishes.filter(availAt) }))
-      .filter(g => g.dishes.length > 0);
+      .map(g => ({
+        ...g,
+        dishes: (g.dishes || []).filter(availAt),
+        subgroups: g.subgroups ? g.subgroups.map(sub => ({ ...sub, items: sub.items.filter(availAt) })) : undefined,
+      }))
+      .filter(g => (g.dishes && g.dishes.length > 0) || (g.subgroups && g.subgroups.some(sub => sub.items.length > 0)));
     const activeGroup = menuGroupsForLocation.find(g => g.key === this.state.menuCategory) || menuGroupsForLocation[0];
     const categories = menuGroupsForLocation.map(g => ({
-      label: g.label, active: activeGroup && g.key === activeGroup.key,
+      label: isVi ? (g.labelVi || g.label) : (g.labelEn || g.label),
+      active: activeGroup && g.key === activeGroup.key,
       select: () => this.setState({ menuCategory: g.key }),
     }));
     const activeGroupWithDelay = activeGroup
-      ? { ...activeGroup, dishes: activeGroup.dishes.map((d, i) => ({ ...d, desc: isVi ? d.descVi : d.desc, delay: (i * 60) + 'ms' })) }
-      : { label: '', jp: '', dishes: [] };
+      ? {
+          ...activeGroup,
+          label: isVi ? (activeGroup.labelVi || activeGroup.label) : (activeGroup.labelEn || activeGroup.label),
+          hasJp: !!activeGroup.jp,
+          isCards: (activeGroup.layout || 'cards') === 'cards',
+          isList: activeGroup.layout === 'list',
+          dishes: activeGroup.dishes.map((d, i) => {
+            const desc = localizeDesc(d);
+            return { ...d, name: localizeName(d), jp: d.nameJp || d.jp || '', hasJp: !!(d.nameJp || d.jp), desc, hasDesc: !!desc, delay: (i * 60) + 'ms' };
+          }),
+          subgroups: (activeGroup.subgroups || []).map(sub => ({
+            title: isVi ? (sub.titleVi || sub.title) : (sub.titleEn || sub.title),
+            items: sub.items.map(it => {
+              const desc = localizeDesc(it);
+              return {
+                name: localizeName(it), jp: it.nameJp || '', hasJp: !!it.nameJp,
+                desc, hasDesc: !!desc,
+                priceDisplay: it.sizes ? it.sizes.map(s => s.label + ' ' + s.price).join(' · ') : it.price,
+              };
+            }),
+          })),
+          hasAddOns: !!(activeGroup.addOns && activeGroup.addOns.length),
+          addOns: (activeGroup.addOns || []).map(a => ({ name: localizeName(a), price: a.price })),
+        }
+      : { label: '', jp: '', hasJp: false, isCards: true, isList: false, dishes: [], subgroups: [], hasAddOns: false, addOns: [] };
 
     const speed = 350;
     const style = this.props.transitionStyle || 'fade';
@@ -501,7 +822,7 @@ class Component extends DCLogic {
     }));
 
     if (!this._featuredDishes) {
-      const allDishes = this.menuData.flatMap(g => g.dishes);
+      const allDishes = this.menuData.flatMap(g => g.dishes || []);
       const base = this.featuredIds.map(id => allDishes.find(d => d.id === id)).filter(Boolean).map(d => ({ name: d.name, slotId: 'feat-' + d.id }));
       this._featuredDishes = [...base, ...base];
     }
@@ -562,6 +883,7 @@ class Component extends DCLogic {
         specialDesc1: t('18-hour pork broth, chashu, soft egg.', 'Nước dùng heo hầm 18 giờ, chashu, trứng lòng đào.'),
         specialDesc2: t('Five grilled skewers, charcoal-finished.', 'Năm xiên nướng, hoàn thiện trên than hoa.'),
         seePromo: t('See current promotion →', 'Xem ưu đãi hiện tại →'),
+        toppings: t('Toppings', 'Topping Thêm'),
       },
       currentPromo, pastPromos,
       featuredDishes: [...featuredDishes, ...featuredDishes],
