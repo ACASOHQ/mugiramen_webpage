@@ -48,28 +48,26 @@
   #confirmDialog { display: none; }
   #confirmDialog.open { display: grid; }
 
+  .reservation-form { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 1fr); column-gap: var(--space-8); row-gap: var(--space-4); }
+  .reservation-column { min-width: 0; }
+  .reservation-panel { padding: var(--space-5); }
+  .reservation-panel-title { margin: 0 0 var(--space-4); font-size: 18px; }
+  .reservation-submit { grid-column: 1 / -1; min-height: 48px; max-width: 560px; justify-self: center; font-size: 16px; }
+  .hero-message { margin: 0 auto; font-size: 15px; white-space: nowrap; }
+  .language-toggle { display:flex; gap:4px; align-items:center; font-size:13px; border:1px solid var(--color-divider); border-radius:var(--radius-md); padding:3px 6px; margin-left:var(--space-2); }
+  .nav-brand > a { display:flex; align-items:center; gap:8px; color:inherit; font-size:inherit; text-decoration:none; }
+  .language-toggle button { padding:2px 5px; border:0; color:var(--color-neutral-500); background:transparent; font:inherit; cursor:pointer; }
+  .language-toggle button.active { color:var(--color-accent-700); font-weight:600; }
+
   /* — date & time picker — */
-  .dt-trigger { display: flex; align-items: center; justify-content: space-between; gap: 8px; text-align: left; }
-  .dt-trigger-text { opacity: .5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .dt-trigger.has-value .dt-trigger-text { opacity: 1; }
-  .dt-trigger svg { flex: none; opacity: .55; }
-
-  .dt-popover {
-    display: none; position: fixed; z-index: 60; top: 0; left: 0; visibility: hidden;
-    width: min(300px, 86vw); background: var(--color-surface); border: 1px solid var(--color-divider);
-    border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: var(--space-3);
-  }
-  .dt-popover.open { display: block; } /* position (top/left) and visibility are set by JS,
-    which measures the trigger and centers the popover higher/beside it, clamped to the viewport */
-
-  .dt-cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2); }
+  .dt-cal-header { display: flex; align-items: center; justify-content: space-between; max-width:320px; margin:0 auto var(--space-2); }
   .dt-cal-title { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 14px; }
   .dt-cal-header .btn-icon { width: 28px; height: 28px; font-size: 16px; }
   .dt-cal-weekdays {
-    display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;
-    font-size: 11px; opacity: .55; margin-bottom: 4px;
+    display: grid; grid-template-columns: repeat(7, 1fr); max-width:320px; text-align: center;
+    font-size: 11px; opacity: .55; margin:0 auto 4px;
   }
-  .dt-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .dt-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); max-width:320px; gap: 2px; margin:0 auto; }
   .dt-day {
     aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
     font: inherit; font-size: 13px; color: var(--color-text); background: transparent;
@@ -81,39 +79,29 @@
   .dt-day.dt-empty { visibility: hidden; cursor: default; }
   .dt-day:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 1px; }
 
-  .dt-hr { height: 1px; background: var(--color-divider); margin: var(--space-3) 0; }
+  .dt-hr { height: 1px; background: var(--color-divider); margin: var(--space-4) 0; }
+  #field-time { position: relative; }
+  .dt-time-picker { position: relative; width: 100%; }
+  .dt-time-trigger { display: flex; align-items: center; justify-content: space-between; text-align: left; }
+  .dt-time-trigger::after { content: '⌄'; margin-left: var(--space-2); font-size: 16px; opacity: .65; }
+  .dt-time-menu {
+    display: none; position: absolute; z-index: 10; top: 0; left: calc(100% + 8px); width: 126px;
+    max-height: 220px; overflow-y: auto; padding: 4px; background: var(--color-bg);
+    border: 1px solid var(--color-divider); border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+  }
+  .dt-time-menu.open { display: grid; gap: 2px; }
+  .dt-time-option { padding: 7px 8px; font: inherit; font-size: 13px; text-align: left; color: var(--color-text); background: transparent; border: 0; border-radius: var(--radius-sm); cursor: pointer; }
+  .dt-time-option:hover:not(:disabled), .dt-time-option.selected { background: color-mix(in srgb, var(--color-accent) 12%, transparent); }
+  .dt-time-option.selected { color: var(--color-accent-700); font-weight: 600; }
+  .dt-time-option:disabled { opacity: .35; cursor: not-allowed; }
+  .dt-selected-date { margin: var(--space-3) 0 0; font-size: 13px; min-height: 20px; text-align: center; color: var(--color-accent-700); }
 
-  /* — timer-style scroll wheel for time slots — */
-  .dt-time-wheel-wrap { position: relative; }
-  .dt-time-wheel-band {
-    position: absolute; left: 0; right: 0; top: 50%; height: 34px; transform: translateY(-50%);
-    border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);
-    background: color-mix(in srgb, var(--color-accent) 6%, transparent);
-    pointer-events: none; z-index: 1;
+  @media (max-width: 720px) {
+    .reservation-form { grid-template-columns: 1fr; gap: var(--space-5); }
+    .reservation-submit { grid-column: auto; max-width: none; }
+    .dt-time-menu { left: auto; right: 0; top: calc(100% + 6px); }
+    .hero-message { white-space: normal; }
   }
-  .dt-time-wheel {
-    position: relative; height: 180px; overflow-y: auto; padding: 73px 0;
-    scroll-snap-type: y mandatory; -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin; scrollbar-color: var(--color-divider) transparent;
-    mask-image: linear-gradient(to bottom, transparent, #000 28px, #000 calc(100% - 28px), transparent);
-  }
-  .dt-time-wheel::-webkit-scrollbar { width: 5px; }
-  .dt-time-wheel::-webkit-scrollbar-thumb { background: var(--color-divider); border-radius: 3px; }
-  .dt-time-row {
-    display: flex; align-items: center; justify-content: center; width: 100%; height: 34px;
-    font: inherit; font-size: 13px; scroll-snap-align: center;
-    color: var(--color-text); background: transparent; border: none; cursor: pointer;
-  }
-  .dt-time-row:disabled { opacity: .3; cursor: not-allowed; }
-  .dt-time-row.selected { color: var(--color-accent-700); font-weight: 600; }
-  .dt-time-row:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -2px; }
-  .dt-time-row-header {
-    height: 26px; display: flex; align-items: center; justify-content: center;
-    font-size: 10px; letter-spacing: .08em; text-transform: uppercase; opacity: .55;
-    scroll-snap-align: none; pointer-events: none;
-  }
-
-  #dtDone { margin-top: var(--space-3); }
 </style>
 </head>
 <body>
@@ -121,45 +109,53 @@
 
   <!-- NAV -->
   <div class="nav" style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 92%, transparent);backdrop-filter:blur(6px)">
-    <a href="index.html" class="nav-brand" style="display:flex;align-items:center;gap:8px;color:inherit;text-decoration:none">
-      <img src="assets/mugi-icon.svg" alt="Mugi icon" style="height:26px;width:auto">
-      MUGI <span style="font-weight:400;opacity:.7">Ramen &amp; Izakaya</span>
-    </a>
-    <a href="index.html">Home</a>
-    <a href="index.html">About</a>
-    <a href="index.html">Menu</a>
-    <a href="index.html">Location</a>
-    <a href="index.html">Promotions</a>
-    <a class="btn btn-primary" href="reservation.html" aria-current="page" style="margin-left:var(--space-2)">Đặt Bàn / Reserve</a>
+    <div class="nav-brand" style="display:flex;align-items:center;gap:8px">
+      <a href="index.html">
+        <img src="assets/mugi-icon.svg" alt="Mugi icon" style="height:26px;width:auto">
+        MUGI <span style="font-weight:400;opacity:.7">Ramen &amp; Izakaya</span>
+      </a>
+      <div class="language-toggle" aria-label="Language">
+        <button type="button" data-language="en">EN</button>
+        <button type="button" data-language="vi">VI</button>
+      </div>
+    </div>
+    <a href="index.html" data-i18n="navHome">Home</a>
+    <a href="index.html" data-i18n="navAbout">About</a>
+    <a href="index.html" data-i18n="navMenu">Menu</a>
+    <a href="index.html" data-i18n="navLocations">Location</a>
+    <a href="index.html" data-i18n="navPromotions">Promotions</a>
+    <a class="btn btn-primary" href="reservation.html" aria-current="page" style="margin-left:var(--space-2)" data-i18n="navReserve">Đặt Bàn</a>
   </div>
 
   <!-- HERO BANNER -->
   <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-6);text-align:center;animation:heroFade .5s ease both">
     <div class="jp" style="color:var(--color-accent-300);font-size:15px;margin-bottom:var(--space-2)">麦 予約</div>
-    <h1 style="color:var(--color-neutral-100);margin-bottom:var(--space-2)">Đặt Bàn <span style="opacity:.6;font-weight:400">/ Reserve a Table</span></h1>
-    <p style="max-width:520px;margin:0 auto;opacity:.85;font-size:15px">Điền thông tin bên dưới, nhân viên sẽ liên hệ lại để xác nhận bàn sớm nhất có thể.<br>
-    <span style="opacity:.75;font-size:13px">Fill in your details below and our staff will call you back to confirm.</span></p>
+    <h1 style="color:var(--color-neutral-100);margin-bottom:var(--space-2)" data-i18n="heroTitle">Đặt Bàn</h1>
+    <p class="hero-message" style="opacity:.85" data-i18n="heroMessage">Điền thông tin bên dưới, nhân viên sẽ liên hệ lại để xác nhận bàn sớm nhất có thể.</p>
   </div>
 
   <!-- FORM -->
-  <div style="max-width:560px;margin:0 auto;padding:var(--space-8) var(--space-6);animation:riseIn .5s ease .1s both">
-    <form id="reservationForm" novalidate>
+  <div style="max-width:1080px;margin:0 auto;padding:var(--space-8) var(--space-6);animation:riseIn .5s ease .1s both">
+    <form id="reservationForm" class="reservation-form" novalidate>
+
+      <section class="reservation-column reservation-panel" aria-labelledby="guestDetailsTitle">
+        <h2 class="reservation-panel-title" id="guestDetailsTitle" data-i18n="guestDetails">Thông tin của bạn</h2>
 
       <div class="field" id="field-name">
-        <label for="name">Họ tên <span style="opacity:.6">/ Full name</span></label>
+        <label for="name" data-i18n="fullName">Họ tên</label>
         <input class="input" type="text" id="name" name="name" maxlength="60" required>
-        <div class="field-error">Vui lòng nhập họ tên (không quá 60 ký tự). / Please enter your full name (max 60 characters).</div>
+        <div class="field-error" data-i18n="nameError">Vui lòng nhập họ tên (không quá 60 ký tự).</div>
       </div>
 
       <div class="field" id="field-phone">
-        <label for="phone">Số điện thoại <span style="opacity:.6">/ Phone number</span></label>
+        <label for="phone" data-i18n="phone">Số điện thoại</label>
         <input class="input" type="tel" id="phone" name="phone" required>
-        <div class="field-error">Số điện thoại này có vẻ chưa đúng. / This phone number doesn't look right.</div>
+        <div class="field-error" data-i18n="phoneError">Số điện thoại này có vẻ chưa đúng.</div>
       </div>
 
       <div class="field" id="field-branch">
-        <label>Chi nhánh <span style="opacity:.6">/ Branch</span></label>
-        <div role="radiogroup" aria-label="Chi nhánh / Branch">
+        <label data-i18n="branch">Chi nhánh</label>
+        <div role="radiogroup" aria-label="Chi nhánh" data-i18n-aria="branch">
           <label class="branch-card">
             <input type="radio" name="branch" value="Mon City, Hàm Nghi" required>
             <div class="branch-name">Mon City, Hàm Nghi</div>
@@ -179,46 +175,46 @@
             <span class="branch-phone">0866 75 3375</span>
           </label>
         </div>
-        <div class="field-error">Vui lòng chọn một chi nhánh. / Please select a branch.</div>
+        <div class="field-error" data-i18n="branchError">Vui lòng chọn một chi nhánh.</div>
       </div>
 
-      <div class="field" id="field-datetime" style="position:relative">
-        <label for="datetimeTrigger">Ngày giờ <span style="opacity:.6">/ Date &amp; time</span></label>
-        <button type="button" class="input dt-trigger" id="datetimeTrigger" aria-haspopup="dialog" aria-expanded="false">
-          <span class="dt-trigger-text" id="datetimeDisplay">Chọn ngày giờ / Select date &amp; time</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2"></rect><line x1="3" y1="9.5" x2="21" y2="9.5"></line><line x1="8" y1="2.5" x2="8" y2="6.5"></line><line x1="16" y1="2.5" x2="16" y2="6.5"></line></svg>
-        </button>
-        <input type="hidden" id="datetime" name="datetime" required>
+      </section>
 
-        <div class="dt-popover" id="datetimePopover" role="dialog" aria-modal="false" aria-label="Chọn ngày giờ / Select date and time">
+      <section class="reservation-column reservation-panel" aria-labelledby="reservationDetailsTitle">
+        <h2 class="reservation-panel-title" id="reservationDetailsTitle" data-i18n="reservationDetails">Chi tiết đặt bàn</h2>
+
+      <div class="field" id="field-datetime">
+        <input type="hidden" id="datetime" name="datetime" required>
           <div class="dt-cal-header">
-            <button type="button" class="btn btn-icon btn-ghost" id="dtPrevMonth" aria-label="Tháng trước / Previous month">‹</button>
+            <button type="button" class="btn btn-icon btn-ghost" id="dtPrevMonth" aria-label="Tháng trước">‹</button>
             <div class="dt-cal-title" id="dtMonthLabel"></div>
-            <button type="button" class="btn btn-icon btn-ghost" id="dtNextMonth" aria-label="Tháng sau / Next month">›</button>
+            <button type="button" class="btn btn-icon btn-ghost" id="dtNextMonth" aria-label="Tháng sau">›</button>
           </div>
           <div class="dt-cal-weekdays">
             <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>
           </div>
           <div class="dt-cal-grid" id="dtCalGrid"></div>
+          <p class="dt-selected-date" id="datetimeDisplay" aria-live="polite">Chọn một ngày từ lịch</p>
+        <div class="field-error" data-i18n="datetimeError">Vui lòng chọn ngày giờ hợp lệ, không ở trong quá khứ.</div>
+      </div>
 
-          <div class="dt-hr"></div>
+      <div class="dt-hr"></div>
 
-          <div class="dt-time-wheel-wrap">
-            <div class="dt-time-wheel-band" aria-hidden="true"></div>
-            <div class="dt-time-wheel" id="dtTimeWheel" role="listbox" aria-label="Giờ / Time"></div>
-          </div>
-
-          <button type="button" class="btn btn-primary btn-block" id="dtDone">Xong / Done</button>
+      <div class="field" id="field-time">
+        <label for="reservationTime" data-i18n="reservationTime">Giờ đặt bàn</label>
+        <div class="dt-time-picker">
+          <button type="button" class="input dt-time-trigger" id="reservationTime" aria-haspopup="listbox" aria-expanded="false">Chọn giờ</button>
+          <div class="dt-time-menu" id="reservationTimeMenu" role="listbox" aria-label="Giờ đặt bàn"></div>
         </div>
-
-        <div class="field-error">Vui lòng chọn ngày giờ hợp lệ, không ở trong quá khứ. / Please pick a valid date &amp; time, not in the past.</div>
       </div>
 
       <div class="field" id="field-party">
-        <label for="party_size">Số khách <span style="opacity:.6">/ Party size</span></label>
+        <label for="party_size" data-i18n="partySize">Số khách</label>
         <input class="input" type="number" id="party_size" name="party_size" min="1" max="100" step="1" required>
-        <div class="field-error">Số khách phải là số nguyên từ 1 đến 100. / Party size must be a whole number from 1 to 100.</div>
+        <div class="field-error" data-i18n="partyError">Số khách phải là số nguyên từ 1 đến 100.</div>
       </div>
+
+      </section>
 
       <!-- Honeypot: left empty by real visitors, hidden off-screen. Mirrors
            MugiRamenSystem's web form spam guard so this page is ready to
@@ -228,7 +224,7 @@
         <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
       </div>
 
-      <button type="submit" class="btn btn-primary btn-block">Gửi đặt bàn / Send reservation</button>
+      <button type="submit" class="btn btn-primary btn-block reservation-submit" data-i18n="sendReservation">Gửi đặt bàn</button>
 
       <!--
         TODO: wire to MugiRamenSystem POST /api/bookings once that backend is
@@ -241,23 +237,17 @@
       -->
     </form>
 
-    <p style="text-align:center;font-size:13px;margin-top:var(--space-4);opacity:.7">
-      Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất ở cuối trang.<br>
-      Need it faster? Call your nearest branch directly, listed below.
-    </p>
+    <p style="text-align:center;font-size:13px;margin-top:var(--space-4);opacity:.7" data-i18n="callHint">Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất ở cuối trang.</p>
   </div>
 
   <!-- CONFIRMATION DIALOG -->
   <div id="confirmDialog" class="dialog-backdrop" style="position:fixed">
     <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
-      <div class="dialog-title" id="confirmTitle">Cảm ơn! / Thank you!</div>
+      <div class="dialog-title" id="confirmTitle" data-i18n="thankYou">Cảm ơn!</div>
       <div class="dialog-body" id="confirmBody"></div>
-      <div class="dialog-body" style="font-size:12px;opacity:.65">
-        (Demo — trang này chưa kết nối với hệ thống đặt bàn. Vui lòng gọi trực tiếp chi nhánh để đặt bàn ngay.)<br>
-        (Demo — this page isn't connected to the booking system yet. Please call the branch directly to book right now.)
-      </div>
+      <div class="dialog-body" style="font-size:12px;opacity:.65" data-i18n="demoNote">(Demo — trang này chưa kết nối với hệ thống đặt bàn. Vui lòng gọi trực tiếp chi nhánh để đặt bàn ngay.)</div>
       <div class="dialog-actions">
-        <button type="button" class="btn btn-primary" id="confirmClose">Đóng / Close</button>
+        <button type="button" class="btn btn-primary" id="confirmClose" data-i18n="close">Đóng</button>
       </div>
     </div>
   </div>
@@ -272,12 +262,12 @@
           <h3 style="color: var(--color-neutral-100); font-size: 35px; margin-bottom:0">Mugi Ramen &amp; Izakaya</h3>
           <div class="jp" style="color:var(--color-accent-300);font-size:15px;margin-top:4px;margin-bottom:var(--space-3)">麦 ラーメン・居酒屋</div>
         </div>
-        <h6 style="color:var(--color-accent-300);margin-top:var(--space-4)">Giờ mở cửa / Hours</h6>
-        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span>Trưa / Lunch</span><span>10:30 – 14:00</span></div>
-        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span>Tối / Dinner</span><span>17:00 – 22:00</span></div>
+        <h6 style="color:var(--color-accent-300);margin-top:var(--space-4)" data-i18n="hours">Giờ mở cửa</h6>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span data-i18n="lunch">Trưa</span><span>10:30 – 14:00</span></div>
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span data-i18n="dinner">Tối</span><span>17:00 – 22:00</span></div>
         <div style="display:flex;gap:var(--space-2);margin-top:var(--space-4);flex-wrap:wrap">
           <a class="btn btn-secondary" style="color:var(--color-neutral-200);border-color:var(--color-neutral-700)" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook</a>
-          <a class="btn btn-primary" href="index.html" style="color:var(--color-accent-300);border-color:var(--color-accent-600)">Về trang chủ / Back home</a>
+          <a class="btn btn-primary" href="index.html" style="color:var(--color-accent-300);border-color:var(--color-accent-600)" data-i18n="backHome">Về trang chủ</a>
         </div>
       </div>
 
@@ -313,19 +303,59 @@
   var dialog = document.getElementById('confirmDialog');
   var dialogBody = document.getElementById('confirmBody');
   var closeBtn = document.getElementById('confirmClose');
+  var language = (typeof localStorage !== 'undefined' && localStorage.getItem('mugi_lang')) || 'vi';
+  var translations = {
+    vi: {
+      navHome: 'Trang chủ', navAbout: 'Giới thiệu', navMenu: 'Thực đơn', navLocations: 'Chi nhánh', navPromotions: 'Khuyến mãi', navReserve: 'Đặt bàn',
+      heroTitle: 'Đặt bàn', heroMessage: 'Điền thông tin bên dưới, nhân viên sẽ liên hệ lại để xác nhận bàn sớm nhất có thể.',
+      guestDetails: 'Thông tin của bạn', fullName: 'Họ tên', nameError: 'Vui lòng nhập họ tên (không quá 60 ký tự).', phone: 'Số điện thoại', phoneError: 'Số điện thoại này có vẻ chưa đúng.',
+      branch: 'Chi nhánh', branchError: 'Vui lòng chọn một chi nhánh.', reservationDetails: 'Chi tiết đặt bàn', datetimeError: 'Vui lòng chọn ngày giờ hợp lệ, không ở trong quá khứ.',
+      reservationTime: 'Giờ đặt bàn', chooseTime: 'Chọn giờ', chooseDate: 'Chọn một ngày từ lịch', chooseReservationTime: 'Chọn giờ đặt bàn', partySize: 'Số khách', partyError: 'Số khách phải là số nguyên từ 1 đến 100.',
+      sendReservation: 'Gửi đặt bàn', callHint: 'Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất ở cuối trang.', thankYou: 'Cảm ơn!', demoNote: '(Demo — trang này chưa kết nối với hệ thống đặt bàn. Vui lòng gọi trực tiếp chi nhánh để đặt bàn ngay.)', close: 'Đóng',
+      hours: 'Giờ mở cửa', lunch: 'Trưa', dinner: 'Tối', backHome: 'Về trang chủ', prevMonth: 'Tháng trước', nextMonth: 'Tháng sau'
+    },
+    en: {
+      navHome: 'Home', navAbout: 'About', navMenu: 'Menu', navLocations: 'Locations', navPromotions: 'Promotions', navReserve: 'Reserve a Table',
+      heroTitle: 'Reserve a Table', heroMessage: 'Fill in your details below and our staff will call you back to confirm.',
+      guestDetails: 'Your details', fullName: 'Full name', nameError: 'Please enter your full name (max 60 characters).', phone: 'Phone number', phoneError: "This phone number doesn't look right.",
+      branch: 'Branch', branchError: 'Please select a branch.', reservationDetails: 'Reservation details', datetimeError: 'Please pick a valid date and time, not in the past.',
+      reservationTime: 'Reservation time', chooseTime: 'Select a time', chooseDate: 'Select a date from the calendar', chooseReservationTime: 'Select a reservation time', partySize: 'Party size', partyError: 'Party size must be a whole number from 1 to 100.',
+      sendReservation: 'Send reservation', callHint: 'Need it faster? Call your nearest branch directly, listed below.', thankYou: 'Thank you!', demoNote: "(Demo — this page isn't connected to the booking system yet. Please call the branch directly to book right now.)", close: 'Close',
+      hours: 'Hours', lunch: 'Lunch', dinner: 'Dinner', backHome: 'Back home', prevMonth: 'Previous month', nextMonth: 'Next month'
+    }
+  };
+
+  function text(key) { return translations[language][key]; }
+  function applyLanguage() {
+    document.documentElement.lang = language;
+    document.title = language === 'vi' ? 'Đặt Bàn | Mugi Ramen & Izakaya' : 'Reserve a Table | Mugi Ramen & Izakaya';
+    document.querySelectorAll('[data-i18n]').forEach(function (element) { element.textContent = text(element.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function (element) { element.setAttribute('aria-label', text(element.dataset.i18nAria)); });
+    document.querySelectorAll('[data-language]').forEach(function (button) { button.classList.toggle('active', button.dataset.language === language); });
+    document.getElementById('dtPrevMonth').setAttribute('aria-label', text('prevMonth'));
+    document.getElementById('dtNextMonth').setAttribute('aria-label', text('nextMonth'));
+    document.getElementById('reservationTimeMenu').setAttribute('aria-label', text('reservationTime'));
+    document.dispatchEvent(new Event('mugi-language-change'));
+  }
+  document.querySelectorAll('[data-language]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      language = button.dataset.language;
+      if (typeof localStorage !== 'undefined') localStorage.setItem('mugi_lang', language);
+      applyLanguage();
+    });
+  });
+  applyLanguage();
 
   // — date & time picker —
   (function () {
-    var trigger = document.getElementById('datetimeTrigger');
     var display = document.getElementById('datetimeDisplay');
     var hiddenInput = document.getElementById('datetime');
-    var popover = document.getElementById('datetimePopover');
     var monthLabel = document.getElementById('dtMonthLabel');
     var calGrid = document.getElementById('dtCalGrid');
-    var timeWheel = document.getElementById('dtTimeWheel');
+    var timeTrigger = document.getElementById('reservationTime');
+    var timeMenu = document.getElementById('reservationTimeMenu');
     var prevMonthBtn = document.getElementById('dtPrevMonth');
     var nextMonthBtn = document.getElementById('dtNextMonth');
-    var doneBtn = document.getElementById('dtDone');
 
     var MONTHS_VI = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
     var MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -351,8 +381,7 @@
       return slots;
     }
 
-    var LUNCH_SLOTS = buildSlots(10, 30, 14, 0, 15);
-    var DINNER_SLOTS = buildSlots(17, 0, 22, 0, 15);
+    var RESERVATION_SLOTS = buildSlots(10, 30, 22, 30, 30);
 
     function sameDay(a, b) {
       return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -367,7 +396,7 @@
     }
 
     function renderCalendar() {
-      monthLabel.textContent = MONTHS_VI[viewMonth] + ', ' + viewYear + ' / ' + MONTHS_EN[viewMonth];
+      monthLabel.textContent = (language === 'vi' ? MONTHS_VI[viewMonth] : MONTHS_EN[viewMonth]) + ', ' + viewYear;
       calGrid.innerHTML = '';
 
       var firstOfMonth = new Date(viewYear, viewMonth, 1);
@@ -393,8 +422,10 @@
           btn.addEventListener('click', function (dt) {
             return function () {
               selectedDate = dt;
+              if (selectedTime && isPastSlot(selectedDate, selectedTime)) selectedTime = null;
               renderCalendar();
               updateTimeAvailability();
+              updateTimeTrigger();
               updateOutput();
             };
           }(cellDate));
@@ -402,86 +433,53 @@
         calGrid.appendChild(btn);
       }
 
+      for (var trailing = leadingBlanks + daysInMonth; trailing < 42; trailing++) {
+        var trailingBlank = document.createElement('span');
+        trailingBlank.className = 'dt-day dt-empty';
+        calGrid.appendChild(trailingBlank);
+      }
+
       prevMonthBtn.disabled = (viewYear === today.getFullYear() && viewMonth === today.getMonth());
     }
 
-    // — timer-style scroll wheel: one scrollable column, snapping each row
-    // to the centre band, like a native time-wheel picker. Rows are built
-    // once; only their disabled/selected state is updated afterwards so an
-    // in-progress scroll never gets reset out from under the user.
-    var timeRows = []; // [{ time: 'HH:MM', el }]
+    var timeOptions = [];
 
-    function addTimeRow(hhmm) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'dt-time-row';
-      btn.setAttribute('role', 'option');
-      btn.textContent = hhmm;
-      btn.dataset.time = hhmm;
-      btn.addEventListener('click', function () {
-        if (btn.disabled) return;
-        selectRow(hhmm, true);
+    function buildTimeOptions() {
+      RESERVATION_SLOTS.forEach(function (time) {
+        var option = document.createElement('button');
+        option.type = 'button';
+        option.className = 'dt-time-option';
+        option.setAttribute('role', 'option');
+        option.textContent = time;
+        option.addEventListener('click', function () {
+          if (!option.disabled) selectTime(time);
+        });
+        timeMenu.appendChild(option);
+        timeOptions.push({ time: time, el: option });
       });
-      timeWheel.appendChild(btn);
-      timeRows.push({ time: hhmm, el: btn });
-    }
-
-    function addTimeHeader(text) {
-      var el = document.createElement('div');
-      el.className = 'dt-time-row-header';
-      el.textContent = text;
-      timeWheel.appendChild(el);
-    }
-
-    function buildTimeWheel() {
-      addTimeHeader('Trưa / Lunch');
-      LUNCH_SLOTS.forEach(addTimeRow);
-      addTimeHeader('Tối / Dinner');
-      DINNER_SLOTS.forEach(addTimeRow);
     }
 
     function updateTimeAvailability() {
-      timeRows.forEach(function (row) {
-        row.el.disabled = !!(selectedDate && isPastSlot(selectedDate, row.time));
+      timeOptions.forEach(function (option) {
+        option.el.disabled = !!(selectedDate && isPastSlot(selectedDate, option.time));
       });
     }
 
-    function markSelectedRow() {
-      timeRows.forEach(function (row) {
-        row.el.classList.toggle('selected', row.time === selectedTime);
+    function updateTimeTrigger() {
+      timeTrigger.textContent = selectedTime || text('chooseTime');
+      timeOptions.forEach(function (option) {
+        option.el.classList.toggle('selected', option.time === selectedTime);
+        option.el.setAttribute('aria-selected', option.time === selectedTime ? 'true' : 'false');
       });
     }
 
-    function selectRow(hhmm, scrollToIt) {
-      selectedTime = hhmm;
-      markSelectedRow();
+    function selectTime(hhmm) {
+      selectedTime = hhmm || null;
+      updateTimeTrigger();
       updateOutput();
-      if (scrollToIt) {
-        var row = timeRows.filter(function (r) { return r.time === hhmm; })[0];
-        if (row) row.el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
+      timeMenu.classList.remove('open');
+      timeTrigger.setAttribute('aria-expanded', 'false');
     }
-
-    // While the wheel is scrolling/flicking, the row nearest the centre
-    // band becomes the pending selection once the motion settles — the
-    // same feel as a native timer/date wheel.
-    var settleTimer = null;
-    timeWheel.addEventListener('scroll', function () {
-      if (settleTimer) clearTimeout(settleTimer);
-      settleTimer = setTimeout(function () {
-        var wheelRect = timeWheel.getBoundingClientRect();
-        var centerY = wheelRect.top + wheelRect.height / 2;
-        var closest = null;
-        var closestDist = Infinity;
-        timeRows.forEach(function (row) {
-          if (row.el.disabled) return;
-          var r = row.el.getBoundingClientRect();
-          var dist = Math.abs((r.top + r.height / 2) - centerY);
-          if (dist < closestDist) { closestDist = dist; closest = row.time; }
-        });
-        if (closest && closest !== selectedTime) selectRow(closest, false);
-      }, 130);
-    });
 
     function updateOutput() {
       if (selectedDate && selectedTime) {
@@ -490,72 +488,17 @@
         var dd = pad2(selectedDate.getDate());
         hiddenInput.value = yyyy + '-' + mm + '-' + dd + 'T' + selectedTime;
         display.textContent = dd + '/' + mm + '/' + yyyy + ', ' + selectedTime;
-        trigger.classList.add('has-value');
       } else {
         hiddenInput.value = '';
-        display.textContent = 'Chọn ngày giờ / Select date & time';
-        trigger.classList.remove('has-value');
-      }
-    }
-
-    // Fixed-position popover, placed by measuring the trigger in viewport
-    // coordinates: prefers the open space to the right, vertically centred
-    // on the trigger so it sits higher on the page rather than dropping
-    // straight down; falls back to the left side, then below, and is
-    // always clamped inside the viewport.
-    function positionPopover() {
-      var gap = 12;
-      var margin = 8;
-      var tRect = trigger.getBoundingClientRect();
-      var pw = popover.offsetWidth;
-      var ph = popover.offsetHeight;
-
-      var left = tRect.right + gap;
-      var top = tRect.top + tRect.height / 2 - ph / 2;
-
-      if (left + pw > window.innerWidth - margin) {
-        var leftSide = tRect.left - gap - pw;
-        if (leftSide >= margin) {
-          left = leftSide;
+        if (selectedDate) {
+          var selectedDay = pad2(selectedDate.getDate());
+          var selectedMonth = pad2(selectedDate.getMonth() + 1);
+          display.textContent = selectedDay + '/' + selectedMonth + '/' + selectedDate.getFullYear() + ' — ' + text('chooseReservationTime');
         } else {
-          left = Math.max(margin, Math.min(tRect.left, window.innerWidth - pw - margin));
-          top = tRect.bottom + gap;
+          display.textContent = text('chooseDate');
         }
       }
-
-      top = Math.max(margin, Math.min(top, window.innerHeight - ph - margin));
-      left = Math.max(margin, Math.min(left, window.innerWidth - pw - margin));
-
-      popover.style.left = left + 'px';
-      popover.style.top = top + 'px';
     }
-
-    function openPopover() {
-      popover.style.visibility = 'hidden';
-      popover.classList.add('open');
-      trigger.setAttribute('aria-expanded', 'true');
-      positionPopover();
-      popover.style.visibility = '';
-    }
-    function closePopover() {
-      popover.classList.remove('open');
-      trigger.setAttribute('aria-expanded', 'false');
-    }
-
-    trigger.addEventListener('click', function () {
-      if (popover.classList.contains('open')) closePopover();
-      else openPopover();
-    });
-    doneBtn.addEventListener('click', closePopover);
-    // Fixed positioning is relative to the viewport, so a page scroll
-    // (not scrolling inside the wheel itself) would strand the popover —
-    // simplest to just close it, matching common popover behavior.
-    window.addEventListener('scroll', function (e) {
-      if (popover.classList.contains('open') && !popover.contains(e.target)) closePopover();
-    }, true);
-    window.addEventListener('resize', function () {
-      if (popover.classList.contains('open')) positionPopover();
-    });
 
     prevMonthBtn.addEventListener('click', function () {
       viewMonth -= 1;
@@ -567,23 +510,38 @@
       if (viewMonth > 11) { viewMonth = 0; viewYear += 1; }
       renderCalendar();
     });
-
-    document.addEventListener('click', function (e) {
-      if (!popover.classList.contains('open')) return;
-      if (e.target === trigger || trigger.contains(e.target)) return;
-      if (popover.contains(e.target)) return;
-      closePopover();
+    timeTrigger.addEventListener('click', function () {
+      var isOpen = timeMenu.classList.toggle('open');
+      timeTrigger.setAttribute('aria-expanded', String(isOpen));
     });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && popover.classList.contains('open')) {
-        closePopover();
-        trigger.focus();
+    document.addEventListener('click', function (event) {
+      if (!timeMenu.contains(event.target) && event.target !== timeTrigger) {
+        timeMenu.classList.remove('open');
+        timeTrigger.setAttribute('aria-expanded', 'false');
       }
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        timeMenu.classList.remove('open');
+        timeTrigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+    function renderWeekdays() {
+      var weekdays = language === 'vi' ? ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'] : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      document.querySelectorAll('.dt-cal-weekdays span').forEach(function (day, index) { day.textContent = weekdays[index]; });
+    }
+    document.addEventListener('mugi-language-change', function () {
+      renderWeekdays();
+      renderCalendar();
+      updateTimeTrigger();
+      updateOutput();
     });
 
     renderCalendar();
-    buildTimeWheel();
+    buildTimeOptions();
     updateTimeAvailability();
+    updateTimeTrigger();
+    renderWeekdays();
   })();
 
   function setError(fieldId, hasError) {
@@ -657,10 +615,9 @@
     // TODO: replace this placeholder with a real fetch() POST to
     // MugiRamenSystem's /api/bookings once that backend is deployed.
     // Field names already match: name, phone, branch, datetime, party_size.
-    dialogBody.textContent =
-      data.name + ', mình đã ghi nhận yêu cầu đặt bàn tại ' + data.branch + ' cho ' +
-      data.party_size + ' khách. / We’ve noted your reservation request at ' +
-      data.branch + ' for ' + data.party_size + ' guests.';
+    dialogBody.textContent = language === 'vi'
+      ? data.name + ', mình đã ghi nhận yêu cầu đặt bàn tại ' + data.branch + ' cho ' + data.party_size + ' khách.'
+      : data.name + ', we’ve noted your reservation request at ' + data.branch + ' for ' + data.party_size + ' guests.';
     dialog.classList.add('open');
   });
 
