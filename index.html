@@ -199,7 +199,40 @@
 
             <sc-if value="{{ grp.isCards }}" hint-placeholder-val="{{ true }}">
               <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-4);margin-top:var(--space-4)">
-                <sc-for list="{{ grp.dishes }}" as="d" hint-placeholder-count="4">
+                <sc-for list="{{ grp.dishes }}" as="d" hint-placeholder-count="2">
+                  <div class="card elev-sm" style="opacity:0;animation:riseIn .5s ease-in-out {{ d.delay }} both;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow-md)">
+                    <sc-if value="{{ d.hasPhoto }}" hint-placeholder-val="{{ true }}">
+                      <img src="{{ d.photo }}" alt="{{ d.name }}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;display:block" class="plate">
+                    </sc-if>
+                    <sc-if value="{{ d.noPhoto }}" hint-placeholder-val="{{ false }}">
+                      <div style="width:100%;aspect-ratio:4/3;border-radius:4px;background:rgba(127,127,127,.08);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;box-sizing:border-box;font-size:13px;color:var(--color-neutral-500)">{{ d.name }}</div>
+                    </sc-if>
+                    <div class="card-title">{{ d.name }}</div>
+                    <sc-if value="{{ d.hasJp }}" hint-placeholder-val="{{ false }}">
+                      <div class="jp text-muted" style="font-size:11px;margin-top:-4px">{{ d.jp }}</div>
+                    </sc-if>
+                    <sc-if value="{{ d.hasDesc }}" hint-placeholder-val="{{ true }}">
+                      <p class="card-body">{{ d.desc }}</p>
+                    </sc-if>
+                    <div class="card-meta">{{ d.price }}</div>
+                  </div>
+                </sc-for>
+                <!-- Toppings: rendered as a grid cell (not a below-the-fold
+                     block) right after the first 2 dishes, so it lands in
+                     row 1's 3rd column slot; the remaining dishes wrap
+                     around it via normal CSS grid auto-placement. -->
+                <sc-if value="{{ grp.hasAddOns }}" hint-placeholder-val="{{ false }}">
+                  <div class="card elev-sm">
+                    <h6 style="color:var(--color-accent-700);margin:0">{{ txt.toppings }}</h6>
+                    <div class="hr" style="margin:0 0 var(--space-2)"></div>
+                    <sc-for list="{{ grp.addOns }}" as="a" hint-placeholder-count="7">
+                      <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-bottom:1px solid var(--color-divider)">
+                        <span>{{ a.name }}</span><span class="text-muted">{{ a.price }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-for list="{{ grp.dishesTail }}" as="d" hint-placeholder-count="2">
                   <div class="card elev-sm" style="opacity:0;animation:riseIn .5s ease-in-out {{ d.delay }} both;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow-md)">
                     <sc-if value="{{ d.hasPhoto }}" hint-placeholder-val="{{ true }}">
                       <img src="{{ d.photo }}" alt="{{ d.name }}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;display:block" class="plate">
@@ -218,19 +251,6 @@
                   </div>
                 </sc-for>
               </div>
-              <sc-if value="{{ grp.hasAddOns }}" hint-placeholder-val="{{ false }}">
-                <div style="margin-top:var(--space-6)">
-                  <h6 style="color:var(--color-accent-700)">{{ txt.toppings }}</h6>
-                  <div class="hr" style="margin:6px 0 var(--space-2)"></div>
-                  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:4px var(--space-4)">
-                    <sc-for list="{{ grp.addOns }}" as="a" hint-placeholder-count="7">
-                      <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-bottom:1px solid var(--color-divider)">
-                        <span>{{ a.name }}</span><span class="text-muted">{{ a.price }}</span>
-                      </div>
-                    </sc-for>
-                  </div>
-                </div>
-              </sc-if>
             </sc-if>
 
             <sc-if value="{{ grp.isList }}" hint-placeholder-val="{{ false }}">
@@ -794,6 +814,13 @@ class Component extends DCLogic {
       active: activeGroup && g.key === activeGroup.key,
       select: () => this.setState({ menuCategory: g.key }),
     }));
+    const activeGroupHasAddOns = !!(activeGroup && activeGroup.addOns && activeGroup.addOns.length);
+    const activeGroupDishes = activeGroup
+      ? (activeGroup.dishes || []).map((d, i) => {
+          const desc = localizeDesc(d);
+          return { ...d, name: localizeName(d), jp: d.nameJp || d.jp || '', hasJp: !!(d.nameJp || d.jp), desc, hasDesc: !!desc, delay: (i * 60) + 'ms', hasPhoto: !!d.photo, noPhoto: !d.photo };
+        })
+      : [];
     const activeGroupWithDelay = activeGroup
       ? {
           ...activeGroup,
@@ -801,10 +828,11 @@ class Component extends DCLogic {
           hasJp: !!activeGroup.jp,
           isCards: (activeGroup.layout || 'cards') === 'cards',
           isList: activeGroup.layout === 'list',
-          dishes: activeGroup.dishes.map((d, i) => {
-            const desc = localizeDesc(d);
-            return { ...d, name: localizeName(d), jp: d.nameJp || d.jp || '', hasJp: !!(d.nameJp || d.jp), desc, hasDesc: !!desc, delay: (i * 60) + 'ms', hasPhoto: !!d.photo, noPhoto: !d.photo };
-          }),
+          // Toppings sit in the grid itself (row 1's 3rd-column slot)
+          // rather than below it, so the dish list before it is capped at
+          // 2 — CSS grid auto-placement then wraps the rest around it.
+          dishes: activeGroupHasAddOns ? activeGroupDishes.slice(0, 2) : activeGroupDishes,
+          dishesTail: activeGroupHasAddOns ? activeGroupDishes.slice(2) : [],
           subgroups: (activeGroup.subgroups || []).map(sub => ({
             title: isVi ? (sub.titleVi || sub.title) : (sub.titleEn || sub.title),
             items: sub.items.map(it => {
@@ -816,10 +844,10 @@ class Component extends DCLogic {
               };
             }),
           })),
-          hasAddOns: !!(activeGroup.addOns && activeGroup.addOns.length),
+          hasAddOns: activeGroupHasAddOns,
           addOns: (activeGroup.addOns || []).map(a => ({ name: localizeName(a), price: a.price })),
         }
-      : { label: '', jp: '', hasJp: false, isCards: true, isList: false, dishes: [], subgroups: [], hasAddOns: false, addOns: [] };
+      : { label: '', jp: '', hasJp: false, isCards: true, isList: false, dishes: [], dishesTail: [], subgroups: [], hasAddOns: false, addOns: [] };
 
     const speed = 350;
     const style = this.props.transitionStyle || 'fade';
