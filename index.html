@@ -34,10 +34,23 @@
     }
     .marquee-track { animation: marquee 32s linear infinite; }
     .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
-    @keyframes tabFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes tabFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes tabSlideIn { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes tabScaleIn { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: scale(1); } }
     @keyframes riseIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes plateShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .photo-wrap {
+      position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 4px; overflow: hidden;
+      background: linear-gradient(100deg, rgba(127,127,127,.08) 35%, rgba(127,127,127,.16) 50%, rgba(127,127,127,.08) 65%);
+      background-size: 200% 100%;
+      animation: plateShimmer 1.4s ease-in-out infinite;
+    }
+    .photo-wrap.is-loaded { animation: none; background: none; }
+    .photo-wrap .plate {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+      opacity: 0; transition: opacity .45s ease;
+    }
+    .photo-wrap.is-loaded .plate { opacity: 1; }
   </style>
 </helmet>
 
@@ -202,7 +215,9 @@
                 <sc-for list="{{ grp.dishes }}" as="d" hint-placeholder-count="2">
                   <div class="card elev-sm" style="opacity:0;animation:riseIn .5s ease-in-out {{ d.delay }} both;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow-md)">
                     <sc-if value="{{ d.hasPhoto }}" hint-placeholder-val="{{ true }}">
-                      <img src="{{ d.photo }}" alt="{{ d.name }}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;display:block" class="plate">
+                      <div class="photo-wrap {{ d.photoWrapClass }}">
+                        <img src="{{ d.photo }}" alt="{{ d.name }}" class="plate">
+                      </div>
                     </sc-if>
                     <sc-if value="{{ d.noPhoto }}" hint-placeholder-val="{{ false }}">
                       <div style="width:100%;aspect-ratio:4/3;border-radius:4px;background:rgba(127,127,127,.08);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;box-sizing:border-box;font-size:13px;color:var(--color-neutral-500)">{{ d.name }}</div>
@@ -235,7 +250,9 @@
                 <sc-for list="{{ grp.dishesTail }}" as="d" hint-placeholder-count="2">
                   <div class="card elev-sm" style="opacity:0;animation:riseIn .5s ease-in-out {{ d.delay }} both;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow-md)">
                     <sc-if value="{{ d.hasPhoto }}" hint-placeholder-val="{{ true }}">
-                      <img src="{{ d.photo }}" alt="{{ d.name }}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;display:block" class="plate">
+                      <div class="photo-wrap {{ d.photoWrapClass }}">
+                        <img src="{{ d.photo }}" alt="{{ d.name }}" class="plate">
+                      </div>
                     </sc-if>
                     <sc-if value="{{ d.noPhoto }}" hint-placeholder-val="{{ false }}">
                       <div style="width:100%;aspect-ratio:4/3;border-radius:4px;background:rgba(127,127,127,.08);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;box-sizing:border-box;font-size:13px;color:var(--color-neutral-500)">{{ d.name }}</div>
@@ -397,8 +414,64 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;transitionStyle&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;fade&quot;, &quot;options&quot;: [&quot;fade&quot;, &quot;slide&quot;, &quot;scale&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Motion&quot;}}">
+const MUGI_TABS = ['home', 'about', 'menu', 'location', 'promotion'];
+const initialTabFromHash = () => {
+  if (typeof window === 'undefined') return 'home';
+  const h = (window.location.hash || '').replace('#', '');
+  return MUGI_TABS.includes(h) ? h : 'home';
+};
+
 class Component extends DCLogic {
-  state = { tab: 'home', menuCategory: 'ramen', menuLocation: 'golden-palace', lang: (typeof localStorage !== 'undefined' && localStorage.getItem('mugi_lang')) || 'vi' };
+  state = { tab: initialTabFromHash(), menuCategory: 'ramen', menuLocation: 'golden-palace', lang: (typeof localStorage !== 'undefined' && localStorage.getItem('mugi_lang')) || 'vi', loadedPhotos: new Set() };
+
+  // Once a dish photo has finished loading (or failed) it's remembered for
+  // the life of the page — switching categories/locations back to it skips
+  // the shimmer-in and shows the image immediately instead of re-fading it.
+  // Loading is tracked via off-DOM Image() preloads (not onLoad/onError on
+  // the template's <img>, since the raw x-dc markup is briefly parsed as
+  // literal HTML by the browser before this script hydrates it, which would
+  // fire those handlers with unresolved {{ }} bindings still in place).
+  markPhotoLoaded = (src) => {
+    if (!src || this.state.loadedPhotos.has(src)) return;
+    const next = new Set(this.state.loadedPhotos);
+    next.add(src);
+    this.setState({ loadedPhotos: next });
+  };
+
+  preloadCurrentPhotos = () => {
+    if (typeof Image === 'undefined') return;
+    if (!this._preloading) this._preloading = new Set();
+    for (const src of this._currentGroupPhotos || []) {
+      if (this.state.loadedPhotos.has(src) || this._preloading.has(src)) continue;
+      this._preloading.add(src);
+      const im = new Image();
+      im.onload = im.onerror = () => this.markPhotoLoaded(src);
+      im.src = src;
+    }
+  };
+
+  componentDidMount() {
+    if (typeof window === 'undefined') return;
+    this._onHashChange = () => {
+      const h = (window.location.hash || '').replace('#', '');
+      if (MUGI_TABS.includes(h) && h !== this.state.tab) {
+        this.setState({ tab: h });
+        window.scrollTo(0, 0);
+      }
+    };
+    window.addEventListener('hashchange', this._onHashChange);
+    this.preloadCurrentPhotos();
+  }
+
+  componentDidUpdate() {
+    this.preloadCurrentPhotos();
+  }
+
+  componentWillUnmount() {
+    if (typeof window !== 'undefined' && this._onHashChange) {
+      window.removeEventListener('hashchange', this._onHashChange);
+    }
+  }
 
   menuLocations = [
     { key: 'golden-palace', label: 'Golden Palace, Mễ Trì' },
@@ -782,7 +855,18 @@ class Component extends DCLogic {
     const lang = this.state.lang;
     const isVi = lang === 'vi';
     const t = (en, vi) => isVi ? vi : en;
-    const setTab = (t2) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ tab: t2 }); window.scrollTo(0, 0); };
+    const setTab = (t2) => (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState({ tab: t2 });
+      if (typeof window !== 'undefined') {
+        if (t2 === 'home') {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        } else if (window.location.hash !== '#' + t2) {
+          window.location.hash = t2;
+        }
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    };
     const setLang = (l) => () => { if (typeof localStorage !== 'undefined') localStorage.setItem('mugi_lang', l); this.setState({ lang: l }); };
     const tabs = [
       { key: 'home', label: t('Home', 'Trang Chủ') }, { key: 'about', label: t('About', 'Giới Thiệu') }, { key: 'menu', label: 'Menu' },
@@ -818,9 +902,15 @@ class Component extends DCLogic {
     const activeGroupDishes = activeGroup
       ? (activeGroup.dishes || []).map((d, i) => {
           const desc = localizeDesc(d);
-          return { ...d, name: localizeName(d), jp: d.nameJp || d.jp || '', hasJp: !!(d.nameJp || d.jp), desc, hasDesc: !!desc, delay: (i * 60) + 'ms', hasPhoto: !!d.photo, noPhoto: !d.photo };
+          const photoLoaded = !!d.photo && this.state.loadedPhotos.has(d.photo);
+          return {
+            ...d, name: localizeName(d), jp: d.nameJp || d.jp || '', hasJp: !!(d.nameJp || d.jp), desc, hasDesc: !!desc,
+            delay: (i * 60) + 'ms', hasPhoto: !!d.photo, noPhoto: !d.photo,
+            photoWrapClass: photoLoaded ? 'is-loaded' : '',
+          };
         })
       : [];
+    this._currentGroupPhotos = activeGroupDishes.filter(d => d.hasPhoto).map(d => d.photo);
     const activeGroupWithDelay = activeGroup
       ? {
           ...activeGroup,
@@ -849,7 +939,7 @@ class Component extends DCLogic {
         }
       : { label: '', jp: '', hasJp: false, isCards: true, isList: false, dishes: [], dishesTail: [], subgroups: [], hasAddOns: false, addOns: [] };
 
-    const speed = 350;
+    const speed = 420;
     const style = this.props.transitionStyle || 'fade';
     const animName = style === 'slide' ? 'tabSlideIn' : style === 'scale' ? 'tabScaleIn' : 'tabFadeIn';
     const tabAnim = `animation:${animName} ${speed}ms cubic-bezier(.4,0,.2,1) both`;
