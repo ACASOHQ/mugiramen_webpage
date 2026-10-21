@@ -76,7 +76,6 @@
       .r-title { font-size: 32px !important; }
       .r-hero { height: auto !important; min-height: 520px !important; }
       .r-details { width: auto !important; height: auto !important; padding-left: 0 !important; }
-      .r-photos { width: 100% !important; max-width: 320px; }
       .r-loc-title { padding-left: 0 !important; font-size: 30px !important; white-space: normal !important; }
       .r-loc-wrap { padding-left: var(--space-4) !important; padding-right: var(--space-4) !important; }
       .r-foot { grid-template-columns: minmax(0, 1fr) !important; gap: var(--space-6) !important; }
@@ -111,17 +110,7 @@
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <div style="{{ tabAnim }}">
       <!-- HERO -->
-      <div class="r-hero" style="position:relative;height:88vh;min-height:560px;overflow:hidden;background:radial-gradient(ellipse at center 40%, var(--color-neutral-800), var(--color-neutral-900) 75%)">
-        <div style="position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:360px;height:360px">
-          <div style="position:absolute;left:38%;bottom:64%;width:16px;height:70px;background:color-mix(in srgb, #fff 70%, transparent);filter:blur(9px);border-radius:50%;animation:steamRise 4.5s ease-in-out infinite"></div>
-          <div style="position:absolute;left:52%;bottom:66%;width:14px;height:60px;background:color-mix(in srgb, #fff 60%, transparent);filter:blur(8px);border-radius:50%;animation:steamRise 4.5s ease-in-out infinite 1.5s"></div>
-          <div style="position:absolute;left:46%;bottom:63%;width:12px;height:50px;background:color-mix(in srgb, #fff 55%, transparent);filter:blur(7px);border-radius:50%;animation:steamRise 4.5s ease-in-out infinite 3s"></div>
-          <div style="position:absolute;left:8%;bottom:8%;width:84%;height:150px;border-radius:0 0 170px 170px;background:linear-gradient(180deg, var(--color-accent-700), var(--color-neutral-800));box-shadow:var(--shadow-lg)"></div>
-          <div style="position:absolute;left:14%;bottom:52%;width:72%;height:40px;border-radius:50%;background:linear-gradient(180deg, var(--color-accent-500), var(--color-accent-700))"></div>
-          <div style="position:absolute;left:20%;bottom:56%;width:60%;height:16px;border-radius:50%;background:var(--color-neutral-900);opacity:.35"></div>
-          <div style="position:absolute;right:6%;bottom:40%;width:5px;height:150px;background:var(--color-accent-300);transform:rotate(18deg);border-radius:3px"></div>
-          <div style="position:absolute;right:12%;bottom:40%;width:5px;height:150px;background:var(--color-accent-300);transform:rotate(10deg);border-radius:3px"></div>
-        </div>
+      <div class="r-hero" style="position:relative;height:88vh;min-height:560px;overflow:hidden;background:linear-gradient(rgba(25,23,23,.62), rgba(25,23,23,.74)), url('assets/photos/space-entrance.jpg') center/cover no-repeat">
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;animation:heroFade 1.2s ease both .3s">
           <div class="jp" style="color:var(--color-accent-300);font-size:20px;letter-spacing:.2em;margin-bottom:var(--space-2)">麦 らーめん・居酒屋</div>
           <img src="assets/mugi-logo-full-dark.svg" alt="Mugi" style="width:320px;height:auto;margin:0;display:block">
@@ -351,9 +340,9 @@
 
         <div class="r-loc-wrap" style="max-width:1080px;margin:0 auto;padding:var(--space-8) var(--space-8) calc(var(--space-8) * 1.6)">
 
-            <h3 class="r-loc-title" style="margin: 0 0 var(--space-4); font-size: 40px; font-weight: 700; text-align: left; padding-left: var(--space-8); white-space: nowrap">{{ loc.short }}</h3><div class="r-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:start">
+            <h3 class="r-loc-title" style="margin: 0 0 var(--space-4); font-size: 40px; font-weight: 700; text-align: left; padding-left: var(--space-8); white-space: nowrap">{{ loc.short }}</h3><div class="r-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:center">
               <!-- Details -->
-              <div class="r-details" style="min-width: 0; padding-left: var(--space-8); width: 465px; height: 339px">
+              <div class="r-details" style="min-width: 0; padding-left: var(--space-8); width: 465px">
                 <p style="font-size: 16px; line-height: 1.7; overflow-wrap: break-word; margin: 0 0 var(--space-3); text-align: left">{{ loc.addressLine1 }}<br>{{ loc.addressLine2 }}</p>
                 <div class="hr" style="margin:var(--space-3) 0"></div>
                 <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 28px;font-size:15px;margin-bottom:var(--space-3)">
@@ -365,15 +354,8 @@
                   <a class="btn btn-primary" href="{{ loc.reserveUrl }}">{{ txt.reserve }}</a>
                   <a class="btn btn-secondary" href="{{ loc.tel }}">{{ loc.phone }}</a>
                   <a class="btn btn-secondary" href="{{ loc.mapUrl }}" target="_blank" rel="noopener">{{ txt.openInMaps }}</a>
-                  <a class="btn btn-ghost" href="#" onClick="{{ loc.goMenu }}" style="cursor:pointer">{{ txt.menuHere }}</a>
                 </div>
-              </div><div class="r-photos" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);width:320px;margin:0 auto">
-
-                <img class="ph" src="{{ loc.photoA }}" alt="" loading="lazy" style="width:154px;aspect-ratio:1/1;height:153px;object-position:center">
-                <img class="ph" src="{{ loc.photoB }}" alt="" loading="lazy" style="width:100%;aspect-ratio:1/1">
-                <img class="ph" src="{{ loc.photoC }}" alt="" loading="lazy" style="width:100%;aspect-ratio:1/1">
-                <img class="ph" src="{{ loc.photoD }}" alt="" loading="lazy" style="width:100%;aspect-ratio:1/1">
-              </div>
+              </div><img class="ph" src="{{ loc.photo }}" alt="{{ loc.short }}" loading="lazy" style="width:100%;max-width:460px;aspect-ratio:4/3;margin:0 auto">
               <!-- 2×2 photo grid -->
 
             </div>
@@ -1104,8 +1086,7 @@ class Component extends DCLogic {
         // reservation.html preselects the branch from ?branch=
         reserveUrl: 'reservation.html?branch=' + encodeURIComponent(l.short),
         // Same interior shots for every branch until per-branch photos exist.
-        photoA: 'assets/photos/space-counter-sake.jpg', photoB: 'assets/photos/ramen-toku-tonkotsu-shoyu.jpg',
-        photoC: 'assets/photos/space-entrance.jpg', photoD: 'assets/photos/space-counter-kitchen.jpg',
+        photo: 'assets/photos/space-counter-sake.jpg',
         mapSrc: 'https://maps.google.com/maps?q=' + mapQueries[l.slug] + '+Vietnam&output=embed',
       }));
     }
