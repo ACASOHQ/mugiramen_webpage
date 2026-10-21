@@ -142,7 +142,7 @@
       <sc-for list="{{ spotlights }}" as="sp" hint-placeholder-count="3">
         <div data-reveal="" class="r-grid" style="max-width:1100px;margin:0 auto;padding:var(--space-8) var(--space-4);display:grid;grid-template-columns:{{ sp.gridCols }};gap:var(--space-8);align-items:center;transition:opacity .85s ease,transform .85s ease">
           <sc-if value="{{ sp.showImgFirst }}" hint-placeholder-val="{{ true }}">
-            <img class="ph r-img" src="{{ sp.photo }}" alt="{{ sp.kicker }}" loading="lazy" style="width:100%;aspect-ratio:3/2;object-position:{{ sp.pos }}">
+            <img class="ph r-img" src="{{ sp.photo }}" alt="{{ sp.kicker }}" loading="lazy" style="width:100%;max-width:400px;margin:0 auto;aspect-ratio:3/2;object-position:{{ sp.pos }}">
           </sc-if>
           <div>
             <div style="display:flex;align-items:baseline;gap:var(--space-3);margin-bottom:var(--space-3)">
@@ -153,7 +153,7 @@
             <p style="font-size:16px;line-height:1.75">{{ sp.body }}</p>
           </div>
           <sc-if value="{{ sp.showImgLast }}" hint-placeholder-val="{{ false }}">
-            <img class="ph r-img" src="{{ sp.photo }}" alt="{{ sp.kicker }}" loading="lazy" style="width:100%;aspect-ratio:3/2;object-position:{{ sp.pos }}">
+            <img class="ph r-img" src="{{ sp.photo }}" alt="{{ sp.kicker }}" loading="lazy" style="width:100%;max-width:400px;margin:0 auto;aspect-ratio:3/2;object-position:{{ sp.pos }}">
           </sc-if>
         </div>
         <div style="height:1px;background:var(--color-divider);max-width:1100px;margin:0 auto"></div>
@@ -356,15 +356,12 @@
                   <a class="btn btn-secondary" href="{{ loc.tel }}">{{ loc.phone }}</a>
                   <a class="btn btn-secondary" href="{{ loc.mapUrl }}" target="_blank" rel="noopener">{{ txt.openInMaps }}</a>
                 </div>
-              </div><img class="ph" src="{{ loc.photo }}" alt="{{ loc.short }}" loading="lazy" style="width:100%;max-width:460px;aspect-ratio:4/3;margin:0 auto">
+              </div><img class="ph" src="{{ loc.photo }}" alt="{{ loc.short }}" loading="lazy" style="width:100%;max-width:340px;aspect-ratio:4/3;margin:0 auto">
               <!-- 2×2 photo grid -->
 
             </div>
           </div></div>
       </sc-for>
-      <div style="text-align:center;padding:var(--space-6) var(--space-4) var(--space-8)">
-        <a class="btn btn-primary" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook</a>
-      </div>
     </div>
   </sc-if>
 
@@ -957,7 +954,7 @@ class Component extends DCLogic {
       { key: 'menu', label: t('Menu', 'Thực Đơn', 'メニュー') },
       { key: 'promotion', label: t('News & Offers', 'Tin Tức & Ưu Đãi', 'お知らせ') },
       { key: 'careers', label: t('Careers', 'Tuyển Dụng', '採用情報') },
-      { key: 'location', label: t('Restaurants & Contact', 'Nhà Hàng & Liên Hệ', '店舗・お問い合わせ') },
+      { key: 'location', label: t('Contact', 'Liên Hệ', 'お問い合わせ') },
     ].map(tb => ({ label: tb.label, current: tab === tb.key ? 'page' : undefined, select: setTab(tb.key) }));
     const langOpts = [['vi', 'VI'], ['en', 'EN'], ['ja', 'JA']].map(([l, label]) => ({
       key: l, label, select: setLang(l),
@@ -1091,7 +1088,7 @@ class Component extends DCLogic {
         reserve: t('Reserve a Table', 'Đặt Bàn', '席を予約'),
         heroDesc: t('Japanese ramen & izakaya in Hanoi', 'Ramen & izakaya Nhật Bản tại Hà Nội', 'ハノイの日本式ラーメン＆居酒屋'),
         aboutHeading: t('About MUGI', 'Về MUGI', 'MUGIについて'),
-        aboutBody: t('MUGI (麦) means wheat in Japanese. We serve ramen and izakaya dishes at three restaurants in Hanoi.', 'MUGI (麦) nghĩa là lúa mạch trong tiếng Nhật. Chúng tôi phục vụ ramen và các món izakaya tại ba nhà hàng ở Hà Nội.', 'MUGI（麦）は日本語で「麦」の意味。ハノイの3店舗で、ラーメンと居酒屋料理をご提供しています。'),
+        aboutBody: t('MUGI (麦) means wheat in Japanese. We serve ramen and izakaya dishes at three restaurants in Hanoi: Mon City, Golden Palace and Phan Chu Trinh. The menu covers ramen, sashimi, sushi, grilled and fried dishes, rice and udon, with sake, cocktails and beer.', 'MUGI (麦) nghĩa là lúa mạch trong tiếng Nhật. Chúng tôi phục vụ ramen và các món izakaya tại ba nhà hàng ở Hà Nội: Mon City, Golden Palace và Phan Chu Trinh. Thực đơn gồm ramen, sashimi, sushi, đồ nướng, đồ chiên, cơm và udon, kèm sake, cocktail và bia.', 'MUGI（麦）は日本語で「麦」の意味。ハノイのMon City、Golden Palace、Phan Chu Trinhの3店舗で、ラーメンと居酒屋料理をご提供しています。ラーメン、刺身、寿司、焼き物、揚げ物、ご飯もの、うどん、そして日本酒、カクテル、ビールをお楽しみいただけます。'),
         readStory: t('Read more →', 'Xem thêm →', '詳しく →'),
         ourStory: t('About MUGI', 'Giới Thiệu MUGI', 'MUGIについて'),
         specialsHeading: t('Featured', 'Món nổi bật', 'おすすめ'),
