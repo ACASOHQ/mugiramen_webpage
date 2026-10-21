@@ -331,7 +331,7 @@
       <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
         <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">場所</div>
         <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2); font-weight: 700">{{ txt.findUs }}</h1>
-        <p style="color:var(--color-neutral-400);font-size:14px;margin-top:var(--space-1)">{{ txt.threeLocations }}</p>
+        <p style="color:var(--color-neutral-400);font-size:14px;margin-top:var(--space-1)">{{ txt.contactSub }}</p>
       </div>
 
       <!-- Branch sections -->
@@ -340,9 +340,10 @@
 
         <div class="r-loc-wrap" style="max-width:1080px;margin:0 auto;padding:var(--space-8) var(--space-8) calc(var(--space-8) * 1.6)">
 
-            <h3 class="r-loc-title" style="margin: 0 0 var(--space-4); font-size: 40px; font-weight: 700; text-align: left; padding-left: var(--space-8); white-space: nowrap">{{ loc.short }}</h3><div class="r-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:center">
+            <div class="r-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:center">
               <!-- Details -->
               <div class="r-details" style="min-width: 0; padding-left: var(--space-8); width: 465px">
+                <h3 class="r-loc-title" style="margin: 0 0 var(--space-4); font-size: 40px; font-weight: 700; text-align: left; padding-left: 0; white-space: nowrap">{{ loc.short }}</h3>
                 <p style="font-size: 16px; line-height: 1.7; overflow-wrap: break-word; margin: 0 0 var(--space-3); text-align: left">{{ loc.addressLine1 }}<br>{{ loc.addressLine2 }}</p>
                 <div class="hr" style="margin:var(--space-3) 0"></div>
                 <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 28px;font-size:15px;margin-bottom:var(--space-3)">
@@ -361,6 +362,9 @@
             </div>
           </div></div>
       </sc-for>
+      <div style="text-align:center;padding:var(--space-6) var(--space-4) var(--space-8)">
+        <a class="btn btn-primary" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook</a>
+      </div>
     </div>
   </sc-if>
 
@@ -409,38 +413,9 @@
         <sc-if value="{{ noJobs }}" hint-placeholder-val="{{ true }}">
           <div class="card elev-md" style="padding:var(--space-6);text-align:center">
             <p style="margin:0 0 var(--space-3);font-size:15px;line-height:1.7">{{ txt.careersEmpty }}</p>
-            <a class="btn btn-primary" onClick="{{ goContact }}" style="cursor:pointer">{{ txt.contactTitle }}</a>
+            <a class="btn btn-primary" onClick="{{ goLocation }}" style="cursor:pointer">{{ txt.contactTitle }}</a>
           </div>
         </sc-if>
-      </div>
-    </div>
-  </sc-if>
-
-  <!-- CONTACT TAB -->
-  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
-    <div style="{{ tabAnim }}">
-      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
-        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">お問い合わせ</div>
-        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.contactTitle }}</h1>
-        <p style="color:var(--color-neutral-400);font-size:14px;margin-top:var(--space-1)">{{ txt.contactSub }}</p>
-      </div>
-      <div style="max-width:1040px;margin:0 auto;padding:var(--space-8) var(--space-4)">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:var(--space-4)">
-          <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
-            <div class="card elev-sm">
-              <div class="card-title">{{ loc.short }}</div>
-              <p class="card-body">{{ loc.addressLine1 }} {{ loc.addressLine2 }}</p>
-              <a href="{{ loc.tel }}" style="font-size:18px;font-family:var(--font-heading)">{{ loc.phone }}</a>
-              <div class="mugi-btn-row" style="margin-top:var(--space-2)">
-                <a class="btn btn-primary" href="{{ loc.reserveUrl }}">{{ txt.reserve }}</a>
-                <a class="btn btn-secondary" href="{{ loc.mapUrl }}" target="_blank" rel="noopener">{{ txt.openInMaps }}</a>
-              </div>
-            </div>
-          </sc-for>
-        </div>
-        <div style="text-align:center;margin-top:var(--space-6)">
-          <a class="btn btn-primary" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook</a>
-        </div>
       </div>
     </div>
   </sc-if>
@@ -480,7 +455,7 @@
 
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;transitionStyle&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;fade&quot;, &quot;options&quot;: [&quot;fade&quot;, &quot;slide&quot;, &quot;scale&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Motion&quot;}}">
-const MUGI_TABS = ['home', 'about', 'menu', 'location', 'promotion', 'careers', 'contact'];
+const MUGI_TABS = ['home', 'about', 'menu', 'promotion', 'careers', 'location'];
 const MUGI_LANGS = ['vi', 'en', 'ja'];
 // Language: ?lang= in the URL wins (shareable per-language links), then the
 // remembered choice, then Vietnamese.
@@ -495,7 +470,8 @@ const initialLang = () => {
 };
 const initialTabFromHash = () => {
   if (typeof window === 'undefined') return 'home';
-  const h = (window.location.hash || '').replace('#', '');
+  let h = (window.location.hash || '').replace('#', '');
+  if (h === 'contact') h = 'location'; // Contact now lives on the Restaurants page
   return MUGI_TABS.includes(h) ? h : 'home';
 };
 
@@ -979,10 +955,9 @@ class Component extends DCLogic {
       { key: 'home', label: t('Home', 'Trang Chủ', 'ホーム') },
       { key: 'about', label: t('About', 'Giới Thiệu', '私たちについて') },
       { key: 'menu', label: t('Menu', 'Thực Đơn', 'メニュー') },
-      { key: 'location', label: t('Restaurants', 'Nhà Hàng', '店舗') },
       { key: 'promotion', label: t('News & Offers', 'Tin Tức & Ưu Đãi', 'お知らせ') },
       { key: 'careers', label: t('Careers', 'Tuyển Dụng', '採用情報') },
-      { key: 'contact', label: t('Contact', 'Liên Hệ', 'お問い合わせ') },
+      { key: 'location', label: t('Restaurants & Contact', 'Nhà Hàng & Liên Hệ', '店舗・お問い合わせ') },
     ].map(tb => ({ label: tb.label, current: tab === tb.key ? 'page' : undefined, select: setTab(tb.key) }));
     const langOpts = [['vi', 'VI'], ['en', 'EN'], ['ja', 'JA']].map(([l, label]) => ({
       key: l, label, select: setLang(l),
@@ -1104,8 +1079,8 @@ class Component extends DCLogic {
 
     return {
       tabs, langOpts, isHome: tab === 'home', isAbout: tab === 'about', isMenu: tab === 'menu',
-      isLocation: tab === 'location', isPromo: tab === 'promotion', isCareers: tab === 'careers', isContact: tab === 'contact',
-      goAbout: setTab('about'), goMenu: setTab('menu'), goLocation: setTab('location'), goContact: setTab('contact'),
+      isLocation: tab === 'location', isPromo: tab === 'promotion', isCareers: tab === 'careers',
+      goAbout: setTab('about'), goMenu: setTab('menu'), goLocation: setTab('location'),
       storySteps,
       categories, activeCategoryGroups: [activeGroupWithDelay],
       menuLocationOpts,
@@ -1128,7 +1103,7 @@ class Component extends DCLogic {
         seeMenu: t('See the menu →', 'Xem thực đơn →', 'メニューを見る →'),
         fromKitchen: t('FROM THE KITCHEN', 'TỪ NHÀ BẾP', 'キッチンから'),
         viewMenuArrow: t('View menu →', 'Xem thực đơn →', 'メニューを見る →'),
-        findUs: t('Find Us', 'Tìm Chúng Tôi', '店舗'),
+        findUs: t('Restaurants & Contact', 'Nhà Hàng & Liên Hệ', '店舗・お問い合わせ'),
         threeLocations: t('Three locations in Hanoi', 'Ba địa điểm tại Hà Nội', 'ハノイの3店舗'),
         lunch: t('Lunch', 'Trưa', 'ランチ'), dinner: t('Dinner', 'Tối', 'ディナー'),
         openInMaps: t('Open in Maps', 'Xem Trên Bản Đồ', '地図を開く'),
