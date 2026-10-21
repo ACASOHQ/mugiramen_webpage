@@ -9,7 +9,7 @@ Source: `WEBSITE Mugi .docx`. The brief's two images (a "Kurofude" layout and a 
 | About MUGI | Partial | Short factual copy only. **Needs the real founding story, philosophy and values from MUGI** |
 | Menu: groups, photo, name, description, price, per-branch menus | Done | 3 branch menus; "Featured" tag added (4 dishes, my pick, please confirm). 3 dishes still lack photos (see `menus/photo-matching.md`) |
 | Menu seasonal flag | Missing | Add a `seasonal` flag when there is a seasonal dish |
-| Branch pages (address, phone, hours, photos, Maps, menu, reserve) | Done, no photos | One section per branch with Maps embed, menu link and prefilled reserve link. **No interior/storefront photos exist**, so none are shown |
+| Branch pages (address, phone, hours, photos, Maps, menu, reserve) | Done, no photos | One section per branch with Maps embed, menu link and prefilled reserve link. Interior photos (`pic_2`, `pic_3`, `store_front`) are used on the About page only; it is unknown which branch each shows, so none are tied to a branch. Per-branch photos are still needed |
 | Reservation form | Prototype | UI works, prefilled by branch. **Not connected to any backend** (shows a demo notice): no staff notification, status tracking or storage |
 | News & offers | Structure only | Data-driven list with empty state. Old invented promos were removed |
 | Careers | Structure only | Same; needs real job posts |
@@ -29,3 +29,5 @@ Opening hours (10:30–14:00 / 17:00–22:00, same at all branches).
 
 ## Needed from MUGI
 Real story and values, interior/storefront/team photos, news and job posts, Zalo link, booking backend decision, confirmation of featured dishes and hours.
+
+Facebook page could not be read (login wall), so nothing was verified from it. The 'counter seats, open kitchen' line comes from the photos.
