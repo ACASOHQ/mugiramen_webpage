@@ -28,6 +28,22 @@
     a { color: var(--color-accent-700); }
     a:hover { color: var(--color-accent-800); }
     .jp { font-family: "Noto Serif JP", var(--font-heading), serif; }
+    @keyframes steamRise {
+      0% { opacity: 0; transform: translateY(0) scaleX(1); }
+      25% { opacity: .55; }
+      80% { opacity: .15; }
+      100% { opacity: 0; transform: translateY(-130px) scaleX(1.4); }
+    }
+    @keyframes heroFade {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .marquee-track { animation: marquee 32s linear infinite; }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
     @keyframes tabFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes tabSlideIn { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes tabScaleIn { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: scale(1); } }
@@ -45,44 +61,27 @@
       opacity: 0; transition: opacity .45s ease;
     }
     .photo-wrap.is-loaded .plate { opacity: 1; }
-
-    /* — layout (mobile-first: single column, widened at 761px+) — */
-    .wrap { max-width: 1100px; margin: 0 auto; padding: var(--space-6) var(--space-4); }
-    .narrow { max-width: 760px; }
-    .page-head { background: var(--color-neutral-900); color: var(--color-neutral-100); padding: var(--space-6) var(--space-4); text-align: center; }
-    .page-head h1 { color: var(--color-neutral-100); font-size: 34px; margin: 0; }
-    .page-head p { color: var(--color-neutral-300); font-size: 14px; margin: var(--space-2) 0 0; }
-    .ph { width: 100%; display: block; object-fit: cover; border-radius: 4px; }
-    .g-hero, .g-split, .g-loc { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); align-items: center; }
-    .g-loc { align-items: start; }
-    .g-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
-    .cta { display: flex; gap: var(--space-2); flex-wrap: wrap; }
-    .btn-solid { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-neutral-900); }
-    .btn-solid:hover { background: var(--color-accent-400); }
-    .btn-light { color: var(--color-neutral-100); border-color: var(--color-neutral-600); }
-    .hr-row { display: grid; grid-template-columns: auto 1fr; gap: 6px 24px; font-size: 15px; }
-    .lbl { color: var(--color-neutral-500); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
-    .mugi-nav { flex-wrap: wrap; row-gap: var(--space-2); }
-    .mugi-links { display: flex; gap: var(--space-3); order: 3; width: 100%; overflow-x: auto; white-space: nowrap; padding-bottom: 2px; }
-    .mugi-links a { padding: 4px 0; }
-    .foot-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
-    .foot-branches { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
-    .sp-img { order: -1; }
-    @media (min-width: 761px) {
-      .wrap { padding: var(--space-8) var(--space-4); }
-      .page-head { padding: var(--space-8) var(--space-4); }
-      .page-head h1 { font-size: 46px; }
-      .g-hero { grid-template-columns: 1.15fr 1fr; gap: var(--space-8); }
-      .g-split { grid-template-columns: var(--cols, 1fr 1.1fr); gap: var(--space-8); }
-      .g-loc { grid-template-columns: 1fr 1fr; gap: var(--space-8); }
-      .g-cards { grid-template-columns: repeat(3, 1fr); }
-      .foot-grid { grid-template-columns: 1fr 1.6fr; gap: calc(var(--space-8) * 2); }
-      .foot-branches { grid-template-columns: repeat(3, 1fr); }
-      .sp-img { order: 0; }
+    .ph { display: block; object-fit: cover; border-radius: 4px; }
+    .mugi-links { display: contents; }
+    .mugi-btn-row { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+    /* Phones/tablets only: the desktop layout above is unchanged. */
+    @media (max-width: 1180px) {
+      .mugi-nav { flex-wrap: wrap; row-gap: var(--space-2); }
+      .mugi-links { display: flex; gap: var(--space-3); order: 3; width: 100%; overflow-x: auto; white-space: nowrap; }
     }
-    @media (min-width: 1181px) {
-      .mugi-nav { flex-wrap: nowrap; }
-      .mugi-links { order: 0; width: auto; overflow: visible; }
+    @media (max-width: 760px) {
+      .r-grid { grid-template-columns: minmax(0, 1fr) !important; gap: var(--space-4) !important; }
+      .r-grid .r-img { order: -1; }
+      .r-pad { padding-left: var(--space-4) !important; padding-right: var(--space-4) !important; }
+      .r-title { font-size: 32px !important; }
+      .r-hero { height: auto !important; min-height: 520px !important; }
+      .r-details { width: auto !important; height: auto !important; padding-left: 0 !important; }
+      .r-photos { width: 100% !important; max-width: 320px; }
+      .r-loc-title { padding-left: 0 !important; font-size: 30px !important; white-space: normal !important; }
+      .r-loc-wrap { padding-left: var(--space-4) !important; padding-right: var(--space-4) !important; }
+      .r-foot { grid-template-columns: minmax(0, 1fr) !important; gap: var(--space-6) !important; }
+      .r-foot-cols { grid-template-columns: minmax(0, 1fr) !important; }
+      .r-foot-brand img { display: none; }
     }
   </style>
 </helmet>
@@ -105,98 +104,112 @@
         <a href="#" onClick="{{ t.select }}" aria-current="{{ t.current }}" style="cursor:pointer">{{ t.label }}</a>
       </sc-for>
     </div>
-    <a class="btn btn-primary" href="reservation.html">{{ txt.reserve }}</a>
+    <a class="btn btn-primary" href="reservation.html" style="margin-left:var(--space-2)">{{ txt.reserve }}</a>
   </div>
 
   <!-- HOME TAB -->
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <div style="{{ tabAnim }}">
       <!-- HERO -->
-      <div style="background:radial-gradient(ellipse at 30% 40%, var(--color-neutral-800), var(--color-neutral-900) 75%)">
-        <div class="wrap g-hero">
-          <div>
-            <img src="assets/mugi-logo-full-dark.svg" alt="Mugi" style="width:min(320px,80%);height:auto;margin:0 0 var(--space-3);display:block">
-            <p style="color:var(--color-neutral-300);font-size:18px;margin:0 0 var(--space-4);max-width:420px">{{ txt.heroDesc }}</p>
-            <div class="cta">
-              <a class="btn btn-solid" href="reservation.html">{{ txt.reserve }}</a>
-              <a class="btn btn-light" href="#" onClick="{{ goMenu }}" style="cursor:pointer;color:var(--color-neutral-100)">{{ txt.viewMenu }}</a>
-            </div>
-          </div>
-          <img class="ph" src="assets/photos/ramen-toku-miso.jpg" alt="Tokusei Miso Ramen" style="aspect-ratio:4/3;object-position:center 45%">
+      <div class="r-hero" style="position:relative;height:88vh;min-height:560px;overflow:hidden;background:radial-gradient(ellipse at center 40%, var(--color-neutral-800), var(--color-neutral-900) 75%)">
+        <div style="position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:360px;height:360px">
+          <div style="position:absolute;left:38%;bottom:64%;width:16px;height:70px;background:color-mix(in srgb, #fff 70%, transparent);filter:blur(9px);border-radius:50%;animation:steamRise 4.5s ease-in-out infinite"></div>
+          <div style="position:absolute;left:52%;bottom:66%;width:14px;height:60px;background:color-mix(in srgb, #fff 60%, transparent);filter:blur(8px);border-radius:50%;animation:steamRise 4.5s ease-in-out infinite 1.5s"></div>
+          <div style="position:absolute;left:46%;bottom:63%;width:12px;height:50px;background:color-mix(in srgb, #fff 55%, transparent);filter:blur(7px);border-radius:50%;animation:steamRise 4.5s ease-in-out infinite 3s"></div>
+          <div style="position:absolute;left:8%;bottom:8%;width:84%;height:150px;border-radius:0 0 170px 170px;background:linear-gradient(180deg, var(--color-accent-700), var(--color-neutral-800));box-shadow:var(--shadow-lg)"></div>
+          <div style="position:absolute;left:14%;bottom:52%;width:72%;height:40px;border-radius:50%;background:linear-gradient(180deg, var(--color-accent-500), var(--color-accent-700))"></div>
+          <div style="position:absolute;left:20%;bottom:56%;width:60%;height:16px;border-radius:50%;background:var(--color-neutral-900);opacity:.35"></div>
+          <div style="position:absolute;right:6%;bottom:40%;width:5px;height:150px;background:var(--color-accent-300);transform:rotate(18deg);border-radius:3px"></div>
+          <div style="position:absolute;right:12%;bottom:40%;width:5px;height:150px;background:var(--color-accent-300);transform:rotate(10deg);border-radius:3px"></div>
+        </div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;animation:heroFade 1.2s ease both .3s">
+          <div class="jp" style="color:var(--color-accent-300);font-size:20px;letter-spacing:.2em;margin-bottom:var(--space-2)">麦 らーめん・居酒屋</div>
+          <img src="assets/mugi-logo-full-dark.svg" alt="Mugi" style="width:320px;height:auto;margin:0;display:block">
+          <p style="color:var(--color-neutral-300);font-size:18px;margin-top:var(--space-2);max-width:460px">{{ txt.heroDesc }}</p>
         </div>
       </div>
 
-      <!-- SHORT ABOUT -->
-      <div class="wrap narrow" style="text-align:center">
-        <h6 style="color:var(--color-accent-700)">{{ txt.aboutHeading }}</h6>
-        <p style="font-size:17px;line-height:1.7;margin:0 0 var(--space-2)">{{ txt.aboutBody }}</p>
-        <a class="btn btn-ghost" href="#" onClick="{{ goAbout }}" style="cursor:pointer">{{ txt.readMore }}</a>
+      <!-- SHORT ABOUT + SPECIALS + SOCIAL -->
+      <div style="max-width:920px;margin:0 auto;padding:var(--space-8) var(--space-4)">
+        <div class="r-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:start">
+          <div>
+            <h6 style="color:var(--color-accent-700)">{{ txt.aboutHeading }}</h6>
+            <p style="font-size:16px;line-height:1.7">{{ txt.aboutBody }}</p>
+            <a class="btn btn-ghost" onClick="{{ goAbout }}" style="cursor:pointer;padding-left:0">{{ txt.readStory }}</a>
+          </div>
+          <div>
+            <h6 style="color:var(--color-accent-700)">{{ txt.specialsHeading }}</h6>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <div class="card"><span class="card-kicker">{{ txt.signatureTag }}</span><div class="card-title">{{ txt.specialName1 }}</div><p class="card-body">{{ txt.specialDesc1 }}</p></div>
+              <div class="card"><span class="card-kicker">{{ txt.izakayaTag }}</span><div class="card-title">{{ txt.specialName2 }}</div><p class="card-body">{{ txt.specialDesc2 }}</p></div>
+            </div>
+            <a class="btn btn-ghost" onClick="{{ goMenu }}" style="cursor:pointer;padding-left:0;margin-top:var(--space-2)">{{ txt.seeMenu }}</a>
+          </div>
+        </div>
       </div>
-      <div style="height:1px;background:var(--color-divider);max-width:1100px;margin:0 auto"></div>
+      <div style="height:3px;background:linear-gradient(90deg, var(--color-accent-700), var(--color-accent-400), var(--color-accent-700));opacity:.35"></div>
 
-      <!-- FEATURED -->
+      <!-- SIGNATURE SPOTLIGHTS -->
       <sc-for list="{{ spotlights }}" as="sp" hint-placeholder-count="3">
-        <div class="wrap g-split" style="--cols:{{ sp.gridCols }}">
+        <div data-reveal="" class="r-grid" style="max-width:1100px;margin:0 auto;padding:var(--space-8) var(--space-4);display:grid;grid-template-columns:{{ sp.gridCols }};gap:var(--space-8);align-items:center;transition:opacity .85s ease,transform .85s ease">
           <sc-if value="{{ sp.showImgFirst }}" hint-placeholder-val="{{ true }}">
-            <img class="ph sp-img" src="{{ sp.photo }}" alt="{{ sp.kicker }}" loading="lazy" style="aspect-ratio:3/2;object-position:{{ sp.pos }}">
+            <img class="ph r-img" src="{{ sp.photo }}" alt="{{ sp.kicker }}" loading="lazy" style="width:100%;aspect-ratio:3/2;object-position:{{ sp.pos }}">
           </sc-if>
           <div>
-            <div style="display:flex;align-items:baseline;gap:var(--space-3);margin-bottom:var(--space-2)">
-              <span style="font-family:var(--font-heading);font-size:56px;line-height:1;color:var(--color-accent);opacity:.18;user-select:none">{{ sp.num }}</span>
+            <div style="display:flex;align-items:baseline;gap:var(--space-3);margin-bottom:var(--space-3)">
+              <span style="font-family:var(--font-heading);font-size:64px;line-height:1;color:var(--color-accent);opacity:.18;user-select:none">{{ sp.num }}</span>
               <h6 style="color:var(--color-accent-700);margin:0">{{ sp.kicker }}</h6>
             </div>
-            <h2 style="font-size:32px;margin:0 0 var(--space-2)">{{ sp.title }}</h2>
-            <p style="font-size:16px;line-height:1.7;margin:0">{{ sp.body }}</p>
+            <h2 class="r-title" style="font-size:36px;margin:0 0 var(--space-3)">{{ sp.title }}</h2>
+            <p style="font-size:16px;line-height:1.75">{{ sp.body }}</p>
           </div>
           <sc-if value="{{ sp.showImgLast }}" hint-placeholder-val="{{ false }}">
-            <img class="ph sp-img" src="{{ sp.photo }}" alt="{{ sp.kicker }}" loading="lazy" style="aspect-ratio:3/2;object-position:{{ sp.pos }}">
+            <img class="ph r-img" src="{{ sp.photo }}" alt="{{ sp.kicker }}" loading="lazy" style="width:100%;aspect-ratio:3/2;object-position:{{ sp.pos }}">
           </sc-if>
         </div>
         <div style="height:1px;background:var(--color-divider);max-width:1100px;margin:0 auto"></div>
       </sc-for>
 
-      <!-- BRANCHES -->
-      <div style="background:var(--color-surface)">
-        <div class="wrap">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4)">
-            <h6 style="color:var(--color-accent-700);margin:0">{{ txt.branchesHeading }}</h6>
-            <a class="btn btn-ghost" href="#" onClick="{{ goLocation }}" style="cursor:pointer;font-size:13px">{{ txt.allBranches }}</a>
-          </div>
-          <div class="g-cards">
-            <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
-              <div class="card elev-sm">
-                <div class="card-title">{{ loc.short }}</div>
-                <p class="card-body">{{ loc.addressLine1 }} {{ loc.addressLine2 }}</p>
-                <div class="card-meta">{{ loc.lunch }} · {{ loc.dinner }}</div>
-                <div class="cta" style="margin-top:var(--space-2)">
-                  <a class="btn btn-primary" href="{{ loc.reserveUrl }}">{{ txt.reserve }}</a>
-                  <a class="btn btn-secondary" href="{{ loc.tel }}">{{ loc.phone }}</a>
-                </div>
+      <!-- KITCHEN DISH ROW -->
+      <div style="background:var(--color-surface);padding:var(--space-6) 0;border-top:2px solid var(--color-accent-600)">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0 var(--space-6);margin-bottom:var(--space-4)">
+          <h6 style="color:var(--color-accent-700);letter-spacing:.12em;margin:0">{{ txt.fromKitchen }}</h6>
+          <a class="btn btn-ghost" href="#" onClick="{{ goMenu }}" style="cursor:pointer;font-size:13px;padding-right:0">{{ txt.viewMenuArrow }}</a>
+        </div>
+        <div class="marquee-wrap" style="overflow:hidden">
+          <div class="marquee-track" style="display:flex;gap:var(--space-3);width:max-content;padding:0 var(--space-2)">
+            <sc-for list="{{ kitchenDishesLoop }}" as="k" hint-placeholder-count="16">
+              <div style="flex:none;width:160px;cursor:pointer" onClick="{{ goMenu }}">
+                <img class="ph" src="{{ k.photo }}" alt="{{ k.name }}" loading="lazy" style="width:160px;height:120px">
               </div>
             </sc-for>
           </div>
         </div>
       </div>
+
     </div>
   </sc-if>
 
   <!-- ABOUT TAB -->
   <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
     <div style="{{ tabAnim }}">
-      <div class="page-head"><h1>{{ txt.ourStory }}</h1></div>
-      <div class="wrap narrow" style="display:flex;flex-direction:column;gap:var(--space-8)">
-        <sc-for list="{{ storySteps }}" as="s" hint-placeholder-count="3">
-          <div class="g-split" style="--cols:{{ s.cols }};opacity:0;animation:riseIn .6s ease-in-out {{ s.delay }} both">
+      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
+        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">私たちについて</div>
+        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.ourStory }}</h1>
+      </div>
+      <div ref="{{ storyRef }}" style="max-width:760px;margin:0 auto;padding:var(--space-8) var(--space-4);display:flex;flex-direction:column;gap:var(--space-8)">
+        <sc-for list="{{ storySteps }}" as="s" hint-placeholder-count="5">
+          <div data-reveal="{{ s.id }}" style="opacity:0;animation:riseIn .6s ease-in-out {{ s.delay }} both;display:grid;grid-template-columns:{{ s.imgFirst }};gap:var(--space-6);align-items:center" class="r-grid">
             <sc-if value="{{ s.showImgFirst }}" hint-placeholder-val="{{ true }}">
-              <img class="ph sp-img" src="{{ s.photo }}" alt="{{ s.title }}" loading="lazy" style="aspect-ratio:4/3;object-position:{{ s.pos }}">
+              <img class="ph r-img" src="{{ s.photo }}" alt="{{ s.title }}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-position:{{ s.pos }}">
             </sc-if>
             <div>
               <h6 style="color:var(--color-accent-700)">{{ s.kicker }}</h6>
-              <h3 style="margin-top:0">{{ s.title }}</h3>
-              <p style="font-size:15px;line-height:1.7;margin:0">{{ s.body }}</p>
+              <h3>{{ s.title }}</h3>
+              <p style="font-size:15px;line-height:1.7">{{ s.body }}</p>
             </div>
             <sc-if value="{{ s.showImgLast }}" hint-placeholder-val="{{ false }}">
-              <img class="ph sp-img" src="{{ s.photo }}" alt="{{ s.title }}" loading="lazy" style="aspect-ratio:4/3;object-position:{{ s.pos }}">
+              <img class="ph r-img" src="{{ s.photo }}" alt="{{ s.title }}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-position:{{ s.pos }}">
             </sc-if>
           </div>
         </sc-for>
@@ -207,9 +220,13 @@
   <!-- MENU TAB -->
   <sc-if value="{{ isMenu }}" hint-placeholder-val="{{ false }}">
     <div style="{{ tabAnim }}">
-      <div class="page-head"><h1>{{ txt.menuTitle }}</h1><p>{{ txt.menuSub }}</p></div>
-      <div style="display: flex; justify-content: center; padding: var(--space-4) var(--space-4) 0">
-        <div class="seg" style="flex-wrap:wrap;justify-content:center">
+      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
+        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">メニュー</div>
+        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.menuTitle }}</h1>
+        <p style="color:var(--color-neutral-300);font-size:14px">{{ txt.menuSub }}</p>
+      </div>
+      <div style="display: flex; justify-content: center; padding-top: var(--space-4)">
+        <div class="seg">
           <sc-for list="{{ menuLocationOpts }}" as="lo" hint-placeholder-count="3">
             <label class="seg-opt"><input type="radio" name="menuloc" checked="{{ lo.active }}" onChange="{{ lo.select }}">{{ lo.label }}</label>
           </sc-for>
@@ -219,7 +236,7 @@
 
         <sc-for list="{{ activeCategoryGroups }}" as="grp" hint-placeholder-count="1">
           <div style="display: flex; justify-content: center; margin-bottom: var(--space-6)">
-          <div class="seg" style="flex-wrap:wrap;justify-content:center">
+          <div class="seg" style="flex-wrap:wrap">
             <sc-for list="{{ categories }}" as="c" hint-placeholder-count="6">
               <label class="seg-opt"><input type="radio" name="menucat" checked="{{ c.active }}" onChange="{{ c.select }}">{{ c.label }}</label>
             </sc-for>
@@ -252,9 +269,10 @@
                     <div class="card-meta">{{ d.price }}</div>
                   </div>
                 </sc-for>
-                <!-- Toppings: rendered as a grid cell right after the first 2
-                     dishes so it lands in row 1's 3rd column slot; the
-                     remaining dishes wrap around it via grid auto-placement. -->
+                <!-- Toppings: rendered as a grid cell (not a below-the-fold
+                     block) right after the first 2 dishes, so it lands in
+                     row 1's 3rd column slot; the remaining dishes wrap
+                     around it via normal CSS grid auto-placement. -->
                 <sc-if value="{{ grp.hasAddOns }}" hint-placeholder-val="{{ false }}">
                   <div class="card elev-sm">
                     <h6 style="color:var(--color-accent-700);margin:0">{{ txt.toppings }}</h6>
@@ -307,7 +325,7 @@
                         <div class="text-muted" style="font-size:12px">{{ it.desc }}</div>
                       </sc-if>
                     </div>
-                    <div style="text-align:right;font-family:var(--font-heading)">{{ it.priceDisplay }}</div>
+                    <div style="white-space:nowrap;font-family:var(--font-heading);text-align:right">{{ it.priceDisplay }}</div>
                   </div>
                 </sc-for>
               </sc-for>
@@ -318,53 +336,72 @@
     </div>
   </sc-if>
 
-  <!-- RESTAURANTS TAB -->
+  <!-- LOCATION TAB -->
   <sc-if value="{{ isLocation }}" hint-placeholder-val="{{ false }}">
     <div style="{{ tabAnim }}">
-      <div class="page-head"><h1>{{ txt.findUs }}</h1><p>{{ txt.threeLocations }}</p></div>
+      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
+        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">場所</div>
+        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2); font-weight: 700">{{ txt.findUs }}</h1>
+        <p style="color:var(--color-neutral-400);font-size:14px;margin-top:var(--space-1)">{{ txt.threeLocations }}</p>
+      </div>
+
+      <!-- Branch sections -->
       <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
         <div style="border-bottom:1px solid var(--color-divider)">
-          <div class="wrap">
-            <h3 style="margin:0 0 var(--space-4);font-size:32px">{{ loc.short }}</h3>
-            <div class="g-loc">
-              <div style="min-width:0">
-                <p style="font-size:16px;line-height:1.7;margin:0 0 var(--space-3)">{{ loc.addressLine1 }} {{ loc.addressLine2 }}</p>
-                <div class="hr-row" style="margin-bottom:var(--space-3)">
-                  <span class="lbl">{{ txt.lunch }}</span><span>{{ loc.lunch }}</span>
-                  <span class="lbl">{{ txt.dinner }}</span><span>{{ loc.dinner }}</span>
-                  <span class="lbl">{{ txt.phoneLabel }}</span><a href="{{ loc.tel }}">{{ loc.phone }}</a>
+
+        <div class="r-loc-wrap" style="max-width:1080px;margin:0 auto;padding:var(--space-8) var(--space-8) calc(var(--space-8) * 1.6)">
+
+            <h3 class="r-loc-title" style="margin: 0 0 var(--space-4); font-size: 40px; font-weight: 700; text-align: left; padding-left: var(--space-8); white-space: nowrap">{{ loc.short }}</h3><div class="r-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:start">
+              <!-- Details -->
+              <div class="r-details" style="min-width: 0; padding-left: var(--space-8); width: 465px; height: 339px">
+                <p style="font-size: 16px; line-height: 1.7; overflow-wrap: break-word; margin: 0 0 var(--space-3); text-align: left">{{ loc.addressLine1 }}<br>{{ loc.addressLine2 }}</p>
+                <div class="hr" style="margin:var(--space-3) 0"></div>
+                <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 28px;font-size:15px;margin-bottom:var(--space-3)">
+                  <span style="color:var(--color-neutral-500);font-size:13px;letter-spacing:.06em;text-transform:uppercase">{{ txt.lunch }}</span><span>{{ loc.lunch }}</span>
+                  <span style="color:var(--color-neutral-500);font-size:13px;letter-spacing:.06em;text-transform:uppercase">{{ txt.dinner }}</span><span>{{ loc.dinner }}</span>
                 </div>
-                <div class="cta" style="margin-top:var(--space-4)">
-                  <a class="btn btn-solid" href="{{ loc.reserveUrl }}">{{ txt.reserve }}</a>
-                  <a class="btn btn-primary" href="#" onClick="{{ loc.goMenu }}" style="cursor:pointer">{{ txt.menuHere }}</a>
-                  <a class="btn btn-secondary" href="{{ loc.mapUrl }}" target="_blank" rel="noopener">{{ txt.directions }}</a>
+                <div class="hr" style="margin:var(--space-3) 0"></div>
+                <div style="display:flex;gap:var(--space-2);margin-top:var(--space-4);flex-wrap:wrap">
+                  <a class="btn btn-primary" href="{{ loc.reserveUrl }}">{{ txt.reserve }}</a>
+                  <a class="btn btn-secondary" href="{{ loc.tel }}">{{ loc.phone }}</a>
+                  <a class="btn btn-secondary" href="{{ loc.mapUrl }}" target="_blank" rel="noopener">{{ txt.openInMaps }}</a>
+                  <a class="btn btn-ghost" href="#" onClick="{{ loc.goMenu }}" style="cursor:pointer">{{ txt.menuHere }}</a>
                 </div>
+              </div><div class="r-photos" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);width:320px;margin:0 auto">
+
+                <img class="ph" src="{{ loc.photoA }}" alt="" loading="lazy" style="width:154px;aspect-ratio:1/1;height:153px;object-position:center">
+                <img class="ph" src="{{ loc.photoB }}" alt="" loading="lazy" style="width:100%;aspect-ratio:1/1">
+                <img class="ph" src="{{ loc.photoC }}" alt="" loading="lazy" style="width:100%;aspect-ratio:1/1">
+                <img class="ph" src="{{ loc.photoD }}" alt="" loading="lazy" style="width:100%;aspect-ratio:1/1">
               </div>
-              <iframe src="{{ loc.mapSrc }}" title="{{ loc.short }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="width:100%;height:300px;border:0;border-radius:4px;display:block"></iframe>
+              <!-- 2×2 photo grid -->
+
             </div>
-          </div>
-        </div>
+          </div></div>
       </sc-for>
     </div>
   </sc-if>
 
-  <!-- NEWS & OFFERS TAB -->
+  <!-- PROMOTION TAB -->
   <sc-if value="{{ isPromo }}" hint-placeholder-val="{{ false }}">
     <div style="{{ tabAnim }}">
-      <div class="page-head"><h1>{{ txt.newsTitle }}</h1></div>
-      <div class="wrap narrow">
-        <sc-for list="{{ news }}" as="n" hint-placeholder-count="0">
+      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
+        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">お知らせ</div>
+        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.promoHeading }}</h1>
+      </div>
+      <div style="max-width:840px;margin:0 auto;padding:var(--space-8) var(--space-4)">
+        <sc-for list="{{ news }}" as="p" hint-placeholder-count="0">
           <div style="display:flex;gap:var(--space-4);padding:var(--space-4) 0;border-bottom:1px solid var(--color-divider)">
-            <div style="min-width:90px;font-size:12px;color:var(--color-accent-700);font-family:var(--font-heading)">{{ n.date }}</div>
+            <div style="min-width:90px;font-size:12px;color:var(--color-accent-700);font-family:var(--font-heading);font-variant-numeric:tabular-nums">{{ p.date }}</div>
             <div>
-              <div class="card-title" style="font-size:16px">{{ n.title }}</div>
-              <p class="card-body" style="margin-top:2px">{{ n.body }}</p>
+              <div class="card-title" style="font-size:15px">{{ p.title }}</div>
+              <p class="card-body" style="opacity:.8;margin-top:2px">{{ p.body }}</p>
             </div>
           </div>
         </sc-for>
         <sc-if value="{{ noNews }}" hint-placeholder-val="{{ true }}">
-          <div class="card elev-sm" style="text-align:center;padding:var(--space-6)">
-            <p style="margin:0 0 var(--space-3)">{{ txt.newsEmpty }}</p>
+          <div class="card elev-md" style="padding:var(--space-6);text-align:center">
+            <p style="margin:0 0 var(--space-3);font-size:15px;line-height:1.7">{{ txt.newsEmpty }}</p>
             <a class="btn btn-primary" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook</a>
           </div>
         </sc-if>
@@ -375,19 +412,22 @@
   <!-- CAREERS TAB -->
   <sc-if value="{{ isCareers }}" hint-placeholder-val="{{ false }}">
     <div style="{{ tabAnim }}">
-      <div class="page-head"><h1>{{ txt.careersTitle }}</h1></div>
-      <div class="wrap narrow">
+      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
+        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">採用情報</div>
+        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.careersTitle }}</h1>
+      </div>
+      <div style="max-width:840px;margin:0 auto;padding:var(--space-8) var(--space-4)">
         <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="0">
           <div style="padding:var(--space-4) 0;border-bottom:1px solid var(--color-divider)">
-            <div class="card-title" style="font-size:16px">{{ j.title }}</div>
+            <div class="card-title" style="font-size:15px">{{ j.title }}</div>
             <div class="text-muted" style="font-size:13px">{{ j.where }}</div>
             <p class="card-body" style="margin-top:4px">{{ j.body }}</p>
           </div>
         </sc-for>
         <sc-if value="{{ noJobs }}" hint-placeholder-val="{{ true }}">
-          <div class="card elev-sm" style="text-align:center;padding:var(--space-6)">
-            <p style="margin:0 0 var(--space-3)">{{ txt.careersEmpty }}</p>
-            <a class="btn btn-primary" href="#" onClick="{{ goContact }}" style="cursor:pointer">{{ txt.contactTitle }}</a>
+          <div class="card elev-md" style="padding:var(--space-6);text-align:center">
+            <p style="margin:0 0 var(--space-3);font-size:15px;line-height:1.7">{{ txt.careersEmpty }}</p>
+            <a class="btn btn-primary" onClick="{{ goContact }}" style="cursor:pointer">{{ txt.contactTitle }}</a>
           </div>
         </sc-if>
       </div>
@@ -397,17 +437,21 @@
   <!-- CONTACT TAB -->
   <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
     <div style="{{ tabAnim }}">
-      <div class="page-head"><h1>{{ txt.contactTitle }}</h1><p>{{ txt.contactSub }}</p></div>
-      <div class="wrap">
-        <div class="g-cards">
+      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
+        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">お問い合わせ</div>
+        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.contactTitle }}</h1>
+        <p style="color:var(--color-neutral-400);font-size:14px;margin-top:var(--space-1)">{{ txt.contactSub }}</p>
+      </div>
+      <div style="max-width:1040px;margin:0 auto;padding:var(--space-8) var(--space-4)">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:var(--space-4)">
           <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
             <div class="card elev-sm">
               <div class="card-title">{{ loc.short }}</div>
               <p class="card-body">{{ loc.addressLine1 }} {{ loc.addressLine2 }}</p>
               <a href="{{ loc.tel }}" style="font-size:18px;font-family:var(--font-heading)">{{ loc.phone }}</a>
-              <div class="cta" style="margin-top:var(--space-2)">
+              <div class="mugi-btn-row" style="margin-top:var(--space-2)">
                 <a class="btn btn-primary" href="{{ loc.reserveUrl }}">{{ txt.reserve }}</a>
-                <a class="btn btn-secondary" href="{{ loc.mapUrl }}" target="_blank" rel="noopener">{{ txt.directions }}</a>
+                <a class="btn btn-secondary" href="{{ loc.mapUrl }}" target="_blank" rel="noopener">{{ txt.openInMaps }}</a>
               </div>
             </div>
           </sc-for>
@@ -420,29 +464,32 @@
   </sc-if>
 
   <!-- FOOTER (every tab) -->
-  <div style="background:var(--color-neutral-900);color:var(--color-neutral-300);padding:var(--space-8) var(--space-4)">
-    <div class="foot-grid" style="max-width:1100px;margin:0 auto">
+  <div class="r-pad" style="background:var(--color-neutral-900);color:var(--color-neutral-300);padding:var(--space-8) var(--space-6)">
+    <div class="r-foot" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1.6fr;gap:calc(var(--space-8) * 2)">
+
       <div style="min-width:0">
-        <div style="display:flex;align-items:center;gap:12px">
-          <img src="assets/mugi-icon.svg" alt="Mugi icon" style="height:34px;width:auto">
-          <h3 style="color: var(--color-neutral-100); font-size: 28px; margin:0">Mugi Ramen &amp; Izakaya</h3>
+        <div class="r-foot-brand" style="position:relative">
+          <img src="assets/mugi-icon.svg" alt="Mugi icon" style="position:absolute;left:-46px;top:2px;height:34px;width:auto">
+          <h3 style="color: var(--color-neutral-100); font-size: 35px; margin-bottom:0">Mugi Ramen &amp; Izakaya</h3>
+          <div class="jp" style="color:var(--color-accent-300);font-size:15px;margin-top:4px;margin-bottom:var(--space-3)">麦 ラーメン・居酒屋</div>
         </div>
         <h6 style="color:var(--color-accent-300);margin-top:var(--space-4)">{{ txt.footerHours }}</h6>
         <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span>{{ txt.lunch }}</span><span>10:30 – 14:00</span></div>
-        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span>{{ txt.dinner }}</span><span>17:00 – 22:00</span></div>
-        <div class="cta" style="margin-top:var(--space-4)">
+
+        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span>{{ txt.dinner }}</span><span>17:00 – 22:00</span></div><div style="display:flex;gap:var(--space-2);margin-top:var(--space-4);flex-wrap:wrap">
           <a class="btn btn-secondary" style="color:var(--color-neutral-200);border-color:var(--color-neutral-700)" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook</a>
-          <a class="btn btn-solid" href="reservation.html">{{ txt.reserve }}</a>
+          <a class="btn btn-primary" href="reservation.html" style="color:var(--color-accent-300);border-color:var(--color-accent-600)">{{ txt.reserve }}</a>
         </div>
-      </div>
-      <div class="foot-branches">
-        <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
-          <div>
-            <div style="color: var(--color-neutral-100); font-family: var(--font-heading); font-size: 16px; margin-bottom: 8px; font-weight: 500">{{ loc.short }}</div>
-            <div style="font-size:13px;line-height:1.8">{{ loc.addressLine1 }} {{ loc.addressLine2 }}</div>
-            <a href="{{ loc.tel }}" style="display:inline-block;font-size:13px;color:var(--color-accent-300);margin-top:6px">{{ loc.phone }}</a>
-          </div>
-        </sc-for>
+      </div><div>
+        <div class="r-foot-cols" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
+          <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
+            <div>
+              <div style="color: var(--color-neutral-100); font-family: var(--font-heading); font-size: 16px; margin-bottom: 8px; font-weight: 500">{{ loc.short }}</div>
+              <div style="font-size:13px;line-height:1.8">{{ loc.addressLine1 }} {{ loc.addressLine2 }}</div>
+              <a href="{{ loc.tel }}" style="display:inline-block;font-size:13px;color:var(--color-accent-300);margin-top:6px">{{ loc.phone }}</a>
+            </div>
+          </sc-for>
+        </div>
       </div>
     </div>
   </div>
@@ -898,6 +945,17 @@ class Component extends DCLogic {
 
   _locations = null;
 
+  kitchenDishes = [
+    { name: 'Tokusei Tonkotsu Shoyu Ramen', nameJa: '特製豚骨醤油ラーメン', photo: 'assets/photos/ramen-toku-tonkotsu-shoyu.jpg' },
+    { name: 'Tantan Ramen', nameJa: '担々麺', photo: 'assets/photos/ramen-tantan.jpg' },
+    { name: 'Tokusei Miso Ramen', nameJa: '特味噌ラーメン', photo: 'assets/photos/ramen-toku-miso.jpg' },
+    { name: 'Grilled Chicken with Green Onion', nameVi: 'Đùi Gà Xiên Hành Nướng', nameJa: '鶏ねぎま', photo: 'assets/photos/grill-chicken-negima.jpg' },
+    { name: 'Gyoza', nameVi: 'Há Cảo', nameJa: '餃子', photo: 'assets/photos/gyoza.jpg' },
+    { name: 'Eel Bowl', nameVi: 'Cơm Lươn Nướng', nameJa: 'うな丼', photo: 'assets/photos/eel-bowl.jpg' },
+    { name: 'Sashimi Mix 6', nameJa: '刺身盛り合わせ6種', photo: 'assets/photos/sashimi-mix6.jpg' },
+    { name: 'Special Mixed Sashimi', nameVi: 'Sashimi Tổng Hợp Đặc Biệt', nameJa: '特刺身盛り合わせ', photo: 'assets/photos/sashimi-special.jpg' },
+  ];
+
   // Japanese category labels (the menu data carries Vietnamese + English).
   categoryLabelJa = {
     ramen: 'ラーメン', sashimi: '刺身', sushi: '寿司', rolls: '巻き寿司', salad: 'サラダ', otsumami: 'おつまみ',
@@ -1022,7 +1080,7 @@ class Component extends DCLogic {
 
     const storySteps = this.storyData.map((s, i) => ({
       ...s, kicker: pick(s, 'kicker'), title: pick(s, 'title'), body: pick(s, 'body'),
-      cols: s.imgFirst ? '1fr 1.3fr' : '1.3fr 1fr',
+      imgFirst: s.imgFirst ? '1fr 1.3fr' : '1.3fr 1fr',
       showImgFirst: s.imgFirst, showImgLast: !s.imgFirst,
       delay: (i * 90) + 'ms',
     }));
@@ -1045,6 +1103,9 @@ class Component extends DCLogic {
         ...l,
         // reservation.html preselects the branch from ?branch=
         reserveUrl: 'reservation.html?branch=' + encodeURIComponent(l.short),
+        // Same interior shots for every branch until per-branch photos exist.
+        photoA: 'assets/photos/space-counter-sake.jpg', photoB: 'assets/photos/ramen-toku-tonkotsu-shoyu.jpg',
+        photoC: 'assets/photos/space-entrance.jpg', photoD: 'assets/photos/space-counter-kitchen.jpg',
         mapSrc: 'https://maps.google.com/maps?q=' + mapQueries[l.slug] + '+Vietnam&output=embed',
       }));
     }
@@ -1072,25 +1133,30 @@ class Component extends DCLogic {
       tabAnim,
       txt: {
         reserve: t('Reserve a Table', 'Đặt Bàn', '席を予約'),
-        viewMenu: t('View menu', 'Xem thực đơn', 'メニューを見る'),
         heroDesc: t('Japanese ramen & izakaya in Hanoi', 'Ramen & izakaya Nhật Bản tại Hà Nội', 'ハノイの日本式ラーメン＆居酒屋'),
         aboutHeading: t('About MUGI', 'Về MUGI', 'MUGIについて'),
         aboutBody: t('MUGI (麦) means wheat in Japanese. We serve ramen and izakaya dishes at three restaurants in Hanoi.', 'MUGI (麦) nghĩa là lúa mạch trong tiếng Nhật. Chúng tôi phục vụ ramen và các món izakaya tại ba nhà hàng ở Hà Nội.', 'MUGI（麦）は日本語で「麦」の意味。ハノイの3店舗で、ラーメンと居酒屋料理をご提供しています。'),
-        readMore: t('Read more →', 'Xem thêm →', '詳しく →'),
+        readStory: t('Read more →', 'Xem thêm →', '詳しく →'),
         ourStory: t('About MUGI', 'Giới Thiệu MUGI', 'MUGIについて'),
-        branchesHeading: t('Our restaurants', 'Hệ thống nhà hàng', '店舗一覧'),
-        allBranches: t('All restaurants →', 'Tất cả nhà hàng →', 'すべての店舗 →'),
-        findUs: t('Restaurants', 'Hệ Thống Nhà Hàng', '店舗'),
-        threeLocations: t('Three restaurants in Hanoi', 'Ba nhà hàng tại Hà Nội', 'ハノイの3店舗'),
+        specialsHeading: t('Featured', 'Món nổi bật', 'おすすめ'),
+        signatureTag: t('Ramen', 'Ramen', 'ラーメン'), izakayaTag: t('Izakaya', 'Izakaya', '居酒屋'),
+        specialName1: t('Tokusei Tonkotsu Shoyu Ramen', 'Tokusei Tonkotsu Shoyu Ramen', '特製豚骨醤油ラーメン'),
+        specialName2: t('Grilled Chicken with Green Onion', 'Đùi Gà Xiên Hành Nướng', '鶏ねぎま'),
+        specialDesc1: t('Each ramen has a Tokusei version.', 'Mỗi loại ramen đều có phiên bản Tokusei.', 'ラーメンはすべて特製もあります。'),
+        specialDesc2: t('Grilled dishes, sake and Sapporo beer.', 'Đồ nướng, sake và bia Sapporo.', '焼き物、日本酒、サッポロビール。'),
+        seeMenu: t('See the menu →', 'Xem thực đơn →', 'メニューを見る →'),
+        fromKitchen: t('FROM THE KITCHEN', 'TỪ NHÀ BẾP', 'キッチンから'),
+        viewMenuArrow: t('View menu →', 'Xem thực đơn →', 'メニューを見る →'),
+        findUs: t('Find Us', 'Tìm Chúng Tôi', '店舗'),
+        threeLocations: t('Three locations in Hanoi', 'Ba địa điểm tại Hà Nội', 'ハノイの3店舗'),
         lunch: t('Lunch', 'Trưa', 'ランチ'), dinner: t('Dinner', 'Tối', 'ディナー'),
-        phoneLabel: t('Phone', 'Điện thoại', '電話'),
-        directions: t('Directions', 'Chỉ đường', '地図'),
+        openInMaps: t('Open in Maps', 'Xem Trên Bản Đồ', '地図を開く'),
         menuHere: t('Menu for this branch', 'Thực đơn cơ sở này', 'この店のメニュー'),
         menuTitle: t('Menu', 'Thực Đơn', 'メニュー'),
         menuSub: t('Choose a restaurant to see its menu and prices.', 'Chọn cơ sở để xem thực đơn và giá.', '店舗を選んでメニューと価格をご覧ください。'),
         featuredTag: t('Featured', 'Nổi bật', 'おすすめ'),
         toppings: t('Toppings', 'Topping Thêm', 'トッピング'),
-        newsTitle: t('News & Offers', 'Tin Tức & Ưu Đãi', 'お知らせ・特典'),
+        promoHeading: t('News & Offers', 'Tin Tức & Ưu Đãi', 'お知らせ・特典'),
         newsEmpty: t('News and offers will be posted here. Follow MUGI on Facebook for updates.', 'Tin tức và ưu đãi sẽ được đăng tại đây. Theo dõi Facebook MUGI để cập nhật sớm nhất.', 'お知らせや特典はこちらに掲載します。最新情報はFacebookをご覧ください。'),
         careersTitle: t('Careers', 'Tuyển Dụng', '採用情報'),
         careersEmpty: t('Job openings will be posted here. Interested in joining MUGI? Contact your nearest restaurant.', 'Tin tuyển dụng sẽ được đăng tại đây. Quan tâm đến MUGI? Hãy liên hệ nhà hàng gần bạn.', '求人情報はこちらに掲載します。ご興味のある方は、お近くの店舗までご連絡ください。'),
@@ -1099,6 +1165,7 @@ class Component extends DCLogic {
         footerHours: t('Hours', 'Giờ Mở Cửa', '営業時間'),
       },
       spotlights,
+      kitchenDishesLoop: [...this.kitchenDishes, ...this.kitchenDishes].map((k, i) => ({ ...k, name: pick(k, 'name'), id: 'kd-' + i })),
     };
   }
 }
