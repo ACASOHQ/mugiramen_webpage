@@ -45,6 +45,13 @@
   .branch-addr { font-size: 13px; opacity: .8; margin-top: 2px; }
   .branch-phone { font-size: 12px; color: var(--color-accent-700); margin-top: 4px; display: inline-block; }
 
+  .mugi-nav { flex-wrap: wrap; row-gap: var(--space-2); }
+  .mugi-links { display: flex; gap: var(--space-3); order: 3; width: 100%; overflow-x: auto; white-space: nowrap; }
+  .mugi-links a { padding: 4px 0; }
+  @media (min-width: 1181px) {
+    .mugi-nav { flex-wrap: nowrap; }
+    .mugi-links { order: 0; width: auto; overflow: visible; }
+  }
   #confirmDialog { display: none; }
   #confirmDialog.open { display: grid; }
 
@@ -108,28 +115,31 @@
 <div style="background:var(--color-bg);color:var(--color-text);min-height:100vh;font-family:var(--font-body)">
 
   <!-- NAV -->
-  <div class="nav" style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 92%, transparent);backdrop-filter:blur(6px)">
+  <div class="nav mugi-nav" style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 92%, transparent);backdrop-filter:blur(6px)">
     <div class="nav-brand" style="display:flex;align-items:center;gap:8px">
       <a href="index.html">
         <img src="assets/mugi-icon.svg" alt="Mugi icon" style="height:26px;width:auto">
         MUGI <span style="font-weight:400;opacity:.7">Ramen &amp; Izakaya</span>
       </a>
       <div class="language-toggle" aria-label="Language">
-        <button type="button" data-language="en">EN</button>
         <button type="button" data-language="vi">VI</button>
+        <button type="button" data-language="en">EN</button>
+        <button type="button" data-language="ja">JA</button>
       </div>
     </div>
-    <a href="index.html" data-i18n="navHome">Home</a>
-    <a href="index.html" data-i18n="navAbout">About</a>
-    <a href="index.html" data-i18n="navMenu">Menu</a>
-    <a href="index.html" data-i18n="navLocations">Location</a>
-    <a href="index.html" data-i18n="navPromotions">Promotions</a>
-    <a class="btn btn-primary" href="reservation.html" aria-current="page" style="margin-left:var(--space-2)" data-i18n="navReserve">Đặt Bàn</a>
+    <div class="mugi-links">
+      <a href="index.html" data-i18n="navHome">Home</a>
+      <a href="index.html#about" data-i18n="navAbout">About</a>
+      <a href="index.html#menu" data-i18n="navMenu">Menu</a>
+      <a href="index.html#promotion" data-i18n="navPromotions">Promotions</a>
+      <a href="index.html#careers" data-i18n="navCareers">Careers</a>
+      <a href="index.html#location" data-i18n="navLocations">Location</a>
+    </div>
+    <a class="btn btn-primary" href="reservation.html" aria-current="page" data-i18n="navReserve">Đặt Bàn</a>
   </div>
 
   <!-- HERO BANNER -->
   <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-6);text-align:center;animation:heroFade .5s ease both">
-    <div class="jp" style="color:var(--color-accent-300);font-size:15px;margin-bottom:var(--space-2)">麦 予約</div>
     <h1 style="color:var(--color-neutral-100);margin-bottom:var(--space-2)" data-i18n="heroTitle">Đặt Bàn</h1>
     <p class="hero-message" style="opacity:.85" data-i18n="heroMessage">Điền thông tin bên dưới, nhân viên sẽ liên hệ lại để xác nhận bàn sớm nhất có thể.</p>
   </div>
@@ -303,10 +313,17 @@
   var dialog = document.getElementById('confirmDialog');
   var dialogBody = document.getElementById('confirmBody');
   var closeBtn = document.getElementById('confirmClose');
-  var language = (typeof localStorage !== 'undefined' && localStorage.getItem('mugi_lang')) || 'vi';
+  var LANGS = ['vi', 'en', 'ja'];
+  var params = new URLSearchParams(window.location.search);
+  var language = 'vi';
+  try {
+    var saved = localStorage.getItem('mugi_lang');
+    if (LANGS.indexOf(saved) !== -1) language = saved;
+  } catch (e) {}
+  if (LANGS.indexOf(params.get('lang')) !== -1) language = params.get('lang');
   var translations = {
     vi: {
-      navHome: 'Trang chủ', navAbout: 'Giới thiệu', navMenu: 'Thực đơn', navLocations: 'Chi nhánh', navPromotions: 'Khuyến mãi', navReserve: 'Đặt bàn',
+      navHome: 'Trang chủ', navAbout: 'Giới thiệu', navMenu: 'Thực đơn', navLocations: 'Liên hệ', navPromotions: 'Tin tức & Ưu đãi', navCareers: 'Tuyển dụng', navContact: 'Liên hệ', navReserve: 'Đặt bàn',
       heroTitle: 'Đặt bàn', heroMessage: 'Điền thông tin bên dưới, nhân viên sẽ liên hệ lại để xác nhận bàn sớm nhất có thể.',
       guestDetails: 'Thông tin của bạn', fullName: 'Họ tên', nameError: 'Vui lòng nhập họ tên (không quá 60 ký tự).', phone: 'Số điện thoại', phoneError: 'Số điện thoại này có vẻ chưa đúng.',
       branch: 'Chi nhánh', branchError: 'Vui lòng chọn một chi nhánh.', reservationDetails: 'Chi tiết đặt bàn', datetimeError: 'Vui lòng chọn ngày giờ hợp lệ, không ở trong quá khứ.',
@@ -315,20 +332,29 @@
       hours: 'Giờ mở cửa', lunch: 'Trưa', dinner: 'Tối', backHome: 'Về trang chủ', prevMonth: 'Tháng trước', nextMonth: 'Tháng sau'
     },
     en: {
-      navHome: 'Home', navAbout: 'About', navMenu: 'Menu', navLocations: 'Locations', navPromotions: 'Promotions', navReserve: 'Reserve a Table',
+      navHome: 'Home', navAbout: 'About', navMenu: 'Menu', navLocations: 'Contact', navPromotions: 'News & Offers', navCareers: 'Careers', navContact: 'Contact', navReserve: 'Reserve a Table',
       heroTitle: 'Reserve a Table', heroMessage: 'Fill in your details below and our staff will call you back to confirm.',
       guestDetails: 'Your details', fullName: 'Full name', nameError: 'Please enter your full name (max 60 characters).', phone: 'Phone number', phoneError: "This phone number doesn't look right.",
       branch: 'Branch', branchError: 'Please select a branch.', reservationDetails: 'Reservation details', datetimeError: 'Please pick a valid date and time, not in the past.',
       reservationTime: 'Reservation time', chooseTime: 'Select a time', chooseDate: 'Select a date from the calendar', chooseReservationTime: 'Select a reservation time', partySize: 'Party size', partyError: 'Party size must be a whole number from 1 to 100.',
       sendReservation: 'Send reservation', callHint: 'Need it faster? Call your nearest branch directly, listed below.', thankYou: 'Thank you!', demoNote: "(Demo — this page isn't connected to the booking system yet. Please call the branch directly to book right now.)", close: 'Close',
       hours: 'Hours', lunch: 'Lunch', dinner: 'Dinner', backHome: 'Back home', prevMonth: 'Previous month', nextMonth: 'Next month'
+    },
+    ja: {
+      navHome: 'ホーム', navAbout: '私たちについて', navMenu: 'メニュー', navLocations: '店舗・お問い合わせ', navPromotions: 'お知らせ', navCareers: '採用情報', navContact: 'お問い合わせ', navReserve: '席を予約',
+      heroTitle: 'ご予約', heroMessage: '下記をご入力ください。スタッフが折り返しご連絡し、席を確認いたします。',
+      guestDetails: 'お客様情報', fullName: 'お名前', nameError: 'お名前を入力してください（60文字以内）。', phone: '電話番号', phoneError: '電話番号が正しくないようです。',
+      branch: '店舗', branchError: '店舗を選択してください。', reservationDetails: 'ご予約内容', datetimeError: '過去ではない日時を選択してください。',
+      reservationTime: 'ご予約時間', chooseTime: '時間を選択', chooseDate: 'カレンダーから日付を選択', chooseReservationTime: 'ご予約時間を選択', partySize: '人数', partyError: '人数は1〜100の整数で入力してください。',
+      sendReservation: '予約を送信', callHint: 'お急ぎの場合は、ページ下部のお近くの店舗へお電話ください。', thankYou: 'ありがとうございます！', demoNote: '（デモ：このページは予約システムにまだ接続されていません。ご予約はお電話でお願いします。）', close: '閉じる',
+      hours: '営業時間', lunch: 'ランチ', dinner: 'ディナー', backHome: 'ホームへ', prevMonth: '前の月', nextMonth: '次の月'
     }
   };
 
   function text(key) { return translations[language][key]; }
   function applyLanguage() {
     document.documentElement.lang = language;
-    document.title = language === 'vi' ? 'Đặt Bàn | Mugi Ramen & Izakaya' : 'Reserve a Table | Mugi Ramen & Izakaya';
+    document.title = { vi: 'Đặt Bàn', en: 'Reserve a Table', ja: 'ご予約' }[language] + ' | Mugi Ramen & Izakaya';
     document.querySelectorAll('[data-i18n]').forEach(function (element) { element.textContent = text(element.dataset.i18n); });
     document.querySelectorAll('[data-i18n-aria]').forEach(function (element) { element.setAttribute('aria-label', text(element.dataset.i18nAria)); });
     document.querySelectorAll('[data-language]').forEach(function (button) { button.classList.toggle('active', button.dataset.language === language); });
@@ -340,11 +366,21 @@
   document.querySelectorAll('[data-language]').forEach(function (button) {
     button.addEventListener('click', function () {
       language = button.dataset.language;
-      if (typeof localStorage !== 'undefined') localStorage.setItem('mugi_lang', language);
+      try { localStorage.setItem('mugi_lang', language); } catch (e) {}
+      params.set('lang', language);
+      history.replaceState(null, '', window.location.pathname + '?' + params.toString());
       applyLanguage();
     });
   });
   applyLanguage();
+
+  // ?branch=<branch name> (from the Restaurants page) preselects that branch.
+  var wantedBranch = params.get('branch');
+  if (wantedBranch) {
+    document.querySelectorAll('input[name="branch"]').forEach(function (radio) {
+      if (radio.value === wantedBranch) radio.checked = true;
+    });
+  }
 
   // — date & time picker —
   (function () {
@@ -358,6 +394,7 @@
     var nextMonthBtn = document.getElementById('dtNextMonth');
 
     var MONTHS_VI = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+    var MONTHS_JA = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
     var MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     var today = new Date();
@@ -396,7 +433,7 @@
     }
 
     function renderCalendar() {
-      monthLabel.textContent = (language === 'vi' ? MONTHS_VI[viewMonth] : MONTHS_EN[viewMonth]) + ', ' + viewYear;
+      monthLabel.textContent = ({ vi: MONTHS_VI, en: MONTHS_EN, ja: MONTHS_JA }[language][viewMonth]) + ', ' + viewYear;
       calGrid.innerHTML = '';
 
       var firstOfMonth = new Date(viewYear, viewMonth, 1);
@@ -527,7 +564,7 @@
       }
     });
     function renderWeekdays() {
-      var weekdays = language === 'vi' ? ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'] : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      var weekdays = { vi: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'], en: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], ja: ['月', '火', '水', '木', '金', '土', '日'] }[language];
       document.querySelectorAll('.dt-cal-weekdays span').forEach(function (day, index) { day.textContent = weekdays[index]; });
     }
     document.addEventListener('mugi-language-change', function () {
@@ -615,9 +652,11 @@
     // TODO: replace this placeholder with a real fetch() POST to
     // MugiRamenSystem's /api/bookings once that backend is deployed.
     // Field names already match: name, phone, branch, datetime, party_size.
-    dialogBody.textContent = language === 'vi'
-      ? data.name + ', mình đã ghi nhận yêu cầu đặt bàn tại ' + data.branch + ' cho ' + data.party_size + ' khách.'
-      : data.name + ', we’ve noted your reservation request at ' + data.branch + ' for ' + data.party_size + ' guests.';
+    dialogBody.textContent = {
+      vi: data.name + ', mình đã ghi nhận yêu cầu đặt bàn tại ' + data.branch + ' cho ' + data.party_size + ' khách.',
+      en: data.name + ', we’ve noted your reservation request at ' + data.branch + ' for ' + data.party_size + ' guests.',
+      ja: data.name + '様、' + data.branch + '（' + data.party_size + '名様）のご予約リクエストを承りました。'
+    }[language];
     dialog.classList.add('open');
   });
 
@@ -627,6 +666,8 @@
   dialog.addEventListener('click', function (e) {
     if (e.target === dialog) dialog.classList.remove('open');
   });
+  // Re-sync date/time labels now that the picker's listener exists.
+  document.dispatchEvent(new Event('mugi-language-change'));
 })();
 </script>
 
