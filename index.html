@@ -110,7 +110,7 @@
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <div style="{{ tabAnim }}">
       <!-- HERO -->
-      <div class="r-hero" style="position:relative;height:88vh;min-height:560px;overflow:hidden;background:linear-gradient(rgba(25,23,23,.62), rgba(25,23,23,.74)), url('assets/photos/space-entrance.jpg') center/cover no-repeat">
+      <div class="r-hero" style="position:relative;height:88vh;min-height:560px;overflow:hidden;background:linear-gradient(rgba(25,23,23,.62), rgba(25,23,23,.74)), url('assets/photos/space-sake-shelf.jpg') center 35%/cover no-repeat">
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;animation:heroFade 1.2s ease both .3s">
           <div class="jp" style="color:var(--color-accent-300);font-size:20px;letter-spacing:.2em;margin-bottom:var(--space-2)">麦 らーめん・居酒屋</div>
           <img src="assets/mugi-logo-full-dark.svg" alt="Mugi" style="width:320px;height:auto;margin:0;display:block">
@@ -561,13 +561,13 @@ class Component extends DCLogic {
   // Only facts already on the menu/brand — the real founding story is
   // still needed from MUGI (see docs/brief-review.md).
   storyData = [
-    { id: 'story-1', photo: 'assets/photos/space-entrance.jpg', pos: 'center 40%', imgFirst: true,
+    { id: 'story-1', photo: 'assets/photos/kitchen-noodles.jpg', pos: 'center 45%', imgFirst: true,
       kicker: 'The name', kickerVi: 'Cái tên', kickerJa: '店名',
       title: 'MUGI · 麦', titleVi: 'MUGI · 麦', titleJa: 'MUGI · 麦',
       body: 'MUGI means wheat in Japanese, the grain behind every bowl of ramen.',
       bodyVi: 'MUGI nghĩa là lúa mạch trong tiếng Nhật, hạt làm nên sợi mì ramen.',
       bodyJa: 'MUGIは日本語で「麦」。ラーメンの麺のもととなる穀物です。' },
-    { id: 'story-2', photo: 'assets/photos/space-counter-sake.jpg', pos: 'center 55%', imgFirst: false,
+    { id: 'story-2', photo: 'assets/photos/space-sake-shelf.jpg', pos: 'center 55%', imgFirst: false,
       kicker: 'The space', kickerVi: 'Không gian', kickerJa: '店内',
       title: 'Counter seats, open kitchen', titleVi: 'Quầy ngồi, bếp mở', titleJa: 'カウンター席とオープンキッチン',
       body: 'Sit at the counter and watch the kitchen, with sake on the shelf behind.',
@@ -1086,7 +1086,7 @@ class Component extends DCLogic {
         // reservation.html preselects the branch from ?branch=
         reserveUrl: 'reservation.html?branch=' + encodeURIComponent(l.short),
         // Same interior shots for every branch until per-branch photos exist.
-        photo: 'assets/photos/space-counter-sake.jpg',
+        photo: 'assets/photos/space-entrance.jpg',
         mapSrc: 'https://maps.google.com/maps?q=' + mapQueries[l.slug] + '+Vietnam&output=embed',
       }));
     }
