@@ -1,0 +1,40 @@
+# MUGI on Netlify: the repo root is the site (no build step). The admin's API
+# is netlify/functions/api.mjs at /api/*. Each publish from the admin is a
+# commit on GitHub, so Netlify redeploys it like any other push.
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# content changes must show up as soon as a deploy finishes
+[[headers]]
+  for = "/content/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# working files that shouldn't be served
+[[redirects]]
+  from = "/tools/*"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/design-options/*"
+  to = "/404"
+  status = 404
+  force = true

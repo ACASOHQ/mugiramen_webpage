@@ -209,6 +209,7 @@ body { margin: 0; background: #f6f1e8; }
 .ws .band img { width: 100%; height: 100%; min-height: 360px; object-fit: cover; }
 .ws .band .btxt { padding: clamp(28px, 5vw, 64px); display: flex; flex-direction: column; justify-content: center; gap: 16px; }
 .ws .band h2 { color: var(--paper); }
+.ws .band .num { color: #d8ae56; } /* gold on ink needs the lighter logo gold for contrast */
 .ws .band p { color: #d9cdb8; margin: 0; }
 .ws .band .cta { background: var(--paper); color: var(--ink) !important; align-self: flex-start; }
 .ws .band .cta:hover { background: var(--accent); color: var(--paper) !important; }
@@ -270,3 +271,40 @@ body { margin: 0; background: #f6f1e8; }
   .ws .nrow { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .ws .rsv-aside img { display: none; }
 }
+
+/* news photos / offer end date / job type (content from content/site.json) */
+.ws .nimg { width: 100%; max-width: 560px; aspect-ratio: 16 / 9; object-fit: cover; margin-bottom: 12px; }
+.ws .until { display: inline-block; font-size: 12px; color: var(--accent); border: 1px solid var(--accent); padding: 0 8px; margin-bottom: 8px; }
+.ws .jkind { display: block; font-size: 13px; color: var(--gold); margin-bottom: 4px; }
+
+/* accessibility settings (assets/a11y.js) — classes on <html> */
+html.a11y-size-1 .ws { zoom: 1.15; }
+html.a11y-size-2 .ws { zoom: 1.3; }
+html.a11y-contrast .ws { --paper: #ffffff; --paper2: #f1ece3; --card: #ffffff; --muted: #2b211b; --line: #6b5b4d; --gold: #6b4a12; --accent: #7a2620; }
+html.a11y-contrast .ws .band p, html.a11y-contrast .ws footer p, html.a11y-contrast .ws .fbot { color: #ffffff; }
+html.a11y-font .ws { --mincho: "Be Vietnam Pro", "Noto Sans JP", system-ui, sans-serif; letter-spacing: .02em; word-spacing: .08em; line-height: 1.85; }
+html.a11y-font .ws .tate { writing-mode: horizontal-tb; letter-spacing: .1em; }
+html.a11y-links .ws a:not(.cta) { text-decoration: underline !important; text-underline-offset: 3px; }
+html.a11y-motion .ws *, html.a11y-motion .ws *::before { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+html.a11y-motion .ws .dish .pic img { opacity: 1; }
+html.a11y-focus *:focus-visible { outline: 3px solid #8c3a34 !important; outline-offset: 3px !important; box-shadow: 0 0 0 6px #ffffff !important; }
+
+.a11y { position: fixed; left: calc(16px + env(safe-area-inset-left, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 80; font-family: "Be Vietnam Pro", "Noto Sans JP", system-ui, sans-serif; color: #2b211b; }
+.a11y-btn { width: 48px; height: 48px; border-radius: 50%; border: 1px solid #2b211b; background: #fbf8f2; color: #2b211b; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(43,33,27,.18); }
+.a11y-btn:hover, .a11y-btn[aria-expanded="true"] { background: #2b211b; color: #f6f1e8; }
+.a11y-btn:focus-visible, .a11y-panel :focus-visible { outline: 2px solid #8c3a34; outline-offset: 2px; }
+.a11y-panel { position: absolute; left: 0; bottom: 60px; width: min(320px, calc(100vw - 32px)); background: #fbf8f2; border: 1px solid #2b211b; box-shadow: 6px 6px 0 #ede5d6; padding: 6px 16px 12px; font-size: 14px; }
+.a11y-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d6cab6; min-height: 44px; }
+.a11y-head b { font-family: "Shippori Mincho", serif; font-weight: 500; font-size: 17px; }
+.a11y-head button { background: none; border: 0; font-size: 24px; width: 40px; height: 40px; cursor: pointer; color: #2b211b; }
+.a11y-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 44px; border-bottom: 1px solid #ede5d6; cursor: pointer; font-size: 14px; color: #2b211b; }
+.a11y-row input { width: 20px; height: 20px; min-height: 0; accent-color: #8c3a34; cursor: pointer; }
+.a11y-seg { display: flex; border: 1px solid #2b211b; }
+.a11y-seg button { width: 40px; height: 34px; background: none; border: 0; cursor: pointer; font-family: "Shippori Mincho", serif; color: #2b211b; }
+.a11y-seg button + button { border-left: 1px solid #2b211b; }
+.a11y-seg button[aria-pressed="true"] { background: #2b211b; color: #f6f1e8; }
+.a11y-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-top: 10px; }
+.a11y-foot small { color: #65574a; font-size: 12px; }
+.a11y-foot button { background: none; border: 0; border-bottom: 1px solid #2b211b; font: 500 13px inherit; cursor: pointer; color: #2b211b; padding: 0; min-height: 32px; }
+@media print { .a11y { display: none; } }
+.a11y--inline .a11y-panel { bottom: 0; }

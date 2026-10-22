@@ -46,6 +46,10 @@
   .branch-addr { font-size: 13px; opacity: .8; margin-top: 2px; }
   .branch-phone { font-size: 12px; color: var(--color-accent-700); margin-top: 4px; display: inline-block; }
 
+  .ws .confirm-opt { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; font-size: 14px; color: var(--ink); cursor: pointer; }
+  .ws .confirm-opt input { width: 16px; height: 16px; min-height: 0; margin: 0; padding: 0; border: 0; accent-color: var(--accent); }
+  .ws #field-confirm { margin-bottom: 8px; }
+  .ws .confirm-opt:has(input:checked) { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
   #confirmDialog { display: none; }
   #confirmDialog.open { display: grid; }
 
@@ -225,6 +229,16 @@
         </div>
       </div>
 
+      <fieldset class="field" id="field-confirm" style="border:0;padding:0;margin:0">
+        <legend data-i18n="confirmBy" style="font-size:12px;color:var(--muted);padding:0;margin-bottom:6px">Xác nhận đặt bàn qua</legend>
+        <div class="slots" role="radiogroup">
+          <label class="pill confirm-opt"><input type="radio" name="confirm_by" value="call" checked> <span data-i18n="confirmCall">Gọi điện</span></label>
+          <label class="pill confirm-opt"><input type="radio" name="confirm_by" value="sms"> <span data-i18n="confirmSms">Tin nhắn SMS</span></label>
+          <label class="pill confirm-opt"><input type="radio" name="confirm_by" value="zalo"> <span data-i18n="confirmZalo">Zalo</span></label>
+        </div>
+        <p class="note" data-i18n="confirmHint" style="margin:6px 0 0">Chọn tin nhắn nếu bạn khiếm thính hoặc không tiện nghe máy.</p>
+      </fieldset>
+
       <div class="field" id="field-party">
         <label for="party_size" data-i18n="partySize">Số khách</label>
         <input class="input" type="number" id="party_size" name="party_size" min="1" max="100" step="1" required>
@@ -311,15 +325,17 @@
       branch: 'Chi nhánh', branchError: 'Vui lòng chọn một chi nhánh.', reservationDetails: 'Chi tiết đặt bàn', datetimeError: 'Vui lòng chọn ngày giờ hợp lệ, không ở trong quá khứ.',
       reservationTime: 'Giờ đặt bàn', chooseTime: 'Chọn giờ', chooseDate: 'Chọn một ngày từ lịch', chooseReservationTime: 'Chọn giờ đặt bàn', partySize: 'Số khách', partyError: 'Số khách phải là số nguyên từ 1 đến 100.',
       sendReservation: 'Gửi đặt bàn', callHint: 'Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất ở cuối trang.', thankYou: 'Cảm ơn!', demoNote: '(Demo — trang này chưa kết nối với hệ thống đặt bàn. Vui lòng gọi trực tiếp chi nhánh để đặt bàn ngay.)', close: 'Đóng',
+      confirmBy: 'Xác nhận đặt bàn qua', confirmCall: 'Gọi điện', confirmSms: 'Tin nhắn SMS', confirmZalo: 'Zalo', confirmHint: 'Chọn tin nhắn nếu bạn khiếm thính hoặc không tiện nghe máy.',
       hours: 'Giờ mở cửa', lunch: 'Trưa', dinner: 'Tối', backHome: 'Về trang chủ', prevMonth: 'Tháng trước', nextMonth: 'Tháng sau'
     },
     en: {
       navHome: 'Home', navAbout: 'About', navMenu: 'Menu', navLocations: 'Contact', navPromotions: 'News & Offers', navCareers: 'Careers', navContact: 'Contact', navReserve: 'Reserve a Table',
-      heroTitle: 'Reserve a Table', heroMessage: 'Fill in your details below and our staff will call you back to confirm.',
+      heroTitle: 'Reserve a Table', heroMessage: 'Fill in your details below and our staff will contact you to confirm.',
       guestDetails: 'Your details', fullName: 'Full name', nameError: 'Please enter your full name (max 60 characters).', phone: 'Phone number', phoneError: "This phone number doesn't look right.",
       branch: 'Branch', branchError: 'Please select a branch.', reservationDetails: 'Reservation details', datetimeError: 'Please pick a valid date and time, not in the past.',
       reservationTime: 'Reservation time', chooseTime: 'Select a time', chooseDate: 'Select a date from the calendar', chooseReservationTime: 'Select a reservation time', partySize: 'Party size', partyError: 'Party size must be a whole number from 1 to 100.',
       sendReservation: 'Send reservation', callHint: 'Need it faster? Call your nearest branch directly, listed below.', thankYou: 'Thank you!', demoNote: "(Demo — this page isn't connected to the booking system yet. Please call the branch directly to book right now.)", close: 'Close',
+      confirmBy: 'Confirm my booking by', confirmCall: 'Phone call', confirmSms: 'Text message', confirmZalo: 'Zalo', confirmHint: 'Choose a message if you are deaf, hard of hearing, or can’t take a call.',
       hours: 'Hours', lunch: 'Lunch', dinner: 'Dinner', backHome: 'Back home', prevMonth: 'Previous month', nextMonth: 'Next month'
     },
     ja: {
@@ -329,6 +345,7 @@
       branch: '店舗', branchError: '店舗を選択してください。', reservationDetails: 'ご予約内容', datetimeError: '過去ではない日時を選択してください。',
       reservationTime: 'ご予約時間', chooseTime: '時間を選択', chooseDate: 'カレンダーから日付を選択', chooseReservationTime: 'ご予約時間を選択', partySize: '人数', partyError: '人数は1〜100の整数で入力してください。',
       sendReservation: '予約を送信', callHint: 'お急ぎの場合は、ページ下部のお近くの店舗へお電話ください。', thankYou: 'ありがとうございます！', demoNote: '（デモ：このページは予約システムにまだ接続されていません。ご予約はお電話でお願いします。）', close: '閉じる',
+      confirmBy: '予約確認の方法', confirmCall: '電話', confirmSms: 'SMS', confirmZalo: 'Zalo', confirmHint: '聴覚に障がいのある方やお電話に出られない方はメッセージをお選びください。',
       hours: '営業時間', lunch: 'ランチ', dinner: 'ディナー', backHome: 'ホームへ', prevMonth: '前の月', nextMonth: '次の月'
     }
   };
@@ -613,6 +630,7 @@
       branch: fd.get('branch'),
       datetime: fd.get('datetime'),
       party_size: fd.get('party_size'),
+      confirm_by: fd.get('confirm_by'), // call | sms | zalo
       website: fd.get('website'), // honeypot — always blank for real users
     };
 
@@ -640,6 +658,7 @@
       ja: data.name + '様、' + data.branch + '（' + data.party_size + '名様）のご予約リクエストを承りました。'
     }[language];
     dialog.classList.add('open');
+    if (window.umami) window.umami.track('reservation-sent', { branch: data.branch });
   });
 
   closeBtn.addEventListener('click', function () {
@@ -653,5 +672,16 @@
 })();
 </script>
 
+<script src="assets/a11y.js"></script>
+<script>
+  // Visitor counting (Umami), same switch as the home page: content/site.json → analytics
+  fetch('content/site.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (c) {
+    var a = c.analytics || {};
+    if (!a.umamiWebsiteId) return;
+    var sc = document.createElement('script');
+    sc.defer = true; sc.src = a.umamiScript || 'https://cloud.umami.is/script.js'; sc.dataset.websiteId = a.umamiWebsiteId;
+    document.head.appendChild(sc);
+  }).catch(function () {});
+</script>
 </body>
 </html>

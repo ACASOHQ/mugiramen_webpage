@@ -1,0 +1,2183 @@
+{
+  "_about": "Website content. Edited from the admin portal (admin/) or by hand; every change is a git commit. index.html is the template that renders it.",
+  "analytics": {
+    "umamiWebsiteId": "",
+    "umamiScript": "https://cloud.umami.is/script.js"
+  },
+  "text": {
+    "reserve": {
+      "vi": "Đặt bàn",
+      "en": "Reserve a table",
+      "ja": "席を予約"
+    },
+    "heroTitle": {
+      "vi": "Một bát ramen,\nmột quầy gỗ,\nba góc Hà Nội.",
+      "en": "A bowl of ramen,\na wooden counter,\nthree corners of Hanoi.",
+      "ja": "ラーメン一杯、\n木のカウンター、\nハノイの3店舗。"
+    },
+    "heroSub": {
+      "vi": "Ramen & izakaya Nhật Bản tại Hà Nội — Mon City, Golden Palace và Phan Chu Trinh.",
+      "en": "Japanese ramen & izakaya in Hanoi — Mon City, Golden Palace and Phan Chu Trinh.",
+      "ja": "ハノイの日本式ラーメン＆居酒屋 — Mon City、Golden Palace、Phan Chu Trinh。"
+    },
+    "capCounter": {
+      "vi": "Quầy ngồi, bếp mở",
+      "en": "Counter seats, open kitchen",
+      "ja": "カウンター席とオープンキッチン"
+    },
+    "aboutHeading": {
+      "vi": "Về MUGI",
+      "en": "About MUGI",
+      "ja": "MUGIについて"
+    },
+    "aboutLead": {
+      "vi": "MUGI (麦) nghĩa là lúa mạch trong tiếng Nhật — hạt làm nên sợi mì ramen. Chúng tôi phục vụ ramen và các món izakaya tại ba nhà hàng ở Hà Nội.",
+      "en": "MUGI (麦) means wheat in Japanese — the grain behind every bowl of ramen. We serve ramen and izakaya dishes at three restaurants in Hanoi.",
+      "ja": "MUGI（麦）は日本語で「麦」。ラーメンの麺のもととなる穀物です。ハノイの3店舗でラーメンと居酒屋料理をご提供しています。"
+    },
+    "aboutSide": {
+      "vi": "Thực đơn gồm ramen, sashimi, sushi, đồ nướng, đồ chiên, cơm và udon, kèm sake, cocktail và bia.",
+      "en": "The menu covers ramen, sashimi, sushi, grilled and fried dishes, rice and udon, with sake, cocktails and beer.",
+      "ja": "ラーメン、刺身、寿司、焼き物、揚げ物、ご飯もの、うどん、そして日本酒、カクテル、ビールをお楽しみいただけます。"
+    },
+    "aboutSub": {
+      "vi": "Ramen và izakaya Nhật Bản, ba nhà hàng tại Hà Nội.",
+      "en": "Japanese ramen and izakaya, three restaurants in Hanoi.",
+      "ja": "ハノイの3店舗で、ラーメンと居酒屋料理を。"
+    },
+    "readStory": {
+      "vi": "Đọc thêm →",
+      "en": "Read more →",
+      "ja": "詳しく →"
+    },
+    "ourStory": {
+      "vi": "Về MUGI",
+      "en": "About MUGI",
+      "ja": "MUGIについて"
+    },
+    "specialsHeading": {
+      "vi": "Món nổi bật",
+      "en": "Featured",
+      "ja": "おすすめ"
+    },
+    "seeMenu": {
+      "vi": "Xem thực đơn →",
+      "en": "See the menu →",
+      "ja": "メニューを見る →"
+    },
+    "fullMenu": {
+      "vi": "Thực đơn đầy đủ theo từng cơ sở →",
+      "en": "Full menu by restaurant →",
+      "ja": "店舗別の全メニュー →"
+    },
+    "spaceHeading": {
+      "vi": "Không gian",
+      "en": "The space",
+      "ja": "店内"
+    },
+    "restaurantsHeading": {
+      "vi": "Nhà hàng",
+      "en": "Restaurants",
+      "ja": "店舗"
+    },
+    "directions": {
+      "vi": "Chỉ đường →",
+      "en": "Directions →",
+      "ja": "行き方 →"
+    },
+    "bandTitle": {
+      "vi": "Giữ một chỗ tại quầy.",
+      "en": "Keep a seat at the counter.",
+      "ja": "カウンター席をご予約ください。"
+    },
+    "bandBody": {
+      "vi": "Chọn nhà hàng, ngày và giờ — nhà hàng sẽ gọi hoặc nhắn tin để xác nhận.",
+      "en": "Pick a restaurant, date and time — the restaurant will call or message you to confirm.",
+      "ja": "店舗・日時をお選びください。店舗からお電話またはメッセージで確認いたします。"
+    },
+    "menuBandTitle": {
+      "vi": "Đã chọn được món?",
+      "en": "Know what you will order?",
+      "ja": "ご注文はお決まりですか？"
+    },
+    "reserveTitle": {
+      "vi": "Đặt bàn",
+      "en": "Reservations",
+      "ja": "ご予約"
+    },
+    "findUs": {
+      "vi": "Nhà hàng & liên hệ",
+      "en": "Restaurants & contact",
+      "ja": "店舗・お問い合わせ"
+    },
+    "lunch": {
+      "vi": "Trưa",
+      "en": "Lunch",
+      "ja": "ランチ"
+    },
+    "dinner": {
+      "vi": "Tối",
+      "en": "Dinner",
+      "ja": "ディナー"
+    },
+    "addressLabel": {
+      "vi": "Địa chỉ",
+      "en": "Address",
+      "ja": "住所"
+    },
+    "phoneLabel": {
+      "vi": "Điện thoại",
+      "en": "Phone",
+      "ja": "電話"
+    },
+    "openInMaps": {
+      "vi": "Google Maps ↗",
+      "en": "Google Maps ↗",
+      "ja": "Googleマップ ↗"
+    },
+    "menuHere": {
+      "vi": "Thực đơn cơ sở này",
+      "en": "Menu for this branch",
+      "ja": "この店のメニュー"
+    },
+    "menuTitle": {
+      "vi": "Thực đơn",
+      "en": "Menu",
+      "ja": "メニュー"
+    },
+    "menuSub": {
+      "vi": "Chọn cơ sở để xem thực đơn và giá.",
+      "en": "Choose a restaurant to see its menu and prices.",
+      "ja": "店舗を選んでメニューと価格をご覧ください。"
+    },
+    "menuNote": {
+      "vi": "Giá và món có thể khác nhau giữa các cơ sở.",
+      "en": "Prices and dishes can differ between restaurants.",
+      "ja": "価格・品目は店舗により異なる場合があります。"
+    },
+    "restaurantLabel": {
+      "vi": "Nhà hàng",
+      "en": "Restaurant",
+      "ja": "店舗"
+    },
+    "featuredTag": {
+      "vi": "Nổi bật",
+      "en": "Featured",
+      "ja": "おすすめ"
+    },
+    "toppings": {
+      "vi": "Topping thêm",
+      "en": "Toppings",
+      "ja": "トッピング"
+    },
+    "navNews": {
+      "vi": "Tin tức",
+      "en": "News",
+      "ja": "お知らせ"
+    },
+    "promoHeading": {
+      "vi": "Tin tức & ưu đãi",
+      "en": "News & offers",
+      "ja": "お知らせ・特典"
+    },
+    "newsSub": {
+      "vi": "Món mới theo mùa, sự kiện và ưu đãi tại các nhà hàng MUGI.",
+      "en": "Seasonal dishes, events and offers at MUGI restaurants.",
+      "ja": "季節の料理、イベント、特典のお知らせ。"
+    },
+    "newsEmptyTitle": {
+      "vi": "Chưa có tin mới.",
+      "en": "No news yet.",
+      "ja": "現在お知らせはありません。"
+    },
+    "newsEmpty": {
+      "vi": "Tin tức và ưu đãi sẽ được đăng tại đây. Theo dõi Facebook MUGI để cập nhật sớm nhất.",
+      "en": "News and offers will be posted here. Follow MUGI on Facebook for updates.",
+      "ja": "お知らせや特典はこちらに掲載します。最新情報はFacebookをご覧ください。"
+    },
+    "careersTitle": {
+      "vi": "Tuyển dụng",
+      "en": "Careers",
+      "ja": "採用情報"
+    },
+    "careersSub": {
+      "vi": "Làm việc cùng MUGI tại bếp và quầy phục vụ.",
+      "en": "Work with MUGI in the kitchen and at the counter.",
+      "ja": "キッチンやホールでMUGIと一緒に働きませんか。"
+    },
+    "careersEmptyTitle": {
+      "vi": "Hiện chưa có vị trí đang tuyển.",
+      "en": "No openings right now.",
+      "ja": "現在募集はありません。"
+    },
+    "careersEmpty": {
+      "vi": "Tin tuyển dụng sẽ được đăng tại đây. Quan tâm đến MUGI? Hãy liên hệ nhà hàng gần bạn.",
+      "en": "Job openings will be posted here. Interested in joining MUGI? Contact your nearest restaurant.",
+      "ja": "求人情報はこちらに掲載します。ご興味のある方は、お近くの店舗までご連絡ください。"
+    },
+    "contactTitle": {
+      "vi": "Liên hệ",
+      "en": "Contact",
+      "ja": "お問い合わせ"
+    },
+    "contactSub": {
+      "vi": "Mở cửa mỗi ngày, trưa 10:30–14:00 và tối 17:00–22:00. Gọi nhà hàng gần bạn hoặc nhắn qua Facebook.",
+      "en": "Open daily, lunch 10:30–14:00 and dinner 17:00–22:00. Call your nearest restaurant or message us on Facebook.",
+      "ja": "毎日営業、ランチ10:30–14:00、ディナー17:00–22:00。お近くの店舗へお電話、またはFacebookからご連絡ください。"
+    },
+    "callTitle": {
+      "vi": "Gọi nhà hàng",
+      "en": "Call a restaurant",
+      "ja": "店舗へ電話"
+    },
+    "callBody": {
+      "vi": "Đặt bàn gấp, nhóm đông hoặc hỏi món — gọi trực tiếp cơ sở gần bạn.",
+      "en": "Same-day bookings, large groups or menu questions — call your nearest restaurant.",
+      "ja": "当日のご予約、団体様、メニューのご質問はお近くの店舗へ。"
+    },
+    "fbBody": {
+      "vi": "Nhắn tin cho MUGI và theo dõi tin tức, ưu đãi mới.",
+      "en": "Message MUGI and follow news and offers.",
+      "ja": "メッセージやお知らせはFacebookで。"
+    },
+    "footerHours": {
+      "vi": "Giờ mở cửa",
+      "en": "Hours",
+      "ja": "営業時間"
+    }
+  },
+  "images": {
+    "hero": {
+      "src": "assets/photos/space-counter-guests.jpg",
+      "pos": "55% center",
+      "alt": {
+        "vi": "Quầy ngồi, bếp mở",
+        "en": "Counter seats, open kitchen",
+        "ja": "カウンター席とオープンキッチン"
+      }
+    },
+    "about1": {
+      "src": "assets/photos/kitchen-noodles.jpg",
+      "pos": "center 40%",
+      "alt": {
+        "vi": "Đầu bếp kéo sợi mì trong bếp",
+        "en": "A cook lifting noodles in the kitchen",
+        "ja": "厨房で麺を上げる料理人"
+      }
+    },
+    "about2": {
+      "src": "assets/photos/space-counter-kitchen.jpg",
+      "pos": "center 55%",
+      "alt": {
+        "vi": "Quầy ngồi nhìn vào bếp mở",
+        "en": "Counter seats facing the open kitchen",
+        "ja": "オープンキッチンに面したカウンター席"
+      }
+    },
+    "bandHome": {
+      "src": "assets/photos/space-entrance.jpg",
+      "pos": "center 65%",
+      "alt": {
+        "vi": "Lối vào nhà hàng với rèm noren",
+        "en": "Restaurant entrance with noren curtains",
+        "ja": "のれんのかかった入口"
+      }
+    },
+    "bandAbout": {
+      "src": "assets/photos/space-counter-sake.jpg",
+      "pos": "center 40%",
+      "alt": {
+        "vi": "Quầy bar với kệ sake",
+        "en": "The bar with its sake shelf",
+        "ja": "日本酒の棚があるバー"
+      }
+    },
+    "newsEmpty": {
+      "src": "assets/photos/space-sake-shelf.jpg",
+      "pos": "center 40%",
+      "alt": {
+        "vi": "Kệ sake trên quầy",
+        "en": "Sake above the counter",
+        "ja": "カウンター上の日本酒"
+      }
+    },
+    "careersEmpty": {
+      "src": "assets/photos/space-counter-kitchen.jpg",
+      "pos": "center 55%",
+      "alt": {
+        "vi": "Bếp mở của MUGI",
+        "en": "The open kitchen at MUGI",
+        "ja": "MUGIのオープンキッチン"
+      }
+    },
+    "bandMenu": {
+      "src": "assets/photos/space-counter-guests.jpg",
+      "pos": "55% center",
+      "alt": {
+        "vi": "Khách ngồi tại quầy",
+        "en": "Guests at the counter",
+        "ja": "カウンター席のお客様"
+      }
+    }
+  },
+  "story": [
+    {
+      "id": "story-1",
+      "photo": "assets/photos/kitchen-noodles.jpg",
+      "pos": "center 45%",
+      "imgFirst": true,
+      "kicker": {
+        "vi": "Cái tên",
+        "en": "The name",
+        "ja": "店名"
+      },
+      "title": {
+        "vi": "MUGI · 麦",
+        "en": "MUGI · 麦",
+        "ja": "MUGI · 麦"
+      },
+      "body": {
+        "vi": "MUGI nghĩa là lúa mạch trong tiếng Nhật, hạt làm nên sợi mì ramen.",
+        "en": "MUGI means wheat in Japanese, the grain behind every bowl of ramen.",
+        "ja": "MUGIは日本語で「麦」。ラーメンの麺のもととなる穀物です。"
+      }
+    },
+    {
+      "id": "story-2",
+      "photo": "assets/photos/space-sake-shelf.jpg",
+      "pos": "center 55%",
+      "imgFirst": false,
+      "kicker": {
+        "vi": "Không gian",
+        "en": "The space",
+        "ja": "店内"
+      },
+      "title": {
+        "vi": "Quầy ngồi, bếp mở",
+        "en": "Counter seats, open kitchen",
+        "ja": "カウンター席とオープンキッチン"
+      },
+      "body": {
+        "vi": "Ngồi tại quầy nhìn ra bếp mở, cùng kệ sake phía sau.",
+        "en": "Sit at the counter and watch the kitchen, with sake on the shelf behind.",
+        "ja": "カウンター席からオープンキッチンをご覧いただけます。棚には日本酒が並びます。"
+      }
+    },
+    {
+      "id": "story-3",
+      "photo": "assets/photos/sashimi-special.jpg",
+      "pos": "center",
+      "imgFirst": true,
+      "kicker": {
+        "vi": "Thực đơn",
+        "en": "The menu",
+        "ja": "メニュー"
+      },
+      "title": {
+        "vi": "Ramen và izakaya",
+        "en": "Ramen and izakaya",
+        "ja": "ラーメンと居酒屋"
+      },
+      "body": {
+        "vi": "Ramen, sashimi, sushi, đồ nướng, đồ chiên, cơm và udon, kèm sake, cocktail và bia.",
+        "en": "Ramen, sashimi, sushi, grilled and fried dishes, rice and udon, with sake, cocktails and beer.",
+        "ja": "ラーメン、刺身、寿司、焼き物、揚げ物、ご飯もの、うどん。日本酒、カクテル、ビールもご用意しています。"
+      }
+    },
+    {
+      "id": "story-4",
+      "photo": "assets/photos/space-counter-kitchen.jpg",
+      "pos": "center 45%",
+      "imgFirst": false,
+      "kicker": {
+        "vi": "Nhà hàng",
+        "en": "The restaurants",
+        "ja": "店舗"
+      },
+      "title": {
+        "vi": "Ba nhà hàng tại Hà Nội",
+        "en": "Three restaurants in Hanoi",
+        "ja": "ハノイの3店舗"
+      },
+      "body": {
+        "vi": "Mon City (Hàm Nghi), Golden Palace (Mễ Trì) và Phan Chu Trinh.",
+        "en": "Mon City (Hàm Nghi), Golden Palace (Mễ Trì) and Phan Chu Trinh.",
+        "ja": "Mon City（ハムギ）、Golden Palace（ミーチー）、Phan Chu Trinh。"
+      }
+    }
+  ],
+  "space": [
+    {
+      "id": "space-1",
+      "src": "assets/photos/space-entrance.jpg",
+      "cls": "",
+      "caption": {
+        "vi": "Lối vào & rèm noren",
+        "en": "Entrance & noren",
+        "ja": "入口とのれん"
+      }
+    },
+    {
+      "id": "space-2",
+      "src": "assets/photos/space-sake-shelf.jpg",
+      "cls": "",
+      "caption": {
+        "vi": "Kệ sake trên quầy",
+        "en": "Sake above the counter",
+        "ja": "カウンター上の日本酒"
+      }
+    },
+    {
+      "id": "space-3",
+      "src": "assets/photos/space-counter-sake.jpg",
+      "cls": "",
+      "caption": {
+        "vi": "Quầy bar",
+        "en": "The bar",
+        "ja": "バーカウンター"
+      }
+    },
+    {
+      "id": "space-4",
+      "src": "assets/photos/space-counter-kitchen.jpg",
+      "cls": "tall",
+      "caption": {
+        "vi": "Bếp mở",
+        "en": "Open kitchen",
+        "ja": "オープンキッチン"
+      }
+    }
+  ],
+  "featured": [
+    {
+      "id": "ramen-tonkotsu-shoyu-toku",
+      "photo": "assets/photos/ramen-toku-tonkotsu-shoyu.jpg"
+    },
+    {
+      "id": "sashimi-mixed-special",
+      "photo": "assets/photos/sashimi-special.jpg"
+    },
+    {
+      "id": "yaki-chicken-negima",
+      "photo": "assets/photos/grill-chicken-negima.jpg"
+    },
+    {
+      "id": "rice-eel-bowl",
+      "photo": "assets/photos/eel-bowl.jpg"
+    }
+  ],
+  "locations": [
+    {
+      "short": "Mon City, Hàm Nghi",
+      "slug": "mon-city",
+      "area": "Hàm Nghi",
+      "addressLine1": "Số 37 Lô TT01 Mon City, Ngõ 4 Hàm Nghi,",
+      "addressLine2": "Từ Liêm, Hà Nội",
+      "lunch": "10:30 – 14:00",
+      "dinner": "17:00 – 22:00",
+      "phone": "0966 75 0202",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=37+Lo+TT01+Mon+City+Ngo+4+Ham+Nghi+Tu+Liem+Hanoi"
+    },
+    {
+      "short": "Golden Palace, Mễ Trì",
+      "slug": "golden-palace",
+      "area": "Mễ Trì",
+      "addressLine1": "Lô B1.9, Tầng hầm B1, Tòa nhà Golden Palace, Số 99 Mễ Trì,",
+      "addressLine2": "Từ Liêm, Hà Nội",
+      "lunch": "10:30 – 14:00",
+      "dinner": "17:00 – 22:00",
+      "phone": "0866 60 7560",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Golden+Palace+99+Me+Tri+Tu+Liem+Hanoi"
+    },
+    {
+      "short": "Phan Chu Trinh",
+      "slug": "phan-chu-trinh",
+      "area": "Cửa Nam",
+      "addressLine1": "Số 23 Phan Chu Trinh,",
+      "addressLine2": "Cửa Nam, Hà Nội",
+      "lunch": "10:30 – 14:00",
+      "dinner": "17:00 – 22:00",
+      "phone": "0866 75 3375",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=23+Phan+Chu+Trinh+Cua+Nam+Hanoi"
+    }
+  ],
+  "menu": {
+    "branches": [
+      {
+        "key": "golden-palace",
+        "label": "Golden Palace, Mễ Trì"
+      },
+      {
+        "key": "phan-chu-trinh",
+        "label": "Phan Chu Trinh"
+      },
+      {
+        "key": "mon-city",
+        "label": "Mon City, Hàm Nghi"
+      }
+    ],
+    "categories": [
+      {
+        "key": "ramen",
+        "labelVi": "Ramen",
+        "labelEn": "Ramen",
+        "labelJa": "ラーメン",
+        "layout": "cards",
+        "addOns": [
+          {
+            "id": "soy-sauce-egg",
+            "nameVi": "Trứng ngâm tương",
+            "nameEn": "Soy Sauce Egg",
+            "price": "15.000₫"
+          },
+          {
+            "id": "spicy-minced-pork",
+            "nameVi": "Thịt tan tan",
+            "nameEn": "Spicy Minced Pork",
+            "price": "25.000₫"
+          },
+          {
+            "id": "menma",
+            "nameVi": "Măng muối",
+            "nameEn": "Menma",
+            "price": "25.000₫"
+          },
+          {
+            "id": "chashu",
+            "nameVi": "Thịt xá xíu",
+            "nameEn": "Chashu",
+            "price": "25.000₫"
+          },
+          {
+            "id": "noodle",
+            "nameVi": "Mì",
+            "nameEn": "Noodle",
+            "price": "20.000₫"
+          },
+          {
+            "id": "seaweed",
+            "nameVi": "Rong biển",
+            "nameEn": "Seaweed",
+            "price": "20.000₫"
+          },
+          {
+            "id": "rice",
+            "nameVi": "Cơm",
+            "nameEn": "Rice",
+            "price": "15.000₫"
+          }
+        ],
+        "dishes": [
+          {
+            "id": "ramen-tonkotsu-shoyu-toku",
+            "featured": true,
+            "photo": "menu_pictures/TOKU%20TONKOTSU%20SHOYU%20RAMEN.jpeg",
+            "nameEn": "Tokusei Tonkotsu Shoyu Ramen",
+            "nameVi": "Tokusei Tonkotsu Shoyu Ramen",
+            "nameJp": "特製豚骨醤油ラーメン",
+            "price": "189.000₫"
+          },
+          {
+            "id": "ramen-tonkotsu-shoyu",
+            "photo": "menu_pictures/tonkotsu%20shoyu%20ramen.png",
+            "nameEn": "Tonkotsu Shoyu Ramen",
+            "nameVi": "Tonkotsu Shoyu Ramen",
+            "nameJp": "豚骨醤油ラーメン",
+            "price": "149.000₫"
+          },
+          {
+            "id": "ramen-tonkotsu-miso-toku",
+            "photo": "menu_pictures/TOKU%20TONKOTSU%20MISO%20RAMEN.jpeg",
+            "nameEn": "Tokusei Tonkotsu Miso Ramen",
+            "nameVi": "Tokusei Tonkotsu Miso Ramen",
+            "nameJp": "特製豚骨味噌ラーメン",
+            "price": "199.000₫"
+          },
+          {
+            "id": "ramen-tonkotsu-miso",
+            "photo": "menu_pictures/TONKOTSU%20MISO%20RAMEN.jpeg",
+            "nameEn": "Tonkotsu Miso Ramen",
+            "nameVi": "Tonkotsu Miso Ramen",
+            "nameJp": "豚骨味噌ラーメン",
+            "price": "159.000₫"
+          },
+          {
+            "id": "ramen-wafu-tonkotsu-toku",
+            "photo": "menu_pictures/TOKU%20WAFU%20TONKOTSU%20%20RAMEN.jpeg",
+            "nameEn": "Tokusei Wafu Tonkotsu Ramen",
+            "nameVi": "Tokusei Wafu Tonkotsu Ramen",
+            "nameJp": "特製和風豚骨ラーメン",
+            "price": "189.000₫"
+          },
+          {
+            "id": "ramen-wafu-tonkotsu",
+            "photo": "menu_pictures/WAFU%20TONKOTSU%20RAMEN.jpeg",
+            "nameEn": "Wafu Tonkotsu Ramen",
+            "nameVi": "Wafu Tonkotsu Ramen",
+            "nameJp": "和風豚骨ラーメン",
+            "price": "149.000₫"
+          },
+          {
+            "id": "ramen-tantan-toku",
+            "photo": "menu_pictures/TOKU%20TANTAN%20RAMEN.jpeg",
+            "nameEn": "Toku Tantan Ramen",
+            "nameVi": "Toku Tantan Ramen",
+            "nameJp": "特担々麺",
+            "price": "159.000₫"
+          },
+          {
+            "id": "ramen-tantan",
+            "photo": "menu_pictures/TAN%20TAN%20RAMEN.jpeg",
+            "nameEn": "Tantan Ramen",
+            "nameVi": "Tantan Ramen",
+            "nameJp": "担々麺",
+            "price": "119.000₫"
+          },
+          {
+            "id": "ramen-miso-toku",
+            "photo": "menu_pictures/TOKU%20MISO%20RAMEN.jpeg",
+            "nameEn": "Toku Miso Ramen",
+            "nameVi": "Toku Miso Ramen",
+            "nameJp": "特味噌ラーメン",
+            "price": "159.000₫"
+          },
+          {
+            "id": "ramen-miso",
+            "photo": "menu_pictures/Miso%20Ramen.jpg",
+            "nameEn": "Miso Ramen",
+            "nameVi": "Miso Ramen",
+            "nameJp": "味噌ラーメン",
+            "price": "109.000₫"
+          },
+          {
+            "id": "ramen-shoyu-toku",
+            "photo": "menu_pictures/toku%20shoyu%20ramen.jpeg",
+            "nameEn": "Toku Shoyu Ramen",
+            "nameVi": "Toku Shoyu Ramen",
+            "nameJp": "特醤油ラーメン",
+            "price": "149.000₫"
+          },
+          {
+            "id": "ramen-shoyu",
+            "photo": "menu_pictures/SHOYU%20RAMEN.jpeg",
+            "nameEn": "Shoyu Ramen",
+            "nameVi": "Shoyu Ramen",
+            "nameJp": "醤油ラーメン",
+            "price": "109.000₫"
+          },
+          {
+            "id": "ramen-shio-toku",
+            "photo": "menu_pictures/TOKU%20SHIO%20RAMEN.jpeg",
+            "nameEn": "Toku Shio Ramen",
+            "nameVi": "Toku Shio Ramen",
+            "nameJp": "特塩ラーメン",
+            "price": "139.000₫"
+          },
+          {
+            "id": "ramen-shio",
+            "photo": "menu_pictures/Shio%20Ramen%20.jpeg",
+            "nameEn": "Shio Ramen",
+            "nameVi": "Shio Ramen",
+            "nameJp": "塩ラーメン",
+            "price": "99.000₫"
+          },
+          {
+            "id": "ramen-cold-sesame-shoyu",
+            "photo": "menu_pictures/M%C3%8C%20RAMEN%20L%E1%BA%A0NH%20V%E1%BB%8A%20SHOYU_M%C3%88.jpg",
+            "nameVi": "Mỳ Ramen Lạnh vị Xốt Mè/vị Shoyu",
+            "nameEn": "Cold Ramen with Sesame/Shoyu Sauce",
+            "nameJp": "冷やし中華ごまだれ/醤油",
+            "price": "139.000₫"
+          },
+          {
+            "id": "ramen-tsukemen",
+            "photo": "menu_pictures/WAFU%20TONKOTSU%20TSUKEMEN.jpg",
+            "nameVi": "Mỳ Chấm",
+            "nameEn": "Wafu Tonkotsu Tsukemen",
+            "nameJp": "和風豚骨つけ麺",
+            "price": "149.000₫"
+          },
+          {
+            "id": "ramen-mazesoba",
+            "photo": "menu_pictures/MAZE%20SOBA.jpg",
+            "nameVi": "Mỳ Trộn",
+            "nameEn": "Japanese Mixed Noodles",
+            "nameJp": "混ぜ蕎麦",
+            "price": "149.000₫"
+          }
+        ]
+      },
+      {
+        "key": "sashimi",
+        "labelVi": "Sashimi",
+        "labelEn": "Sashimi",
+        "labelJa": "刺身",
+        "layout": "cards",
+        "dishes": [
+          {
+            "id": "sashimi-mixed-special",
+            "featured": true,
+            "photo": "menu_pictures/SASHIMI%20T%E1%BB%94NG%20H%E1%BB%A2P%20%C4%90%E1%BA%B6C%20BI%E1%BB%86T.JPG",
+            "nameVi": "Sashimi Tổng Hợp Đặc Biệt",
+            "nameEn": "Special Mixed Sashimi",
+            "nameJp": "特刺身盛り合わせ",
+            "price": "999.000₫",
+            "at": {
+              "mon-city": {
+                "hidden": true
+              }
+            }
+          },
+          {
+            "id": "sashimi-mix6",
+            "photo": "menu_pictures/SASHIMI%20MIX%206.jpg",
+            "nameVi": "Sashimi Mix 6",
+            "nameEn": "Sashimi Mix 6",
+            "nameJp": "刺身盛り合わせ6種",
+            "price": "450.000₫",
+            "at": {
+              "phan-chu-trinh": {
+                "photo": "menu_pictures/SASHIMI%20MIX%206%20-%20PHAN%20CHU%20TRINH.JPG"
+              },
+              "mon-city": {
+                "photo": "menu_pictures/SASHIMI%20MIX%206%20M%E1%BB%B8%20%C4%90%C3%8CNH.JPG"
+              }
+            }
+          },
+          {
+            "id": "sashimi-mix4",
+            "photo": "menu_pictures/SASHIMI%20MIX%204.jpg",
+            "nameVi": "Sashimi Mix 4",
+            "nameEn": "Sashimi Mix 4",
+            "nameJp": "刺身盛り合わせ4種",
+            "price": "369.000₫",
+            "at": {
+              "phan-chu-trinh": {
+                "photo": "menu_pictures/SASHIMI%20MIX%204%20PCT.jpg"
+              }
+            }
+          },
+          {
+            "id": "sashimi-otoro",
+            "photo": "menu_pictures/SASHIMI%20B%E1%BB%A4NG%20C%C3%81%20NG%E1%BB%AA%20V%C3%82Y%20XANH.JPG",
+            "nameVi": "Sashimi Bụng Cá Ngừ Vây Xanh",
+            "nameEn": "Fatty Tuna Belly Sashimi",
+            "nameJp": "本まぐろ大トロ刺身",
+            "price": "590.000₫",
+            "at": {
+              "mon-city": {
+                "hidden": true
+              }
+            }
+          },
+          {
+            "id": "sashimi-salmon-belly",
+            "photo": "menu_pictures/Sashimi%20b%E1%BB%A5ng%20c%C3%A1%20h%E1%BB%93i.png",
+            "nameVi": "Sashimi Bụng Cá Hồi",
+            "nameEn": "Salmon Belly Sashimi",
+            "nameJp": "トロサーモン刺身",
+            "price": "175.000₫"
+          },
+          {
+            "id": "sashimi-salmon",
+            "photo": "menu_pictures/%20Sashimi%20c%C3%A1%20h%E1%BB%93i.png",
+            "nameVi": "Sashimi Cá Hồi",
+            "nameEn": "Salmon Sashimi",
+            "nameJp": "サーモン刺身",
+            "price": "165.000₫"
+          },
+          {
+            "id": "sashimi-nishin-egg",
+            "photo": "menu_pictures/Sashimi%20c%C3%A1%20tr%C3%ADch%20%C3%A9p%20tr%E1%BB%A9ng.JPG",
+            "nameVi": "Sashimi Cá Trích Ép Trứng",
+            "nameEn": "Nishin-with-egg Sashimi",
+            "nameJp": "子持ちニシン刺身",
+            "price": "165.000₫"
+          },
+          {
+            "id": "sashimi-surf-clam",
+            "photo": "menu_pictures/%20Sashimi%20s%C3%B2%20%C4%91%E1%BB%8F.png",
+            "nameVi": "Sashimi Sò Đỏ",
+            "nameEn": "Surf Clam Sashimi",
+            "nameJp": "ホッキ刺身",
+            "price": "165.000₫"
+          },
+          {
+            "id": "sashimi-scallop",
+            "photo": "menu_pictures/SSM%20c%E1%BB%93i%20%C4%91i%E1%BB%87p.jpg",
+            "nameVi": "Sashimi Sò Điệp",
+            "nameEn": "Scallop Sashimi",
+            "nameJp": "ホタテ刺身",
+            "price": "165.000₫"
+          },
+          {
+            "id": "sashimi-tuna",
+            "photo": "menu_pictures/SASHIMI%20C%C3%81%20NG%E1%BB%AA.JPG",
+            "nameVi": "Sashimi Cá Ngừ",
+            "nameEn": "Tuna Sashimi",
+            "nameJp": "マグロ刺身",
+            "price": "165.000₫"
+          },
+          {
+            "id": "sashimi-swordfish",
+            "photo": "menu_pictures/SASHIMI%20C%C3%81%20KI%E1%BA%BEM.JPG",
+            "nameVi": "Sashimi Cá Kiếm",
+            "nameEn": "Swordfish Sashimi",
+            "nameJp": "メカジキ刺身",
+            "price": "139.000₫",
+            "at": {
+              "mon-city": {
+                "hidden": true
+              }
+            }
+          },
+          {
+            "id": "sashimi-octopus",
+            "photo": "menu_pictures/SSM%20b%E1%BA%A1ch%20tu%E1%BB%99c.jpg",
+            "nameVi": "Sashimi Bạch Tuộc",
+            "nameEn": "Octopus Sashimi",
+            "nameJp": "タコ刺身",
+            "price": "139.000₫"
+          },
+          {
+            "id": "sashimi-oyster",
+            "photo": "menu_pictures/SASHIMI%20H%C3%80U.JPG",
+            "nameVi": "Sashimi Hàu Nhật",
+            "nameEn": "Oyster Sashimi",
+            "nameJp": "カキ刺身",
+            "desc": "1 piece.",
+            "descVi": "1 con.",
+            "price": "89.000₫"
+          }
+        ]
+      },
+      {
+        "key": "sushi",
+        "labelVi": "Sushi",
+        "labelEn": "Sushi",
+        "labelJa": "寿司",
+        "layout": "cards",
+        "dishes": [
+          {
+            "id": "sushi-set-a",
+            "photo": "menu_pictures/SUSHI%20T%E1%BB%94NG%20H%E1%BB%A2P%20A.JPG",
+            "nameVi": "Sushi Tổng Hợp A",
+            "nameEn": "Sushi Tổng Hợp A",
+            "nameJp": "寿司盛り合わせA",
+            "price": "299.000₫"
+          },
+          {
+            "id": "sushi-set-b",
+            "photo": "menu_pictures/SUSHI%20T%E1%BB%94NG%20H%E1%BB%A2P%20B.JPG",
+            "nameVi": "Sushi Tổng Hợp B",
+            "nameEn": "Sushi Tổng Hợp B",
+            "nameJp": "寿司盛り合わせB",
+            "price": "185.000₫"
+          },
+          {
+            "id": "sushi-maki-salmon",
+            "photo": "menu_pictures/C%C6%A0M%20CU%E1%BB%98N%20C%C3%81%20H%E1%BB%92I.jpg",
+            "nameVi": "Cơm Cuộn Cá Hồi",
+            "nameEn": "Salmon Maki Sushi",
+            "nameJp": "サーモンの巻き寿司",
+            "price": "75.000₫"
+          },
+          {
+            "id": "sushi-maki-tuna",
+            "photo": "menu_pictures/C%C6%A0M%20CU%E1%BB%98N%20C%C3%81%20NG%E1%BB%AA.jpg",
+            "nameVi": "Cơm Cuộn Cá Ngừ",
+            "nameEn": "Tuna Maki Sushi",
+            "nameJp": "マグロの巻き寿司",
+            "price": "55.000₫"
+          },
+          {
+            "id": "sushi-nigiri-scallop",
+            "photo": "menu_pictures/SUSHI%20C%E1%BB%92I%20%C4%90I%E1%BB%86P.jpg",
+            "nameVi": "Sushi Sò Điệp",
+            "nameEn": "Scallop Sushi",
+            "nameJp": "ホタテ寿司",
+            "price": "65.000₫"
+          },
+          {
+            "id": "sushi-nigiri-nishin",
+            "photo": "menu_pictures/SUSHI%20C%C3%81%20TR%C3%8DCH%20%C3%89P%20TR%E1%BB%A8NG.jpg",
+            "nameVi": "Sushi Cá Trích Ép Trứng",
+            "nameEn": "Nishin-with-egg Sushi",
+            "nameJp": "子持ちニシン寿司",
+            "price": "55.000₫"
+          },
+          {
+            "id": "sushi-nigiri-eel",
+            "photo": "menu_pictures/SUSHI%20L%C6%AF%C6%A0N.jpg",
+            "nameVi": "Sushi Lươn Nhật",
+            "nameEn": "Eel Sushi",
+            "nameJp": "うなぎ寿司",
+            "price": "55.000₫"
+          },
+          {
+            "id": "sushi-nigiri-salmon",
+            "photo": "menu_pictures/%20sushi%20c%C3%A1%20h%E1%BB%93i%20.jpg",
+            "nameVi": "Sushi Cá Hồi",
+            "nameEn": "Salmon Sushi",
+            "nameJp": "サーモン寿司",
+            "price": "55.000₫"
+          },
+          {
+            "id": "sushi-nigiri-tuna",
+            "photo": "menu_pictures/Sushi%20c%C3%A1%20ng%E1%BB%AB.jpg",
+            "nameVi": "Sushi Cá Ngừ",
+            "nameEn": "Tuna Sushi",
+            "nameJp": "マグロ寿司",
+            "price": "39.000₫"
+          },
+          {
+            "id": "sushi-nigiri-octopus",
+            "photo": "menu_pictures/%20sushi%20b%E1%BA%A1ch%20tu%E1%BB%99c%20.jpg",
+            "nameVi": "Sushi Bạch Tuộc",
+            "nameEn": "Octopus Sushi",
+            "nameJp": "タコ寿司",
+            "price": "35.000₫"
+          },
+          {
+            "id": "sushi-nigiri-tamago",
+            "photo": "menu_pictures/sushi%20tr%E1%BB%A9ng.jpg",
+            "nameVi": "Sushi Trứng Ngọt",
+            "nameEn": "Tamago Sushi",
+            "nameJp": "玉子寿司",
+            "price": "35.000₫"
+          },
+          {
+            "id": "sushi-gunkan-wakame",
+            "photo": "menu_pictures/GUNKAN%20RONG%20BI%E1%BB%82N%20TR%E1%BB%98N%20M%C3%88.JPG",
+            "nameVi": "Gunkan Rong Biển Trộn Mè",
+            "nameEn": "Goma Wakame Gunkan",
+            "nameJp": "ごま和え海藻軍艦",
+            "price": "39.000₫"
+          },
+          {
+            "id": "sushi-gunkan-crab",
+            "photo": "menu_pictures/GUNKAN%20TR%E1%BB%A8NG%20CUA.JPG",
+            "nameVi": "Gunkan Trứng Cua",
+            "nameEn": "Egg Crab Gunkan",
+            "nameJp": "カニ卵軍艦",
+            "price": "59.000₫"
+          },
+          {
+            "id": "sushi-gunkan-seafood",
+            "photo": "menu_pictures/GUNKAN%20H%E1%BA%A2I%20S%E1%BA%A2N.JPG",
+            "nameVi": "Gunkan Hải Sản Tổng Hợp",
+            "nameEn": "Mixed Seafood Gunkan",
+            "nameJp": "海鮮ミックス軍艦",
+            "price": "59.000₫"
+          },
+          {
+            "id": "sushi-gunkan-eel",
+            "photo": "menu_pictures/GUNKAN%20L%C6%AF%C6%A0N.JPG",
+            "nameVi": "Gunkan Lươn Nhật",
+            "nameEn": "Eel Gunkan",
+            "nameJp": "うなぎ軍艦",
+            "price": "55.000₫"
+          }
+        ]
+      },
+      {
+        "key": "rolls",
+        "labelVi": "Cơm Cuộn",
+        "labelEn": "Sushi Rolls",
+        "labelJa": "巻き寿司",
+        "layout": "cards",
+        "dishes": [
+          {
+            "id": "roll-eel-avocado",
+            "nameVi": "Cơm Cuộn Lươn Bơ",
+            "nameEn": "Eel & Avocado Roll",
+            "nameJp": "鰻アボカドロール",
+            "price": "179.000₫"
+          },
+          {
+            "id": "roll-salmon",
+            "photo": "menu_pictures/%E3%82%B5%E3%83%BC%E3%83%A2%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%AB_C%C6%A1m%20cu%E1%BB%99n%20ph%E1%BB%A7%20c%C3%A1%20h%E1%BB%93i_Salmon%20roll%20140k.jpg",
+            "nameVi": "Cơm Cuộn Phủ Cá Hồi",
+            "nameEn": "Salmon Roll",
+            "nameJp": "サーモンロール",
+            "price": "140.000₫"
+          },
+          {
+            "id": "roll-seafood-mix",
+            "photo": "menu_pictures/C%C6%A0M%20CU%E1%BB%98N%20H%E1%BA%A2I%20S%E1%BA%A2N.JPG",
+            "nameVi": "Cơm Cuộn Hải Sản Tổng Hợp",
+            "nameEn": "Mixed Seafood Roll",
+            "nameJp": "海鮮ミックスロール",
+            "price": "135.000₫",
+            "at": {
+              "mon-city": {
+                "hidden": true
+              }
+            }
+          },
+          {
+            "id": "roll-avocado",
+            "photo": "menu_pictures/C%C6%A1m%20cu%E1%BB%99n%20ph%E1%BB%A7%20b%C6%A1.png",
+            "nameVi": "Cơm Cuộn Phủ Bơ",
+            "nameEn": "Avocado Roll",
+            "nameJp": "アボカドロール",
+            "price": "120.000₫"
+          },
+          {
+            "id": "roll-mixed-eel-crab-avocado",
+            "photo": "menu_pictures/C%C6%A0M%20CU%E1%BB%98N%20L%C6%AF%C6%A0N%20CUA%20B%C6%A0.jpg",
+            "nameVi": "Cơm Cuộn Tổng Hợp Lươn Cua Bơ",
+            "nameEn": "Mixed Sushi Roll (Eel, Crab, Avocado…)",
+            "nameJp": "ミックスの海苔巻き（鰻、蟹、アボカドなど）",
+            "price": "120.000₫",
+            "at": {
+              "mon-city": {
+                "nameVi": "Cơm Cuộn Tổng Hợp",
+                "nameEn": "Mixed Sushi Roll",
+                "nameJp": "ミックスの海苔巻き"
+              }
+            }
+          },
+          {
+            "id": "roll-california",
+            "photo": "menu_pictures/C%C6%A1m%20cu%E1%BB%99n%20ph%E1%BB%A7%20tr%E1%BB%A9ng%20c%C3%A1.png",
+            "nameVi": "Cơm Cuộn Phủ Trứng Cá",
+            "nameEn": "California Roll",
+            "nameJp": "カリフォルニアロール",
+            "price": "110.000₫"
+          },
+          {
+            "id": "roll-fried-shrimp",
+            "nameVi": "Cơm Cuộn Tôm Chiên",
+            "nameEn": "Fried Shrimp Roll",
+            "nameJp": "エビフライロール",
+            "price": "99.000₫",
+            "at": {
+              "golden-palace": {
+                "hidden": true
+              },
+              "phan-chu-trinh": {
+                "hidden": true
+              }
+            }
+          },
+          {
+            "id": "roll-eel-plain",
+            "photo": "menu_pictures/C%C6%A1m%20cu%E1%BB%99n%20l%C6%B0%C6%A1n.png",
+            "nameVi": "Cơm Cuộn Lươn",
+            "nameEn": "Eel Roll",
+            "nameJp": "鰻ロール",
+            "price": "140.000₫",
+            "at": {
+              "golden-palace": {
+                "hidden": true
+              },
+              "phan-chu-trinh": {
+                "hidden": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "key": "salad",
+        "labelVi": "Salad",
+        "labelEn": "Salad",
+        "labelJa": "サラダ",
+        "layout": "cards",
+        "dishes": [
+          {
+            "id": "salad-salmon-avocado",
+            "photo": "menu_pictures/%20Salad%20b%C6%A1%20c%C3%A1%20h%E1%BB%93i.JPG",
+            "nameVi": "Salad Bơ Cá Hồi",
+            "nameEn": "Salmon and Avocado Salad",
+            "nameJp": "サーモンとアボカドのサラダ",
+            "price": "139.000₫"
+          },
+          {
+            "id": "salad-seafood",
+            "photo": "menu_pictures/Salad%20hai%20san%20%28converted%29.jpg",
+            "nameVi": "Salad Hải Sản",
+            "nameEn": "Seafood Salad",
+            "nameJp": "海鮮サラダ",
+            "price": "139.000₫"
+          },
+          {
+            "id": "salad-tuna",
+            "photo": "menu_pictures/SALAD%20C%C3%81%20NG%E1%BB%AA.JPG",
+            "nameVi": "Salad Cá Ngừ",
+            "nameEn": "Tuna Salad",
+            "nameJp": "まぐろサラダ",
+            "price": "129.000₫",
+            "at": {
+              "mon-city": {
+                "hidden": true
+              }
+            }
+          },
+          {
+            "id": "salad-seaweed-tobiko",
+            "nameVi": "Salad Trứng Cua Rong Biển",
+            "nameEn": "Fresh Seaweed Salad with Tobiko",
+            "nameJp": "海藻とびっ子のサラダ",
+            "price": "99.000₫"
+          },
+          {
+            "id": "salad-sea-grapes",
+            "nameVi": "Salad Rong Nho",
+            "nameEn": "Sea Grapes Salad",
+            "nameJp": "海ぶどうサラダ",
+            "price": "105.000₫",
+            "at": {
+              "mon-city": {
+                "hidden": true
+              }
+            }
+          },
+          {
+            "id": "salad-wakame",
+            "photo": "menu_pictures/Salad%20rong%20bi%E1%BB%83n.png",
+            "nameVi": "Salad Rong Biển",
+            "nameEn": "Wakame Seaweed Salad",
+            "nameJp": "海藻サラダ",
+            "price": "55.000₫"
+          },
+          {
+            "id": "salad-potato",
+            "photo": "menu_pictures/%20Salad%20khoai%20t%C3%A2y.jpg",
+            "nameVi": "Salad Khoai Tây",
+            "nameEn": "Potato Salad",
+            "nameJp": "ポテトサラダ",
+            "price": "45.000₫"
+          }
+        ]
+      },
+      {
+        "key": "otsumami",
+        "labelVi": "Món Nhậu",
+        "labelEn": "Otsumami",
+        "labelJa": "おつまみ",
+        "layout": "cards",
+        "dishes": [
+          {
+            "id": "otsu-egg-roll",
+            "photo": "menu_pictures/TR%E1%BB%A8NG%20CU%E1%BB%98N%20KI%E1%BB%82U%20NH%E1%BA%ACT.jpg",
+            "nameVi": "Trứng Cuộn Kiểu Nhật",
+            "nameEn": "Japanese Egg Rolls",
+            "nameJp": "だし巻き卵",
+            "price": "75.000₫"
+          },
+          {
+            "id": "otsu-umaki",
+            "photo": "menu_pictures/TR%E1%BB%A8NG%20CU%E1%BB%98N%20L%C6%AF%C6%A0N%20NH%E1%BA%ACT.JPG",
+            "nameVi": "Trứng Cuộn Lươn Nhật",
+            "nameEn": "Umaki",
+            "nameJp": "う巻き",
+            "price": "130.000₫",
+            "at": {
+              "mon-city": {
+                "hidden": true
+              }
+            }
+          },
+          {
+            "id": "otsu-gyoza",
+            "photo": "menu_pictures/H%C3%81%20C%E1%BA%A2O.JPG",
+            "nameVi": "Há Cảo",
+            "nameEn": "Gyoza",
+            "nameJp": "餃子",
+            "price": "65.000₫"
+          },
+          {
+            "id": "otsu-edamame",
+            "photo": "menu_pictures/%C4%90%E1%BA%ACU%20L%C3%94NG.JPG",
+            "nameVi": "Đậu Lông",
+            "nameEn": "Edamame",
+            "nameJp": "枝豆",
+            "price": "50.000₫"
+          },
+          {
+            "id": "otsu-chilled-tofu",
+            "photo": "menu_pictures/%E5%86%B7%E5%A5%B4_%C4%90%E1%BA%ADu%20ph%E1%BB%A5%20l%E1%BA%A1nh_Fresh%20tofu%2045k.JPG",
+            "nameVi": "Đậu Phụ Lạnh",
+            "nameEn": "Chilled Tofu",
+            "nameJp": "冷や奴",
+            "price": "40.000₫"
+          },
+          {
+            "id": "otsu-wasabi-octopus",
+            "photo": "menu_pictures/B%E1%BA%A0CH%20TU%E1%BB%98C%20WASABI.JPG",
+            "nameVi": "Bạch Tuộc Wasabi",
+            "nameEn": "Wasabi Octopus",
+            "nameJp": "タコわさび",
+            "price": "105.000₫"
+          },
+          {
+            "id": "otsu-stingray-fin",
+            "photo": "menu_pictures/VI%20C%C3%81%20%C4%90U%E1%BB%90I%20N%C6%AF%E1%BB%9ANG%20%28cropped%29.jpg",
+            "nameVi": "Vi Cá Đuối Nướng",
+            "nameEn": "Grilled Stingray Fin",
+            "nameJp": "エイヒレの炙り焼き",
+            "price": "130.000₫"
+          },
+          {
+            "id": "otsu-squid-tempura",
+            "photo": "menu_pictures/M%E1%BB%B0C%20KH%C3%94%20CHI%C3%8AN%20TEMPURA%20%28cropped%29.jpg",
+            "nameVi": "Mực Khô Chiên Tempura",
+            "nameEn": "Dried Squid Tempura",
+            "nameJp": "干しイカ天ぷら",
+            "price": "90.000₫"
+          },
+          {
+            "id": "otsu-fries",
+            "photo": "menu_pictures/KHOAI%20TAY%20CHIEN%20%28converted%29.jpg",
+            "nameVi": "Khoai Tây Chiên",
+            "nameEn": "Fried Potato",
+            "nameJp": "ポテトフライ",
+            "price": "55.000₫"
+          },
+          {
+            "id": "otsu-ginkgo",
+            "photo": "menu_pictures/B%E1%BA%A1ch%20qu%E1%BA%A3%20%20%283%29.jpg",
+            "nameVi": "Bạch Quả Rang Muối",
+            "nameEn": "Salt Roasted Ginkgo Nuts",
+            "nameJp": "銀杏塩炒り",
+            "price": "50.000₫"
+          },
+          {
+            "id": "otsu-beef-steak",
+            "photo": "menu_pictures/B%C3%B2%20fuji%20%C3%A1p%20ch%E1%BA%A3o.jpg",
+            "nameVi": "Bò Fuji Áp Chảo",
+            "nameEn": "Australian Beef Steak",
+            "nameJp": "オーストラリア産牛ステーキ",
+            "price": "320.000₫"
+          },
+          {
+            "id": "otsu-blackcod-teriyaki",
+            "photo": "menu_pictures/C%C3%81%20TUY%E1%BA%BET%20TERIYAKI%20%28cropped%29.jpg",
+            "nameVi": "Cá Tuyết Xốt Teriyaki",
+            "nameEn": "Teriyaki Black Cod",
+            "nameJp": "銀鱈照り焼き",
+            "price": "320.000₫"
+          },
+          {
+            "id": "otsu-salmon-teriyaki",
+            "photo": "menu_pictures/C%C3%81%20H%E1%BB%92I%20TERIYAKI.jpg",
+            "nameVi": "Cá Hồi Xốt Teriyaki",
+            "nameEn": "Teriyaki Salmon",
+            "nameJp": "サーモン照り焼き",
+            "price": "199.000₫"
+          },
+          {
+            "id": "otsu-eel-kappayaki",
+            "photo": "menu_pictures/%20L%C6%B0%C6%A1n%20n%C6%B0%E1%BB%9Bng%20x%E1%BB%91t%20kappayaki.jpg",
+            "nameVi": "Lươn Nhật Sốt Kappayaki",
+            "nameEn": "Kappayaki Eel",
+            "nameJp": "うなぎのカッパ焼き",
+            "price": "155.000₫"
+          },
+          {
+            "id": "otsu-chicken-teriyaki",
+            "photo": "menu_pictures/%C4%90%C3%99I%20G%C3%80%20S%E1%BB%90T%20TERIYAKI.JPG",
+            "nameVi": "Đùi Gà Sốt Teriyaki",
+            "nameEn": "Teriyaki Chicken Thigh",
+            "nameJp": "鶏モモ照り焼き",
+            "price": "105.000₫"
+          },
+          {
+            "id": "otsu-tonpeiyaki",
+            "photo": "menu_pictures/B%C3%81NH%20TONTEIYAKI.JPG",
+            "nameVi": "Bánh Tonpeiyaki",
+            "nameEn": "Tonpeiyaki",
+            "nameJp": "とん平焼き",
+            "price": "105.000₫"
+          },
+          {
+            "id": "otsu-fried-tofu-mushroom",
+            "photo": "menu_pictures/%C4%90%E1%BA%ADu%20h%C5%A9%20chi%C3%AAn%20gi%C3%B2n%20s%E1%BB%91t%20n%E1%BA%A5m.JPG",
+            "nameVi": "Đậu Hũ Chiên Giòn Sốt Nấm",
+            "nameEn": "Deep-fried Tofu with Mushroom Sauce",
+            "nameJp": "きのこソースがけ揚げ豆腐",
+            "price": "55.000₫"
+          },
+          {
+            "id": "otsu-shrimp-garlic",
+            "photo": "menu_pictures/T%C3%94M%20S%C3%9A%20X%C3%80O%20NG%E1%BB%92NG%20T%E1%BB%8EI.JPG",
+            "nameVi": "Tôm Sú Xào Ngổng Tỏi",
+            "nameEn": "Stir-fried Shrimp with Garlic Sprouts",
+            "nameJp": "エビとにんにくの芽の炒め",
+            "price": "155.000₫"
+          },
+          {
+            "id": "otsu-squid-garlic",
+            "photo": "menu_pictures/R%C3%82U%20M%E1%BB%B0C%20X%C3%80O%20NG%E1%BB%92NG%20T%E1%BB%8EI.JPG",
+            "nameVi": "Râu Mực Xào Ngổng Tỏi",
+            "nameEn": "Stir-fried Squid Tentacles with Garlic Sprouts",
+            "nameJp": "イカゲソとにんにくの芽の炒め",
+            "price": "125.000₫"
+          }
+        ]
+      },
+      {
+        "key": "agemono",
+        "labelVi": "Đồ Chiên",
+        "labelEn": "Agemono (Fried)",
+        "labelJa": "揚げ物",
+        "layout": "cards",
+        "dishes": [
+          {
+            "id": "age-tempura-set",
+            "photo": "menu_pictures/TEMPURA%20T%E1%BB%94NG%20H%E1%BB%A2P.JPG",
+            "nameVi": "Tempura Tổng Hợp",
+            "nameEn": "Assorted Tempura",
+            "nameJp": "天ぷら盛り合わせ",
+            "price": "159.000₫"
+          },
+          {
+            "id": "age-fried-chicken",
+            "photo": "menu_pictures/G%C3%80%20CHI%C3%8AN%20KI%E1%BB%82U%20NH%E1%BA%ACT%20%28cropped%29.jpg",
+            "nameVi": "Gà Chiên Kiểu Nhật",
+            "nameEn": "Japanese Fried Chicken with Tartar Sauce",
+            "nameJp": "唐揚げ",
+            "price": "89.000₫"
+          },
+          {
+            "id": "age-okonomiyaki",
+            "photo": "menu_pictures/B%C3%A1nh%20x%C3%A8o%20Nh%E1%BA%ADt%20%281%29.jpg",
+            "nameVi": "Bánh Xèo Nhật",
+            "nameEn": "Okonomiyaki",
+            "nameJp": "お好み焼き",
+            "price": "105.000₫"
+          },
+          {
+            "id": "age-chicken-cartilage",
+            "photo": "menu_pictures/S%E1%BB%A5n%20g%C3%A0%20chi%C3%AAn.JPG",
+            "nameVi": "Sụn Gà Chiên",
+            "nameEn": "Deep Fried Chicken Cartilage",
+            "nameJp": "軟骨唐揚げ",
+            "price": "79.000₫"
+          },
+          {
+            "id": "age-takoyaki",
+            "photo": "menu_pictures/%E3%82%BF%E3%82%B3%E7%84%BC%E3%81%8D_b%C3%A1nh%20%20b%E1%BA%A1ch%20tu%E1%BB%99c.png",
+            "nameVi": "Bánh Bạch Tuộc",
+            "nameEn": "Takoyaki",
+            "nameJp": "たこ焼き",
+            "price": "59.000₫"
+          },
+          {
+            "id": "age-pork-katsu",
+            "photo": "menu_pictures/%E3%81%A8%E3%82%93%E3%81%8B%E3%81%A4%EF%BC%BFTh%E1%BB%8Bt%20heo%20chi%C3%AAn%20x%C3%B9.jpg",
+            "nameVi": "Thịt Heo Chiên Xù",
+            "nameEn": "Breaded Fried Pork",
+            "nameJp": "豚カツ",
+            "price": "125.000₫"
+          },
+          {
+            "id": "age-shrimp-fry",
+            "photo": "menu_pictures/%E3%82%A8%E3%83%93%E3%83%95%E3%83%A9%E3%82%A4_T%C3%B4m%20chi%C3%AAn%20x%C3%B9_Deep%20fried%20breaded%20shrimp%2099k.JPG",
+            "nameVi": "Tôm Sú Chiên Xù",
+            "nameEn": "Breaded Fried Shrimp",
+            "nameJp": "エビフライ",
+            "price": "139.000₫"
+          },
+          {
+            "id": "age-baby-shrimp",
+            "photo": "menu_pictures/T%C3%94M%20NG%E1%BB%8CT%20CHI%C3%8AN%20KI%E1%BB%82U%20NH%E1%BA%ACT.JPG",
+            "nameVi": "Tôm Ngọt Chiên Kiểu Nhật",
+            "nameEn": "Deep-fried Baby Shrimp",
+            "nameJp": "小エビ唐揚げ",
+            "price": "85.000₫"
+          }
+        ]
+      },
+      {
+        "key": "yakimono",
+        "labelVi": "Đồ Nướng",
+        "labelEn": "Yakimono (Grilled)",
+        "labelJa": "焼き物",
+        "layout": "cards",
+        "dishes": [
+          {
+            "id": "yaki-atka-mackerel",
+            "photo": "menu_pictures/C%C3%81%20TUY%E1%BA%BET%20N%C6%AF%E1%BB%9ANG%20MU%E1%BB%90I.JPG",
+            "nameVi": "Cá Tuyết Nướng Muối",
+            "nameEn": "Grilled Atka Mackerel",
+            "nameJp": "ホッケの塩焼き",
+            "price": "320.000₫"
+          },
+          {
+            "id": "yaki-atka-mackerel-semidried",
+            "photo": "menu_pictures/HOKKE%201%20N%E1%BA%AENG.jpg",
+            "nameVi": "Cá Hokke 1 Nắng Nướng",
+            "nameEn": "Semi-dried Grilled Atka Mackerel",
+            "nameJp": "ホッケの一夜干し焼き",
+            "price": "265.000₫"
+          },
+          {
+            "id": "yaki-salmon-salt",
+            "photo": "menu_pictures/C%C3%81%20H%E1%BB%92I%20N%C6%AF%E1%BB%9ANG%20MU%E1%BB%90I%20%28cropped%29.jpg",
+            "nameVi": "Cá Hồi Nướng Muối",
+            "nameEn": "Salt-grilled Salmon",
+            "nameJp": "サーモン塩焼き",
+            "price": "219.000₫"
+          },
+          {
+            "id": "yaki-ayu-sweetfish",
+            "photo": "menu_pictures/C%C3%81%20%C4%90%E1%BA%AENG%20N%C6%AF%E1%BB%9ANG.JPG",
+            "nameVi": "Cá Đắng Nướng Muối",
+            "nameEn": "Grilled Ayu Sweetfish",
+            "nameJp": "鮎の塩焼き",
+            "price": "189.000₫"
+          },
+          {
+            "id": "yaki-saba",
+            "photo": "menu_pictures/C%C3%81%20SABA%20N%C6%AF%E1%BB%9ANG%20MU%E1%BB%90I.JPG",
+            "nameVi": "Cá Saba Nướng Muối",
+            "nameEn": "Salt-grilled Saba",
+            "nameJp": "サバの塩焼き",
+            "price": "115.000₫"
+          },
+          {
+            "id": "yaki-saury",
+            "photo": "menu_pictures/c%C3%A1%20thu%20%C4%91ao%20n%C6%B0%E1%BB%9Bng.png",
+            "nameVi": "Cá Thu Đao Nướng Muối",
+            "nameEn": "Salt-grilled Saury",
+            "nameJp": "さんまの塩焼き",
+            "price": "115.000₫"
+          },
+          {
+            "id": "yaki-salmon-head",
+            "photo": "menu_pictures/8.%E9%AE%AD%E3%81%AE%E9%A0%AD%E7%84%BC%E3%81%8D_%C4%90%E1%BA%A7u%20c%C3%A1%20h%E1%BB%93i%20n%C6%B0%E1%BB%9Bng_Grilled%20Salmon%20Head%20with%20Salt_110k.JPG",
+            "nameVi": "Đầu Cá Hồi Nướng Muối",
+            "nameEn": "Grilled Salmon Head",
+            "nameJp": "サーモンカマ焼き",
+            "price": "89.000₫"
+          },
+          {
+            "id": "yaki-squid-tentacles",
+            "photo": "menu_pictures/R%C3%82U%20M%E1%BB%B0C%20N%C6%AF%E1%BB%9ANG%20S%E1%BB%90T.JPG",
+            "nameVi": "Râu Mực Nướng Xốt",
+            "nameEn": "Grilled Squid Tentacles",
+            "nameJp": "イカゲソ焼き",
+            "price": "108.000₫",
+            "at": {
+              "mon-city": {
+                "nameVi": "Mực Ống Nướng",
+                "nameEn": "Grilled Squid",
+                "nameJp": "イカのグリル",
+                "photo": ""
+              }
+            }
+          },
+          {
+            "id": "yaki-chicken-negima",
+            "featured": true,
+            "photo": "menu_pictures/%C4%90%C3%99I%20G%C3%80%20XI%C3%8AN%20H%C3%80NH%20N%C6%AF%E1%BB%9ANG.JPG",
+            "nameVi": "Đùi Gà Xiên Hành Nướng",
+            "nameEn": "Grilled Chicken with Green Onion",
+            "nameJp": "鶏ねぎま",
+            "price": "165.000₫"
+          },
+          {
+            "id": "yaki-king-oyster-mushroom",
+            "photo": "menu_pictures/n%E1%BA%A5m%20%C4%91%C3%B9i%20g%C3%A0%20n%C6%B0%E1%BB%9Bng.png",
+            "nameVi": "Nấm Đùi Gà Nướng",
+            "nameEn": "Grilled King Oyster Mushroom",
+            "nameJp": "エリンギ焼き",
+            "price": "50.000₫"
+          }
+        ]
+      },
+      {
+        "key": "rice",
+        "labelVi": "Cơm",
+        "labelEn": "Rice",
+        "labelJa": "ご飯もの",
+        "layout": "cards",
+        "dishes": [
+          {
+            "id": "rice-eel-bowl",
+            "featured": true,
+            "photo": "menu_pictures/C%C6%A0M%20L%C6%AF%C6%A0N%20N%C6%AF%E1%BB%9ANG.JPG",
+            "nameVi": "Cơm Lươn Nướng",
+            "nameEn": "Eel Bowl",
+            "nameJp": "うな丼",
+            "price": "199.000₫",
+            "at": {
+              "mon-city": {
+                "nameVi": "Cơm Lươn Nồi Đá",
+                "nameEn": "Grilled Eel Rice Bowl",
+                "nameJp": "石焼ひつまぶし",
+                "photo": ""
+              }
+            }
+          },
+          {
+            "id": "rice-gyudon",
+            "photo": "menu_pictures/M%C3%93N%20LUNCH%20SET%20M%E1%BB%9AI/C%C6%A0M%20TH%E1%BB%90%20B%C3%92%20X%C3%80O.JPG",
+            "nameVi": "Cơm Thố Bò Xào",
+            "nameEn": "Gyudon",
+            "nameJp": "牛丼",
+            "price": "109.000₫"
+          },
+          {
+            "id": "rice-teriyaki-chicken-bowl",
+            "photo": "menu_pictures/M%C3%93N%20LUNCH%20SET%20M%E1%BB%9AI/C%C6%A0M%20TH%E1%BB%90%20G%C3%80%20X%E1%BB%90T%20TERIYAKI.JPG",
+            "nameVi": "Cơm Thố Gà Xốt Teriyaki",
+            "nameEn": "Teriyaki Chicken Bowl",
+            "nameJp": "鶏の照り焼き丼",
+            "price": "110.000₫"
+          },
+          {
+            "id": "rice-seafood-bowl",
+            "photo": "menu_pictures/C%C6%A0M%20SUSHI%20H%E1%BA%A2I%20S%E1%BA%A2N%20T%E1%BB%94NG%20H%E1%BB%A2P.JPG",
+            "nameVi": "Cơm Sushi Hải Sản Tổng Hợp",
+            "nameEn": "Raw Seafood Bowl",
+            "nameJp": "海鮮丼",
+            "price": "165.000₫",
+            "at": {
+              "mon-city": {
+                "nameVi": "Cơm Hải Sản",
+                "nameEn": "Seafood Rice Bowl"
+              }
+            }
+          },
+          {
+            "id": "rice-salmon-avocado-bowl",
+            "photo": "menu_pictures/M%C3%93N%20LUNCH%20SET%20M%E1%BB%9AI/C%C6%A0M%20TH%E1%BB%90%20SUSHI%20C%C3%81%20H%E1%BB%92I.JPG",
+            "nameVi": "Cơm Thố Sushi Cá Hồi Và Bơ",
+            "nameEn": "Salmon and Avocado Bowl",
+            "nameJp": "サーモン丼",
+            "price": "179.000₫",
+            "at": {
+              "mon-city": {
+                "nameVi": "Cơm Cá Hồi",
+                "nameEn": "Salmon Rice Bowl"
+              }
+            }
+          },
+          {
+            "id": "rice-oyakodon",
+            "photo": "menu_pictures/C%C6%A0M%20TH%E1%BB%90%20G%C3%80%20X%E1%BB%90T%20TR%E1%BB%A8NG.JPG",
+            "nameVi": "Cơm Thố Gà Xốt Trứng",
+            "nameEn": "Oyakodon",
+            "nameJp": "親子丼",
+            "price": "99.000₫"
+          },
+          {
+            "id": "rice-katsudon",
+            "photo": "menu_pictures/C%C6%A0M%20TH%E1%BB%90%20HEO%20CHI%C3%8AN%20X%C3%99%20X%E1%BB%90T%20TR%E1%BB%A8NG.JPG",
+            "nameVi": "Cơm Thố Heo Chiên Xù Xốt Trứng",
+            "nameEn": "Katsudon",
+            "nameJp": "カツ丼",
+            "price": "139.000₫"
+          },
+          {
+            "id": "rice-spicy-pork-fried",
+            "photo": "menu_pictures/C%C6%A1m%20chi%C3%AAn%20th%E1%BB%8Bt%20cay.png",
+            "nameVi": "Cơm Chiên Thịt Cay",
+            "nameEn": "Spicy Pork Fried Rice",
+            "nameJp": "旨辛ミンチチャーハン",
+            "price": "89.000₫"
+          },
+          {
+            "id": "rice-seafood-fried",
+            "photo": "menu_pictures/C%C6%A0M%20CHI%C3%8AN%20H%E1%BA%A2I%20S%E1%BA%A2N.JPG",
+            "nameVi": "Cơm Chiên Hải Sản",
+            "nameEn": "Seafood Fried Rice",
+            "nameJp": "海鮮チャーハン",
+            "price": "119.000₫"
+          },
+          {
+            "id": "rice-shrimp-curry",
+            "photo": "menu_pictures/C%C6%A0M%20C%C3%80%20RI%20T%C3%94M%20CHI%C3%8AN.jpg",
+            "nameVi": "Cơm Cà Ri Tôm Chiên Xù",
+            "nameEn": "Fried Shrimp Curry",
+            "nameJp": "エビフライカレー",
+            "price": "156.000₫"
+          },
+          {
+            "id": "rice-tonkatsu-curry",
+            "photo": "menu_pictures/C%C6%A0M%20C%C3%80%20RI%20HEO%20CHI%C3%8AN%20X%C3%99.jpg",
+            "nameVi": "Cơm Cà Ri Heo Chiên Xù",
+            "nameEn": "Tonkatsu Curry",
+            "nameJp": "とんかつカレーライス",
+            "price": "165.000₫"
+          },
+          {
+            "id": "rice-chicken-cutlet-curry",
+            "photo": "menu_pictures/C%C6%A0M%20C%C3%80%20RI%20G%C3%80%20CHI%C3%8AN.jpg",
+            "nameVi": "Cơm Cà Ri Gà Chiên",
+            "nameEn": "Chicken Cutlet Curry",
+            "nameJp": "チキンカツカレー",
+            "price": "145.000₫"
+          }
+        ]
+      },
+      {
+        "key": "udon",
+        "labelVi": "Mì Udon",
+        "labelEn": "Udon",
+        "labelJa": "うどん",
+        "layout": "cards",
+        "dishes": [
+          {
+            "id": "udon-tempura",
+            "photo": "menu_pictures/M%E1%BB%B2%20UDON%20%C4%82N%20K%C3%88M%20TEMPURA.jpg",
+            "nameVi": "Mì Udon Ăn Kèm Tempura",
+            "nameEn": "Tempura Udon",
+            "nameJp": "天ぷらうどん",
+            "price": "165.000₫"
+          },
+          {
+            "id": "udon-beef",
+            "photo": "menu_pictures/M%E1%BB%B2%20UDON%20TH%E1%BB%8AT%20B%C3%92.jpeg",
+            "nameVi": "Mì Udon Thịt Bò",
+            "nameEn": "Beef Udon",
+            "nameJp": "牛肉うどん",
+            "price": "150.000₫"
+          },
+          {
+            "id": "udon-stirfried-beef-seafood",
+            "photo": "menu_pictures/M%E1%BB%B2%20UDON%20X%C3%80O%20TH%E1%BB%8AT%20B%C3%92.jpg",
+            "nameVi": "Mì Udon Xào Thịt Bò/Hải Sản",
+            "nameEn": "Stir-fried Udon Noodle with Beef/Seafood",
+            "nameJp": "牛肉・海鮮焼きうどん",
+            "price": "150.000₫"
+          },
+          {
+            "id": "udon-curry",
+            "photo": "menu_pictures/M%E1%BB%B2%20UDON%20C%C3%80%20RI.jpg",
+            "nameVi": "Mì Udon Cà Ri",
+            "nameEn": "Curry Udon Noodle",
+            "nameJp": "カレーうどん",
+            "price": "145.000₫"
+          },
+          {
+            "id": "udon-chawanmushi",
+            "photo": "menu_pictures/TR%E1%BB%A8NG%20H%E1%BA%A4P.JPG",
+            "nameVi": "Trứng Hấp",
+            "nameEn": "Savory Steamed Egg Custard",
+            "nameJp": "茶碗蒸し",
+            "price": "45.000₫",
+            "at": {
+              "mon-city": {
+                "hidden": true
+              }
+            }
+          },
+          {
+            "id": "udon-miso-soup",
+            "photo": "menu_pictures/S%C3%9AP%20MISO.JPG",
+            "nameVi": "Súp Miso",
+            "nameEn": "Miso Soup",
+            "nameJp": "味噌汁",
+            "price": "25.000₫"
+          }
+        ]
+      },
+      {
+        "key": "drinks",
+        "labelVi": "Đồ Uống",
+        "labelEn": "Drinks",
+        "labelJa": "ドリンク",
+        "layout": "list",
+        "subgroups": [
+          {
+            "id": "soft-drinks",
+            "titleVi": "Nước uống",
+            "titleEn": "Soft Drinks",
+            "items": [
+              {
+                "id": "tra-olong-mugi",
+                "nameVi": "Trà Olong/Mugi",
+                "nameEn": "Trà Olong/Mugi",
+                "price": "5.000₫"
+              },
+              {
+                "id": "nuoc-dasani",
+                "nameVi": "Nước Dasani",
+                "nameEn": "Nước Dasani",
+                "price": "15.000₫",
+                "at": {
+                  "phan-chu-trinh": {
+                    "price": "20.000₫"
+                  }
+                }
+              },
+              {
+                "id": "coca-cola",
+                "nameVi": "Coca Cola",
+                "nameEn": "Coca Cola",
+                "price": "25.000₫"
+              },
+              {
+                "id": "7-up",
+                "nameVi": "7-Up",
+                "nameEn": "7-Up",
+                "price": "25.000₫"
+              },
+              {
+                "id": "tonic",
+                "nameVi": "Tonic",
+                "nameEn": "Tonic",
+                "price": "25.000₫"
+              },
+              {
+                "id": "soda",
+                "nameVi": "Soda",
+                "nameEn": "Soda",
+                "price": "25.000₫"
+              }
+            ]
+          },
+          {
+            "id": "fresh-juice",
+            "titleVi": "Nước hoa quả",
+            "titleEn": "Fresh Juice",
+            "items": [
+              {
+                "id": "orange-juice",
+                "nameVi": "Nước Cam Tươi",
+                "nameEn": "Orange Juice",
+                "price": "45.000₫",
+                "at": {
+                  "phan-chu-trinh": {
+                    "price": "55.000₫"
+                  }
+                }
+              },
+              {
+                "id": "pineapple-juice",
+                "nameVi": "Nước Ép Dứa",
+                "nameEn": "Pineapple Juice",
+                "price": "45.000₫",
+                "at": {
+                  "phan-chu-trinh": {
+                    "price": "55.000₫"
+                  }
+                }
+              },
+              {
+                "id": "watermelon-juice",
+                "nameVi": "Nước Ép Dưa Hấu",
+                "nameEn": "Watermelon Juice",
+                "price": "45.000₫",
+                "at": {
+                  "phan-chu-trinh": {
+                    "price": "55.000₫"
+                  }
+                }
+              },
+              {
+                "id": "fresh-lime-juice",
+                "nameVi": "Nước Chanh Tươi",
+                "nameEn": "Fresh Lime Juice",
+                "price": "30.000₫",
+                "at": {
+                  "phan-chu-trinh": {
+                    "price": "35.000₫"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "tea",
+            "titleVi": "Trà",
+            "titleEn": "Tea",
+            "items": [
+              {
+                "id": "blueberry-tea",
+                "nameVi": "Trà Việt Quất",
+                "nameEn": "Blueberry Tea",
+                "price": "39.000₫",
+                "at": {
+                  "phan-chu-trinh": {
+                    "price": "45.000₫"
+                  }
+                }
+              },
+              {
+                "id": "peach-passion-fruit-tea",
+                "nameVi": "Trà Đào Chanh Leo",
+                "nameEn": "Peach & Passion Fruit Tea",
+                "price": "39.000₫",
+                "at": {
+                  "phan-chu-trinh": {
+                    "price": "45.000₫"
+                  }
+                }
+              },
+              {
+                "id": "orange-peach-strawberry-tea",
+                "nameVi": "Trà Cam Đào Dâu Tây",
+                "nameEn": "Orange, Peach & Strawberry Tea",
+                "price": "39.000₫",
+                "at": {
+                  "phan-chu-trinh": {
+                    "price": "45.000₫"
+                  }
+                }
+              },
+              {
+                "id": "mango-pandan-leaf-tea",
+                "nameVi": "Trà Xoài Lá Dứa",
+                "nameEn": "Mango & Pandan Leaf Tea",
+                "price": "39.000₫",
+                "at": {
+                  "phan-chu-trinh": {
+                    "price": "45.000₫"
+                  }
+                }
+              },
+              {
+                "id": "tropical-fruit-tea",
+                "nameVi": "Trà Nhiệt Đới",
+                "nameEn": "Tropical Fruit Tea",
+                "price": "45.000₫"
+              }
+            ]
+          },
+          {
+            "id": "others",
+            "titleVi": "Khác",
+            "titleEn": "Others",
+            "items": [
+              {
+                "id": "yukimi-daifuku",
+                "nameVi": "Kem Mochi",
+                "nameEn": "Yukimi Daifuku",
+                "price": "35.000₫",
+                "at": {
+                  "mon-city": {
+                    "hidden": true
+                  }
+                }
+              },
+              {
+                "id": "gelato-vanilla-green-tea",
+                "nameVi": "Kem Gelato",
+                "nameEn": "Gelato (Vanilla/Green Tea)",
+                "price": "25.000₫",
+                "at": {
+                  "mon-city": {
+                    "nameEn": "Gelato (Vanilla/Green Tea/Young Coconut)"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "alcohol",
+        "labelVi": "Đồ Uống Có Cồn",
+        "labelEn": "Alcoholic Drinks",
+        "labelJa": "お酒",
+        "layout": "list",
+        "subgroups": [
+          {
+            "id": "sake",
+            "titleVi": "Sake",
+            "titleEn": "Sake",
+            "items": [
+              {
+                "id": "gensen-karakuchi-yoshinogawa-15",
+                "nameVi": "Gensen Karakuchi Yoshinogawa 15%",
+                "nameEn": "Gensen Karakuchi Yoshinogawa 15%",
+                "descVi": "Hương vị: khô, nhẹ nhàng. Gạo: Niigata.",
+                "desc": "Dry & light-bodied. Niigata rice.",
+                "sizes": [
+                  {
+                    "label": "1800ml",
+                    "price": "1.500.000₫"
+                  },
+                  {
+                    "label": "720ml",
+                    "price": "650.000₫"
+                  }
+                ],
+                "at": {
+                  "phan-chu-trinh": {
+                    "hidden": true
+                  }
+                }
+              },
+              {
+                "id": "suishin-kome-no-kiwami-junmai-15",
+                "nameVi": "Suishin Kome No Kiwami Junmai 15%",
+                "nameEn": "Suishin Kome No Kiwami Junmai 15%",
+                "descVi": "Hương vị: Umami, nhẹ nhàng. Gạo: Aiyama.",
+                "desc": "Umami & light-bodied. Aiyama rice.",
+                "sizes": [
+                  {
+                    "label": "1800ml",
+                    "price": "1.700.000₫"
+                  },
+                  {
+                    "label": "720ml",
+                    "price": "850.000₫"
+                  }
+                ],
+                "at": {
+                  "phan-chu-trinh": {
+                    "hidden": true
+                  }
+                }
+              },
+              {
+                "id": "tokubetsu-honjozo-hakkaisan-15-5",
+                "nameVi": "Tokubetsu Honjozo Hakkaisan 15,5%",
+                "nameEn": "Tokubetsu Honjozo Hakkaisan 15.5%",
+                "descVi": "Hương vị: Umami, nhẹ nhàng. Gạo: Aiyama.",
+                "desc": "Umami & light-bodied. Aiyama rice.",
+                "sizes": [
+                  {
+                    "label": "1800ml",
+                    "price": "2.200.000₫"
+                  },
+                  {
+                    "label": "720ml",
+                    "price": "1.100.000₫"
+                  }
+                ],
+                "at": {
+                  "phan-chu-trinh": {
+                    "hidden": true
+                  }
+                }
+              },
+              {
+                "id": "ginkanmuri-ozeki-15-16",
+                "nameVi": "Ginkanmuri Ozeki 15-16%",
+                "nameEn": "Ginkanmuri Ozeki 15–16%",
+                "descVi": "Hương vị: nhẹ nhàng, cân bằng, ngọt nhẹ.",
+                "desc": "Light, balanced, light sweet.",
+                "sizes": [
+                  {
+                    "label": "1800ml",
+                    "price": "1.350.000₫"
+                  },
+                  {
+                    "label": "280ml",
+                    "price": "240.000₫"
+                  }
+                ]
+              },
+              {
+                "id": "vay-vang-keiju-junkinpakuiri-15",
+                "nameVi": "Vẩy Vàng Keiju Junkinpakuiri 15%",
+                "nameEn": "Vẩy Vàng Keiju Junkinpakuiri 15%",
+                "descVi": "Hương vị: mang hương thơm êm dịu, ngọt ngào. Gạo: Akira.",
+                "desc": "Delicate and smooth, with a sweet fragrance. Akira rice.",
+                "sizes": [
+                  {
+                    "label": "1800ml",
+                    "price": "1.900.000₫"
+                  }
+                ],
+                "at": {
+                  "phan-chu-trinh": {
+                    "hidden": true
+                  }
+                }
+              },
+              {
+                "id": "dassai-23-junmai-daiginjo-15-16",
+                "nameVi": "Dassai 23 Junmai Daiginjo 15-16%",
+                "nameEn": "Dassai 23 Junmai Daiginjo 15–16%",
+                "descVi": "Hương vị: ngọt thơm, tinh tế. Gạo: Yamadanishiki.",
+                "desc": "Gently sweet, aromatic, smooth. Yamadanishiki rice.",
+                "sizes": [
+                  {
+                    "label": "720ml",
+                    "price": "3.750.000₫"
+                  }
+                ]
+              },
+              {
+                "id": "hakkaisan-honjozo-15-phan-chu-trinh",
+                "nameVi": "Hakkaisan Honjozo 15%",
+                "nameEn": "Hakkaisan Honjozo 15%",
+                "descVi": "Hương vị: tinh khiết, khô. Gạo: Gohya.",
+                "desc": "Fresh, dry. Gohyakumangoku rice.",
+                "sizes": [
+                  {
+                    "label": "720ml",
+                    "price": "1.250.000₫"
+                  }
+                ],
+                "at": {
+                  "golden-palace": {
+                    "hidden": true
+                  },
+                  "mon-city": {
+                    "hidden": true
+                  }
+                }
+              },
+              {
+                "id": "junmai-suishin-karakuchi-15-phan-chu-trinh",
+                "nameVi": "Junmai Suishin Karakuchi 15%",
+                "nameEn": "Junmai Suishin Karakuchi 15%",
+                "descVi": "Hương vị: khô, nhẹ nhàng, êm dịu. Gạo: Nakateshin.",
+                "desc": "Dry, light, smooth. Nakateshin rice.",
+                "sizes": [
+                  {
+                    "label": "1800ml",
+                    "price": "1.750.000₫"
+                  }
+                ],
+                "at": {
+                  "golden-palace": {
+                    "hidden": true
+                  },
+                  "mon-city": {
+                    "hidden": true
+                  }
+                }
+              },
+              {
+                "id": "komagura-my-60-15-phan-chu-trinh",
+                "nameVi": "Komagura MY-60 15%",
+                "nameEn": "Komagura MY-60 15%",
+                "descVi": "Hương vị: hơi khô, nhẹ nhàng, tinh tế. Gạo: Yamada.",
+                "desc": "Light-dried, soft, smooth. Yamada rice.",
+                "sizes": [
+                  {
+                    "label": "720ml",
+                    "price": "1.250.000₫"
+                  }
+                ],
+                "at": {
+                  "golden-palace": {
+                    "hidden": true
+                  },
+                  "mon-city": {
+                    "hidden": true
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "cocktail",
+            "titleVi": "Cocktail",
+            "titleEn": "Cocktail",
+            "items": [
+              {
+                "id": "peach-sake-cocktail",
+                "nameVi": "Cocktail Sake Đào",
+                "nameEn": "Peach Sake Cocktail",
+                "price": "98.000₫"
+              },
+              {
+                "id": "passion-fruit-sake-cocktail",
+                "nameVi": "Cocktail Sake Chanh Leo",
+                "nameEn": "Passion Fruit Sake Cocktail",
+                "price": "98.000₫"
+              },
+              {
+                "id": "strawberry-sake-cocktail",
+                "nameVi": "Cocktail Sake Dâu Tây",
+                "nameEn": "Strawberry Sake Cocktail",
+                "price": "98.000₫"
+              },
+              {
+                "id": "whiskey-with-soda",
+                "nameVi": "Whiskey Pha Soda",
+                "nameEn": "Whiskey with Soda",
+                "price": "98.000₫"
+              },
+              {
+                "id": "gin-tonic",
+                "nameVi": "Gin Tonic",
+                "nameEn": "Gin Tonic",
+                "price": "98.000₫"
+              },
+              {
+                "id": "mojito",
+                "nameVi": "Mojito",
+                "nameEn": "Mojito",
+                "price": "98.000₫"
+              },
+              {
+                "id": "umeshu-plum-wine",
+                "nameVi": "Rượu Mơ",
+                "nameEn": "Umeshu (Plum Wine)",
+                "price": "98.000₫"
+              }
+            ]
+          },
+          {
+            "id": "beer",
+            "titleVi": "Bia",
+            "titleEn": "Beer",
+            "items": [
+              {
+                "id": "sapporo",
+                "nameVi": "Sapporo",
+                "nameEn": "Sapporo",
+                "price": "40.000₫"
+              },
+              {
+                "id": "saigon",
+                "nameVi": "Saigon",
+                "nameEn": "Saigon",
+                "price": "30.000₫"
+              },
+              {
+                "id": "tiger",
+                "nameVi": "Tiger",
+                "nameEn": "Tiger",
+                "price": "35.000₫"
+              }
+            ]
+          },
+          {
+            "id": "soju",
+            "titleVi": "Soju",
+            "titleEn": "Soju",
+            "items": [
+              {
+                "id": "korean-soju",
+                "nameVi": "Soju Hàn Quốc",
+                "nameEn": "Korean Soju",
+                "price": "130.000₫"
+              }
+            ]
+          },
+          {
+            "id": "corkage-fees",
+            "titleVi": "Phí mang rượu vào nhà hàng",
+            "titleEn": "Corkage Fees",
+            "items": [
+              {
+                "id": "other-liquor",
+                "nameVi": "Rượu Mạnh",
+                "nameEn": "Other Liquor",
+                "price": "400.000₫/chai"
+              },
+              {
+                "id": "wine",
+                "nameVi": "Rượu Vang",
+                "nameEn": "Wine",
+                "price": "200.000₫/chai"
+              },
+              {
+                "id": "vietnamese-liquor",
+                "nameVi": "Rượu Quê",
+                "nameEn": "Vietnamese Liquor",
+                "price": "100.000₫/chai"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "news": [],
+  "jobs": []
+}
