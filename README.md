@@ -27,9 +27,13 @@ runs as-is in the browser — no build/compile step needed.
 - `image-slot.js` — defines the `<image-slot>` custom element used as a
   placeholder wherever a photo goes. Outside the Claude Design editor these
   render as read-only placeholders (no drag-and-drop upload).
+- `assets/washi.css` — the "Washi" look (paper, ink brown, Mincho
+  headings) shared by `index.html` and `reservation.html`: nav, page
+  headers, menu grid, branch rows, footer, and overrides that retune the
+  Classical tokens below.
 - `_ds/classical-48be7531-0163-46df-8139-e4ab66773657/styles.css` — the
-  "Classical" design-system tokens (colors, spacing, type) and component
-  classes (`.btn`, `.card`, `.nav`, `.seg`, …) the page is built from.
+  "Classical" design-system tokens and component classes (`.btn`,
+  `.input`, `.dialog`, …), still used by the reservation form.
 
 ## Menus
 

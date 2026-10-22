@@ -21,371 +21,372 @@
 <x-dc>
 <helmet>
   <link rel="icon" type="image/svg+xml" href="assets/mugi-icon.svg">
-  <link rel="stylesheet" href="_ds/classical-48be7531-0163-46df-8139-e4ab66773657/styles.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;family=Noto+Sans+JP:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="assets/washi.css">
   <style>
-    body { margin: 0; }
-    a { color: var(--color-accent-700); }
-    a:hover { color: var(--color-accent-800); }
-    .jp { font-family: "Noto Serif JP", var(--font-heading), serif; }
-    @keyframes steamRise {
-      0% { opacity: 0; transform: translateY(0) scaleX(1); }
-      25% { opacity: .55; }
-      80% { opacity: .15; }
-      100% { opacity: 0; transform: translateY(-130px) scaleX(1.4); }
-    }
-    @keyframes heroFade {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-    .marquee-track { animation: marquee 32s linear infinite; }
-    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
-    @keyframes tabFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes tabSlideIn { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
-    @keyframes tabScaleIn { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: scale(1); } }
-    @keyframes riseIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes plateShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-    .photo-wrap {
-      position: relative; width: 100%; aspect-ratio: 4/3; border-radius: 4px; overflow: hidden;
-      background: linear-gradient(100deg, rgba(127,127,127,.08) 35%, rgba(127,127,127,.16) 50%, rgba(127,127,127,.08) 65%);
-      background-size: 200% 100%;
-      animation: plateShimmer 1.4s ease-in-out infinite;
-    }
-    .photo-wrap.is-loaded { animation: none; background: none; }
-    .photo-wrap .plate {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
-      opacity: 0; transition: opacity .45s ease;
-    }
-    .photo-wrap.is-loaded .plate { opacity: 1; }
-    .ph { display: block; object-fit: cover; border-radius: 4px; }
-    .mugi-links { display: contents; }
-    .mugi-btn-row { display: flex; gap: var(--space-2); flex-wrap: wrap; }
-    /* Phones/tablets only: the desktop layout above is unchanged. */
-    @media (max-width: 1180px) {
-      .mugi-nav { flex-wrap: wrap; row-gap: var(--space-2); }
-      .mugi-links { display: flex; gap: var(--space-3); order: 3; width: 100%; overflow-x: auto; white-space: nowrap; }
-    }
-    @media (max-width: 760px) {
-      .r-grid { grid-template-columns: minmax(0, 1fr) !important; gap: var(--space-4) !important; }
-      .r-grid .r-img { order: -1; }
-      .r-pad { padding-left: var(--space-4) !important; padding-right: var(--space-4) !important; }
-      .r-title { font-size: 32px !important; }
-      .r-hero { height: auto !important; min-height: 520px !important; }
-      .r-details { width: auto !important; height: auto !important; padding-left: 0 !important; }
-      .r-loc-title { padding-left: 0 !important; font-size: 30px !important; white-space: normal !important; }
-      .r-loc-wrap { padding-left: var(--space-4) !important; padding-right: var(--space-4) !important; }
-      .r-foot { grid-template-columns: minmax(0, 1fr) !important; gap: var(--space-6) !important; }
-      .r-foot-cols { grid-template-columns: minmax(0, 1fr) !important; }
-      .r-foot-brand img { display: none; }
-    }
+    body { margin: 0; background: #f6f1e8; }
+    .ws .topbar { position: sticky; top: 0; z-index: 50; background: rgba(246, 241, 232, .94); backdrop-filter: blur(6px); }
   </style>
 </helmet>
 
-<div style="background:var(--color-bg);color:var(--color-text);min-height:100vh;font-family:var(--font-body)">
+<div class="ws">
 
   <!-- NAV -->
-  <div class="nav mugi-nav" style="position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--color-bg) 92%, transparent);backdrop-filter:blur(6px)">
-    <div class="nav-brand" style="display:flex;align-items:center;gap:8px">
-      <img src="assets/mugi-icon.svg" alt="Mugi icon" style="height:26px;width:auto">
-      MUGI <span style="font-weight:400;opacity:.7">Ramen &amp; Izakaya</span>
-      <div style="display:flex;gap:4px;align-items:center;font-size:13px;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:3px 6px;margin-left:var(--space-2)">
-        <sc-for list="{{ langOpts }}" as="lg" hint-placeholder-count="3">
-          <a href="#" onClick="{{ lg.select }}" style="{{ lg.style }}">{{ lg.label }}</a>
-        </sc-for>
-      </div>
+  <div class="topbar">
+    <div class="wrap">
+      <nav class="nav" aria-label="MUGI">
+        <a class="brand" href="index.html" onClick="{{ goHome }}"><img src="assets/mugi-icon.svg" alt=""><b>MUGI</b></a>
+        <div class="links">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
+            <a href="{{ t.href }}" class="{{ t.cls }}" aria-current="{{ t.current }}" onClick="{{ t.select }}">{{ t.label }}</a>
+          </sc-for>
+        </div>
+        <div class="right">
+          <div class="lang" role="group" aria-label="Language">
+            <sc-for list="{{ langOpts }}" as="lg" hint-placeholder-count="3">
+              <button type="button" aria-pressed="{{ lg.pressed }}" onClick="{{ lg.select }}">{{ lg.label }}</button>
+            </sc-for>
+          </div>
+          <a class="cta" href="reservation.html">{{ txt.reserve }}</a>
+        </div>
+      </nav>
     </div>
-    <div class="mugi-links">
-      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="7">
-        <a href="#" onClick="{{ t.select }}" aria-current="{{ t.current }}" style="cursor:pointer">{{ t.label }}</a>
-      </sc-for>
-    </div>
-    <a class="btn btn-primary" href="reservation.html" style="margin-left:var(--space-2)">{{ txt.reserve }}</a>
   </div>
 
   <!-- HOME TAB -->
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-    <div style="{{ tabAnim }}">
-      <!-- HERO -->
-      <div class="r-hero" style="position:relative;height:88vh;min-height:560px;overflow:hidden;background:linear-gradient(rgba(25,23,23,.62), rgba(25,23,23,.74)), url('assets/photos/space-sake-shelf.jpg') center 35%/cover no-repeat">
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;animation:heroFade 1.2s ease both .3s">
-          <div class="jp" style="color:var(--color-accent-300);font-size:20px;letter-spacing:.2em;margin-bottom:var(--space-2)">麦 らーめん・居酒屋</div>
-          <img src="assets/mugi-logo-full-dark.svg" alt="Mugi" style="width:320px;height:auto;margin:0;display:block">
-          <p style="color:var(--color-neutral-300);font-size:18px;margin-top:var(--space-2);max-width:460px">{{ txt.heroDesc }}</p>
-        </div>
-      </div>
-
-      <!-- SHORT ABOUT + SPECIALS + SOCIAL -->
-      <div style="max-width:920px;margin:0 auto;padding:var(--space-8) var(--space-4)">
-        <div class="r-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:start">
-          <div>
-            <h6 style="color:var(--color-accent-700)">{{ txt.aboutHeading }}</h6>
-            <p style="font-size:16px;line-height:1.7">{{ txt.aboutBody }}</p>
-            <a class="btn btn-ghost" onClick="{{ goAbout }}" style="cursor:pointer;padding-left:0">{{ txt.readStory }}</a>
-          </div>
-          <div>
-            <h6 style="color:var(--color-accent-700)">{{ txt.specialsHeading }}</h6>
-            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
-              <div class="card"><span class="card-kicker">{{ txt.signatureTag }}</span><div class="card-title">{{ txt.specialName1 }}</div><p class="card-body">{{ txt.specialDesc1 }}</p></div>
-              <div class="card"><span class="card-kicker">{{ txt.izakayaTag }}</span><div class="card-title">{{ txt.specialName2 }}</div><p class="card-body">{{ txt.specialDesc2 }}</p></div>
+    <div class="tabpage" style="{{ tabAnim }}">
+      <div class="wrap">
+        <header class="hero">
+          <p class="tate" lang="ja">ラーメンと居酒屋</p>
+          <div class="htext">
+            <div>
+              <span class="num">麦 · HÀ NỘI</span>
+              <h1 style="white-space: pre-line">{{ txt.heroTitle }}</h1>
             </div>
-            <a class="btn btn-ghost" onClick="{{ goMenu }}" style="cursor:pointer;padding-left:0;margin-top:var(--space-2)">{{ txt.seeMenu }}</a>
-          </div>
-        </div>
-      </div>
-      <div style="height:3px;background:linear-gradient(90deg, var(--color-accent-700), var(--color-accent-400), var(--color-accent-700));opacity:.35"></div>
-
-      <!-- SIGNATURE SPOTLIGHTS -->
-      <sc-for list="{{ spotlights }}" as="sp" hint-placeholder-count="3">
-        <div data-reveal="" class="r-grid" style="max-width:1100px;margin:0 auto;padding:var(--space-8) var(--space-4);display:grid;grid-template-columns:{{ sp.gridCols }};gap:var(--space-8);align-items:center;transition:opacity .85s ease,transform .85s ease">
-          <sc-if value="{{ sp.showImgFirst }}" hint-placeholder-val="{{ true }}">
-            <img class="ph r-img" src="{{ sp.photo }}" alt="{{ sp.kicker }}" loading="lazy" style="width:100%;max-width:400px;margin:0 auto;aspect-ratio:3/2;object-position:{{ sp.pos }}">
-          </sc-if>
-          <div>
-            <div style="display:flex;align-items:baseline;gap:var(--space-3);margin-bottom:var(--space-3)">
-              <span style="font-family:var(--font-heading);font-size:64px;line-height:1;color:var(--color-accent);opacity:.18;user-select:none">{{ sp.num }}</span>
-              <h6 style="color:var(--color-accent-700);margin:0">{{ sp.kicker }}</h6>
-            </div>
-            <h2 class="r-title" style="font-size:36px;margin:0 0 var(--space-3)">{{ sp.title }}</h2>
-            <p style="font-size:16px;line-height:1.75">{{ sp.body }}</p>
-          </div>
-          <sc-if value="{{ sp.showImgLast }}" hint-placeholder-val="{{ false }}">
-            <img class="ph r-img" src="{{ sp.photo }}" alt="{{ sp.kicker }}" loading="lazy" style="width:100%;max-width:400px;margin:0 auto;aspect-ratio:3/2;object-position:{{ sp.pos }}">
-          </sc-if>
-        </div>
-        <div style="height:1px;background:var(--color-divider);max-width:1100px;margin:0 auto"></div>
-      </sc-for>
-
-      <!-- KITCHEN DISH ROW -->
-      <div style="background:var(--color-surface);padding:var(--space-6) 0;border-top:2px solid var(--color-accent-600)">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:0 var(--space-6);margin-bottom:var(--space-4)">
-          <h6 style="color:var(--color-accent-700);letter-spacing:.12em;margin:0">{{ txt.fromKitchen }}</h6>
-          <a class="btn btn-ghost" href="#" onClick="{{ goMenu }}" style="cursor:pointer;font-size:13px;padding-right:0">{{ txt.viewMenuArrow }}</a>
-        </div>
-        <div class="marquee-wrap" style="overflow:hidden">
-          <div class="marquee-track" style="display:flex;gap:var(--space-3);width:max-content;padding:0 var(--space-2)">
-            <sc-for list="{{ kitchenDishesLoop }}" as="k" hint-placeholder-count="16">
-              <div style="flex:none;width:160px;cursor:pointer" onClick="{{ goMenu }}">
-                <img class="ph" src="{{ k.photo }}" alt="{{ k.name }}" loading="lazy" style="width:160px;height:120px">
+            <div>
+              <p class="sub">{{ txt.heroSub }}</p>
+              <div class="hbtns">
+                <a class="cta red" href="reservation.html">{{ txt.reserve }}</a>
+                <a class="tlink" href="#menu" onClick="{{ goMenu }}">{{ txt.seeMenu }}</a>
               </div>
+            </div>
+          </div>
+          <figure>
+            <img class="himg" src="assets/photos/space-counter-guests.jpg" alt="{{ txt.capCounter }}">
+            <figcaption>{{ txt.capCounter }}</figcaption>
+          </figure>
+        </header>
+
+        <section>
+          <div class="rule"><h2>{{ txt.aboutHeading }}</h2><span class="num">01</span></div>
+          <div class="about">
+            <p class="lead">{{ txt.aboutLead }}</p>
+            <div>
+              <p class="side">{{ txt.aboutSide }}</p>
+              <a class="tlink" href="#about" onClick="{{ goAbout }}" style="margin-top: 12px">{{ txt.readStory }}</a>
+            </div>
+            <div class="aphotos">
+              <img src="assets/photos/kitchen-noodles.jpg" alt="" loading="lazy" style="object-position: center 40%">
+              <img src="assets/photos/space-counter-kitchen.jpg" alt="" loading="lazy" style="object-position: center 55%">
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="rule"><h2>{{ txt.specialsHeading }}</h2><span class="num">02</span></div>
+          <div class="flist">
+            <sc-for list="{{ featured }}" as="f" hint-placeholder-count="4">
+              <a class="item" href="#menu" onClick="{{ f.go }}">
+                <img src="{{ f.photo }}" alt="" loading="lazy">
+                <div>
+                  <sc-if value="{{ f.hasJp }}" hint-placeholder-val="{{ true }}"><span class="jp" lang="ja">{{ f.jp }}</span></sc-if>
+                  <h3>{{ f.name }}</h3>
+                </div>
+                <span class="price">{{ f.price }}</span>
+              </a>
             </sc-for>
           </div>
-        </div>
+          <div class="more"><a class="tlink" href="#menu" onClick="{{ goMenu }}">{{ txt.fullMenu }}</a></div>
+        </section>
+
+        <section>
+          <div class="rule"><h2>{{ txt.spaceHeading }}</h2><span class="num">03</span></div>
+          <div class="strip">
+            <sc-for list="{{ spacePhotos }}" as="p" hint-placeholder-count="4">
+              <figure><img class="{{ p.cls }}" src="{{ p.src }}" alt="{{ p.caption }}" loading="lazy"><figcaption>{{ p.caption }}</figcaption></figure>
+            </sc-for>
+          </div>
+        </section>
+
+        <section>
+          <div class="rule"><h2>{{ txt.restaurantsHeading }}</h2><span class="num">04</span></div>
+          <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
+            <article class="{{ loc.rowCls }}">
+              <span class="n" aria-hidden="true">{{ loc.num }}</span>
+              <h3>{{ loc.short }}</h3>
+              <p>{{ loc.addressLine1 }} {{ loc.addressLine2 }}</p>
+              <div class="meta"><small class="ml">{{ txt.lunch }} · {{ txt.dinner }}</small><br>{{ loc.lunch }} · {{ loc.dinner }}</div>
+              <div class="acts">
+                <a class="cta red" href="{{ loc.reserveUrl }}">{{ txt.reserve }}</a>
+                <a href="{{ loc.tel }}">{{ loc.phone }}</a>
+                <a href="#location" onClick="{{ goLocation }}">{{ txt.directions }}</a>
+              </div>
+            </article>
+          </sc-for>
+        </section>
       </div>
 
+      <div class="band">
+        <img src="assets/photos/space-entrance.jpg" alt="" loading="lazy" style="object-position: center 65%">
+        <div class="btxt">
+          <span class="num" lang="ja">予約</span>
+          <h2>{{ txt.bandTitle }}</h2>
+          <p>{{ txt.bandBody }}</p>
+          <a class="cta" href="reservation.html">{{ txt.reserve }}</a>
+        </div>
+      </div>
     </div>
   </sc-if>
 
   <!-- ABOUT TAB -->
   <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
-    <div style="{{ tabAnim }}">
-      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
-        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">私たちについて</div>
-        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.ourStory }}</h1>
-      </div>
-      <div ref="{{ storyRef }}" style="max-width:760px;margin:0 auto;padding:var(--space-8) var(--space-4);display:flex;flex-direction:column;gap:var(--space-8)">
-        <sc-for list="{{ storySteps }}" as="s" hint-placeholder-count="5">
-          <div data-reveal="{{ s.id }}" style="opacity:0;animation:riseIn .6s ease-in-out {{ s.delay }} both;display:grid;grid-template-columns:{{ s.imgFirst }};gap:var(--space-6);align-items:center" class="r-grid">
-            <sc-if value="{{ s.showImgFirst }}" hint-placeholder-val="{{ true }}">
-              <img class="ph r-img" src="{{ s.photo }}" alt="{{ s.title }}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-position:{{ s.pos }}">
-            </sc-if>
+    <div class="tabpage" style="{{ tabAnim }}">
+      <div class="wrap">
+        <header class="phead">
+          <p class="tate" lang="ja">私たちについて</p>
+          <div>
+            <span class="num">01 · 麦</span>
+            <h1>{{ txt.ourStory }}</h1>
+            <p class="sub">{{ txt.aboutSub }}</p>
+          </div>
+        </header>
+        <section style="padding-bottom: 0">
+          <div class="about">
+            <p class="lead">{{ txt.aboutLead }}</p>
+            <p class="side">{{ txt.aboutSide }}</p>
+          </div>
+        </section>
+        <sc-for list="{{ storySteps }}" as="s" hint-placeholder-count="4">
+          <div class="{{ s.cls }}">
+            <div class="simg"><img src="{{ s.photo }}" alt="{{ s.title }}" loading="lazy" style="object-position: {{ s.pos }}"></div>
             <div>
-              <h6 style="color:var(--color-accent-700)">{{ s.kicker }}</h6>
+              <span class="num">{{ s.numLabel }}</span>
               <h3>{{ s.title }}</h3>
-              <p style="font-size:15px;line-height:1.7">{{ s.body }}</p>
+              <p class="side">{{ s.body }}</p>
             </div>
-            <sc-if value="{{ s.showImgLast }}" hint-placeholder-val="{{ false }}">
-              <img class="ph r-img" src="{{ s.photo }}" alt="{{ s.title }}" loading="lazy" style="width:100%;aspect-ratio:4/3;object-position:{{ s.pos }}">
-            </sc-if>
           </div>
         </sc-for>
+      </div>
+      <div class="band" style="margin-top: 64px">
+        <img src="assets/photos/space-counter-sake.jpg" alt="" loading="lazy" style="object-position: center 40%">
+        <div class="btxt">
+          <span class="num" lang="ja">予約</span>
+          <h2>{{ txt.bandTitle }}</h2>
+          <p>{{ txt.bandBody }}</p>
+          <a class="cta" href="reservation.html">{{ txt.reserve }}</a>
+        </div>
       </div>
     </div>
   </sc-if>
 
   <!-- MENU TAB -->
   <sc-if value="{{ isMenu }}" hint-placeholder-val="{{ false }}">
-    <div style="{{ tabAnim }}">
-      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
-        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">メニュー</div>
-        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.menuTitle }}</h1>
-        <p style="color:var(--color-neutral-300);font-size:14px">{{ txt.menuSub }}</p>
-      </div>
-      <div style="display: flex; justify-content: center; padding-top: var(--space-4)">
-        <div class="seg">
-          <sc-for list="{{ menuLocationOpts }}" as="lo" hint-placeholder-count="3">
-            <label class="seg-opt"><input type="radio" name="menuloc" checked="{{ lo.active }}" onChange="{{ lo.select }}">{{ lo.label }}</label>
-          </sc-for>
-        </div>
-      </div>
-      <div style="max-width:1040px;margin:0 auto;padding:var(--space-4) var(--space-4) var(--space-6)">
+    <div class="tabpage" style="{{ tabAnim }}">
+      <div class="wrap">
+        <header class="phead">
+          <p class="tate" lang="ja">お品書き</p>
+          <div>
+            <span class="num">02 · MENU</span>
+            <h1>{{ txt.menuTitle }}</h1>
+            <p class="sub">{{ txt.menuSub }}</p>
+          </div>
+        </header>
 
-        <sc-for list="{{ activeCategoryGroups }}" as="grp" hint-placeholder-count="1">
-          <div style="display: flex; justify-content: center; margin-bottom: var(--space-6)">
-          <div class="seg" style="flex-wrap:wrap">
-            <sc-for list="{{ categories }}" as="c" hint-placeholder-count="6">
-              <label class="seg-opt"><input type="radio" name="menucat" checked="{{ c.active }}" onChange="{{ c.select }}">{{ c.label }}</label>
+        <div class="menubar">
+          <div class="row" role="group" aria-label="{{ txt.restaurantLabel }}">
+            <span>{{ txt.restaurantLabel }}</span>
+            <sc-for list="{{ menuLocationOpts }}" as="lo" hint-placeholder-count="3">
+              <button type="button" class="{{ lo.cls }}" aria-pressed="{{ lo.active }}" onClick="{{ lo.select }}">{{ lo.label }}</button>
             </sc-for>
           </div>
-        </div><div style="margin-bottom:var(--space-8)">
-            <h4 style="border-bottom:1px solid var(--color-divider);padding-bottom:var(--space-2)">{{ grp.label }} <sc-if value="{{ grp.hasJp }}" hint-placeholder-val="{{ false }}"><span class="jp text-muted" style="font-size:14px">{{ grp.jp }}</span></sc-if></h4>
+          <div class="tabs" role="group" aria-label="{{ txt.menuTitle }}">
+            <sc-for list="{{ categories }}" as="c" hint-placeholder-count="12">
+              <button type="button" class="{{ c.cls }}" aria-pressed="{{ c.active }}" onClick="{{ c.select }}">{{ c.label }}</button>
+            </sc-for>
+          </div>
+        </div>
 
-            <sc-if value="{{ grp.isCards }}" hint-placeholder-val="{{ true }}">
-              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:var(--space-4);margin-top:var(--space-4)">
-                <sc-for list="{{ grp.dishes }}" as="d" hint-placeholder-count="2">
-                  <div class="card elev-sm" style="opacity:0;animation:riseIn .5s ease-in-out {{ d.delay }} both;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow-md)">
+        <sc-for list="{{ activeCategoryGroups }}" as="grp" hint-placeholder-count="1">
+          <div class="cathead">
+            <h2>{{ grp.label }}</h2>
+            <span class="note">{{ grp.countLabel }}</span>
+          </div>
+
+          <sc-if value="{{ grp.isCards }}" hint-placeholder-val="{{ true }}">
+            <div class="dgrid">
+              <sc-for list="{{ grp.allDishes }}" as="d" hint-placeholder-count="8">
+                <article class="dish" style="animation: wsFade .5s ease-in-out {{ d.delay }} both">
+                  <div class="{{ d.picCls }}">
                     <sc-if value="{{ d.hasPhoto }}" hint-placeholder-val="{{ true }}">
-                      <div class="photo-wrap {{ d.photoWrapClass }}">
-                        <img src="{{ d.photo }}" alt="{{ d.name }}" class="plate">
-                      </div>
+                      <img src="{{ d.photo }}" alt="{{ d.name }}" loading="lazy">
                     </sc-if>
                     <sc-if value="{{ d.noPhoto }}" hint-placeholder-val="{{ false }}">
-                      <div style="width:100%;aspect-ratio:4/3;border-radius:4px;background:rgba(127,127,127,.08);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;box-sizing:border-box;font-size:13px;color:var(--color-neutral-500)">{{ d.name }}</div>
+                      <span class="nopic">{{ d.name }}</span>
                     </sc-if>
                     <sc-if value="{{ d.featured }}" hint-placeholder-val="{{ false }}">
-                      <span class="tag tag-accent" style="align-self:flex-start">{{ txt.featuredTag }}</span>
+                      <span class="tag">{{ txt.featuredTag }}</span>
                     </sc-if>
-                    <div class="card-title">{{ d.name }}</div>
-                    <sc-if value="{{ d.hasJp }}" hint-placeholder-val="{{ false }}">
-                      <div class="jp text-muted" style="font-size:11px;margin-top:-4px">{{ d.jp }}</div>
-                    </sc-if>
-                    <sc-if value="{{ d.hasDesc }}" hint-placeholder-val="{{ true }}">
-                      <p class="card-body">{{ d.desc }}</p>
-                    </sc-if>
-                    <div class="card-meta">{{ d.price }}</div>
                   </div>
-                </sc-for>
-                <!-- Toppings: rendered as a grid cell (not a below-the-fold
-                     block) right after the first 2 dishes, so it lands in
-                     row 1's 3rd column slot; the remaining dishes wrap
-                     around it via normal CSS grid auto-placement. -->
-                <sc-if value="{{ grp.hasAddOns }}" hint-placeholder-val="{{ false }}">
-                  <div class="card elev-sm">
-                    <h6 style="color:var(--color-accent-700);margin:0">{{ txt.toppings }}</h6>
-                    <div class="hr" style="margin:0 0 var(--space-2)"></div>
-                    <sc-for list="{{ grp.addOns }}" as="a" hint-placeholder-count="7">
-                      <div style="display:flex;justify-content:space-between;padding:4px 0;font-size:13px;border-bottom:1px solid var(--color-divider)">
-                        <span>{{ a.name }}</span><span class="text-muted">{{ a.price }}</span>
-                      </div>
-                    </sc-for>
-                  </div>
-                </sc-if>
-                <sc-for list="{{ grp.dishesTail }}" as="d" hint-placeholder-count="2">
-                  <div class="card elev-sm" style="opacity:0;animation:riseIn .5s ease-in-out {{ d.delay }} both;transition:transform .25s ease,box-shadow .25s ease" style-hover="transform:translateY(-5px);box-shadow:var(--shadow-md)">
-                    <sc-if value="{{ d.hasPhoto }}" hint-placeholder-val="{{ true }}">
-                      <div class="photo-wrap {{ d.photoWrapClass }}">
-                        <img src="{{ d.photo }}" alt="{{ d.name }}" class="plate">
-                      </div>
-                    </sc-if>
-                    <sc-if value="{{ d.noPhoto }}" hint-placeholder-val="{{ false }}">
-                      <div style="width:100%;aspect-ratio:4/3;border-radius:4px;background:rgba(127,127,127,.08);display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;box-sizing:border-box;font-size:13px;color:var(--color-neutral-500)">{{ d.name }}</div>
-                    </sc-if>
-                    <sc-if value="{{ d.featured }}" hint-placeholder-val="{{ false }}">
-                      <span class="tag tag-accent" style="align-self:flex-start">{{ txt.featuredTag }}</span>
-                    </sc-if>
-                    <div class="card-title">{{ d.name }}</div>
-                    <sc-if value="{{ d.hasJp }}" hint-placeholder-val="{{ false }}">
-                      <div class="jp text-muted" style="font-size:11px;margin-top:-4px">{{ d.jp }}</div>
-                    </sc-if>
-                    <sc-if value="{{ d.hasDesc }}" hint-placeholder-val="{{ true }}">
-                      <p class="card-body">{{ d.desc }}</p>
-                    </sc-if>
-                    <div class="card-meta">{{ d.price }}</div>
-                  </div>
+                  <sc-if value="{{ d.hasJp }}" hint-placeholder-val="{{ true }}">
+                    <span class="jp" lang="ja">{{ d.jp }}</span>
+                  </sc-if>
+                  <h3>{{ d.name }}</h3>
+                  <sc-if value="{{ d.hasDesc }}" hint-placeholder-val="{{ false }}">
+                    <span class="alt">{{ d.desc }}</span>
+                  </sc-if>
+                  <div class="foot"><span class="price">{{ d.price }}</span></div>
+                </article>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ grp.hasAddOns }}" hint-placeholder-val="{{ false }}">
+            <div class="addons">
+              <h3>{{ txt.toppings }}</h3>
+              <div class="agrid">
+                <sc-for list="{{ grp.addOns }}" as="a" hint-placeholder-count="7">
+                  <div class="aline"><span>{{ a.name }}</span><span class="price">{{ a.price }}</span></div>
                 </sc-for>
               </div>
-            </sc-if>
+            </div>
+          </sc-if>
 
-            <sc-if value="{{ grp.isList }}" hint-placeholder-val="{{ false }}">
-              <sc-for list="{{ grp.subgroups }}" as="sub" hint-placeholder-count="2">
-                <h6 style="color:var(--color-accent-700);margin-top:var(--space-4)">{{ sub.title }}</h6>
-                <div class="hr" style="margin:6px 0 var(--space-2)"></div>
-                <sc-for list="{{ sub.items }}" as="it" hint-placeholder-count="4">
-                  <div style="display:flex;justify-content:space-between;gap:var(--space-3);padding:7px 0;border-bottom:1px solid var(--color-divider);font-size:14px">
-                    <div style="min-width:0">
-                      <span>{{ it.name }}</span>
-                      <sc-if value="{{ it.hasJp }}" hint-placeholder-val="{{ false }}">
-                        <span class="jp text-muted" style="font-size:11px;margin-left:6px">{{ it.jp }}</span>
-                      </sc-if>
-                      <sc-if value="{{ it.hasDesc }}" hint-placeholder-val="{{ false }}">
-                        <div class="text-muted" style="font-size:12px">{{ it.desc }}</div>
-                      </sc-if>
+          <sc-if value="{{ grp.isList }}" hint-placeholder-val="{{ false }}">
+            <div class="groups">
+              <sc-for list="{{ grp.subgroups }}" as="sub" hint-placeholder-count="4">
+                <div class="group">
+                  <h3>{{ sub.title }}</h3>
+                  <sc-for list="{{ sub.items }}" as="it" hint-placeholder-count="4">
+                    <div class="gline">
+                      <div>
+                        {{ it.name }}
+                        <sc-if value="{{ it.hasJp }}" hint-placeholder-val="{{ false }}"><small class="jp" lang="ja">{{ it.jp }}</small></sc-if>
+                        <sc-if value="{{ it.hasDesc }}" hint-placeholder-val="{{ false }}"><small>{{ it.desc }}</small></sc-if>
+                      </div>
+                      <span class="price">{{ it.priceDisplay }}</span>
                     </div>
-                    <div style="white-space:nowrap;font-family:var(--font-heading);text-align:right">{{ it.priceDisplay }}</div>
-                  </div>
-                </sc-for>
+                  </sc-for>
+                </div>
               </sc-for>
-            </sc-if>
-          </div>
+            </div>
+          </sc-if>
         </sc-for>
+
+        <p class="note" style="margin-top: 40px">{{ txt.menuNote }}</p>
+      </div>
+
+      <div class="band" style="margin-top: 64px">
+        <img src="assets/photos/space-counter-guests.jpg" alt="" loading="lazy" style="object-position: 55% center">
+        <div class="btxt">
+          <span class="num" lang="ja">予約</span>
+          <h2>{{ txt.menuBandTitle }}</h2>
+          <p>{{ txt.bandBody }}</p>
+          <a class="cta" href="{{ menuReserveUrl }}">{{ txt.reserve }}</a>
+        </div>
       </div>
     </div>
   </sc-if>
 
-  <!-- LOCATION TAB -->
+  <!-- LOCATION TAB (restaurants + contact) -->
   <sc-if value="{{ isLocation }}" hint-placeholder-val="{{ false }}">
-    <div style="{{ tabAnim }}">
-      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
-        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">場所</div>
-        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2); font-weight: 700">{{ txt.findUs }}</h1>
-        <p style="color:var(--color-neutral-400);font-size:14px;margin-top:var(--space-1)">{{ txt.contactSub }}</p>
-      </div>
+    <div class="tabpage" style="{{ tabAnim }}">
+      <div class="wrap">
+        <header class="phead">
+          <p class="tate" lang="ja">店舗案内</p>
+          <div>
+            <span class="num">05 · 店舗</span>
+            <h1>{{ txt.findUs }}</h1>
+            <p class="sub">{{ txt.contactSub }}</p>
+          </div>
+        </header>
 
-      <!-- Branch sections -->
-      <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
-        <div style="border-bottom:1px solid var(--color-divider)">
-
-        <div class="r-loc-wrap" style="max-width:1080px;margin:0 auto;padding:var(--space-8) var(--space-8) calc(var(--space-8) * 1.6)">
-
-            <div class="r-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8);align-items:center">
-              <!-- Details -->
-              <div class="r-details" style="min-width: 0; padding-left: var(--space-8); width: 465px">
-                <h3 class="r-loc-title" style="margin: 0 0 var(--space-4); font-size: 40px; font-weight: 700; text-align: left; padding-left: 0; white-space: nowrap">{{ loc.short }}</h3>
-                <p style="font-size: 16px; line-height: 1.7; overflow-wrap: break-word; margin: 0 0 var(--space-3); text-align: left">{{ loc.addressLine1 }}<br>{{ loc.addressLine2 }}</p>
-                <div class="hr" style="margin:var(--space-3) 0"></div>
-                <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 28px;font-size:15px;margin-bottom:var(--space-3)">
-                  <span style="color:var(--color-neutral-500);font-size:13px;letter-spacing:.06em;text-transform:uppercase">{{ txt.lunch }}</span><span>{{ loc.lunch }}</span>
-                  <span style="color:var(--color-neutral-500);font-size:13px;letter-spacing:.06em;text-transform:uppercase">{{ txt.dinner }}</span><span>{{ loc.dinner }}</span>
-                </div>
-                <div class="hr" style="margin:var(--space-3) 0"></div>
-                <div style="display:flex;gap:var(--space-2);margin-top:var(--space-4);flex-wrap:wrap">
-                  <a class="btn btn-primary" href="{{ loc.reserveUrl }}">{{ txt.reserve }}</a>
-                  <a class="btn btn-secondary" href="{{ loc.tel }}">{{ loc.phone }}</a>
-                  <a class="btn btn-secondary" href="{{ loc.mapUrl }}" target="_blank" rel="noopener">{{ txt.openInMaps }}</a>
-                </div>
-              </div><img class="ph" src="{{ loc.photo }}" alt="{{ loc.short }}" loading="lazy" style="width:100%;max-width:340px;aspect-ratio:4/3;margin:0 auto">
-              <!-- 2×2 photo grid -->
-
+        <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
+          <article class="loc">
+            <div>
+              <span class="num">{{ loc.num }} · {{ loc.area }}</span>
+              <h2>{{ loc.short }}</h2>
+              <dl class="dl">
+                <dt>{{ txt.addressLabel }}</dt><dd>{{ loc.addressLine1 }} {{ loc.addressLine2 }}</dd>
+                <dt>{{ txt.phoneLabel }}</dt><dd><a href="{{ loc.tel }}">{{ loc.phone }}</a></dd>
+                <dt>{{ txt.footerHours }}</dt><dd>{{ txt.lunch }} {{ loc.lunch }} · {{ txt.dinner }} {{ loc.dinner }}</dd>
+              </dl>
+              <div class="btnrow">
+                <a class="cta red" href="{{ loc.reserveUrl }}">{{ txt.reserve }}</a>
+                <a class="cta ghost" href="#menu" onClick="{{ loc.goMenu }}">{{ txt.menuHere }}</a>
+                <a class="cta ghost" href="{{ loc.mapUrl }}" target="_blank" rel="noopener">{{ txt.openInMaps }}</a>
+              </div>
             </div>
-          </div></div>
-      </sc-for>
+            <iframe class="map" src="{{ loc.mapSrc }}" title="{{ loc.short }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </article>
+        </sc-for>
+
+        <section>
+          <div class="rule"><h2>{{ txt.contactTitle }}</h2><span class="num" lang="ja">連絡</span></div>
+          <div class="contact-grid">
+            <div class="box">
+              <h3>{{ txt.callTitle }}</h3>
+              <p>{{ txt.callBody }}</p>
+              <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
+                <p style="margin: 0 0 4px; color: inherit"><a href="{{ loc.tel }}">{{ loc.phone }}</a> · {{ loc.short }}</p>
+              </sc-for>
+            </div>
+            <div class="box">
+              <h3>Facebook</h3>
+              <p>{{ txt.fbBody }}</p>
+              <a class="cta ghost" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">MugiRamen.Izakaya ↗</a>
+            </div>
+            <div class="box">
+              <h3>{{ txt.reserveTitle }}</h3>
+              <p>{{ txt.bandBody }}</p>
+              <a class="cta red" href="reservation.html">{{ txt.reserve }}</a>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   </sc-if>
 
   <!-- PROMOTION TAB -->
   <sc-if value="{{ isPromo }}" hint-placeholder-val="{{ false }}">
-    <div style="{{ tabAnim }}">
-      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
-        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">お知らせ</div>
-        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.promoHeading }}</h1>
-      </div>
-      <div style="max-width:840px;margin:0 auto;padding:var(--space-8) var(--space-4)">
-        <sc-for list="{{ news }}" as="p" hint-placeholder-count="0">
-          <div style="display:flex;gap:var(--space-4);padding:var(--space-4) 0;border-bottom:1px solid var(--color-divider)">
-            <div style="min-width:90px;font-size:12px;color:var(--color-accent-700);font-family:var(--font-heading);font-variant-numeric:tabular-nums">{{ p.date }}</div>
-            <div>
-              <div class="card-title" style="font-size:15px">{{ p.title }}</div>
-              <p class="card-body" style="opacity:.8;margin-top:2px">{{ p.body }}</p>
-            </div>
+    <div class="tabpage" style="{{ tabAnim }}">
+      <div class="wrap">
+        <header class="phead">
+          <p class="tate" lang="ja">お知らせ</p>
+          <div>
+            <span class="num">03 · NEWS</span>
+            <h1>{{ txt.promoHeading }}</h1>
+            <p class="sub">{{ txt.newsSub }}</p>
           </div>
-        </sc-for>
+        </header>
+        <sc-if value="{{ hasNews }}" hint-placeholder-val="{{ false }}">
+          <div class="nlist" style="margin-top: 48px">
+            <sc-for list="{{ news }}" as="p" hint-placeholder-count="0">
+              <article class="nrow">
+                <span class="date">{{ p.date }}</span>
+                <div><h3>{{ p.title }}</h3><p>{{ p.body }}</p></div>
+              </article>
+            </sc-for>
+          </div>
+        </sc-if>
         <sc-if value="{{ noNews }}" hint-placeholder-val="{{ true }}">
-          <div class="card elev-md" style="padding:var(--space-6);text-align:center">
-            <p style="margin:0 0 var(--space-3);font-size:15px;line-height:1.7">{{ txt.newsEmpty }}</p>
-            <a class="btn btn-primary" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook</a>
+          <div class="empty">
+            <img src="assets/photos/space-sake-shelf.jpg" alt="" loading="lazy" style="object-position: center 40%">
+            <div>
+              <p class="lead">{{ txt.newsEmptyTitle }}</p>
+              <p class="side" style="margin: 12px 0 20px">{{ txt.newsEmpty }}</p>
+              <a class="cta" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook ↗</a>
+            </div>
           </div>
         </sc-if>
       </div>
@@ -394,23 +395,34 @@
 
   <!-- CAREERS TAB -->
   <sc-if value="{{ isCareers }}" hint-placeholder-val="{{ false }}">
-    <div style="{{ tabAnim }}">
-      <div style="background:var(--color-neutral-900);color:var(--color-neutral-100);padding:var(--space-8) var(--space-4);text-align:center">
-        <div class="jp" style="color:var(--color-accent-300);font-size:13px;letter-spacing:.2em">採用情報</div>
-        <h1 class="r-title" style="color: var(--color-neutral-100); font-size: 50px; margin-top: var(--space-2)">{{ txt.careersTitle }}</h1>
-      </div>
-      <div style="max-width:840px;margin:0 auto;padding:var(--space-8) var(--space-4)">
-        <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="0">
-          <div style="padding:var(--space-4) 0;border-bottom:1px solid var(--color-divider)">
-            <div class="card-title" style="font-size:15px">{{ j.title }}</div>
-            <div class="text-muted" style="font-size:13px">{{ j.where }}</div>
-            <p class="card-body" style="margin-top:4px">{{ j.body }}</p>
+    <div class="tabpage" style="{{ tabAnim }}">
+      <div class="wrap">
+        <header class="phead">
+          <p class="tate" lang="ja">採用情報</p>
+          <div>
+            <span class="num">04 · 採用</span>
+            <h1>{{ txt.careersTitle }}</h1>
+            <p class="sub">{{ txt.careersSub }}</p>
           </div>
-        </sc-for>
+        </header>
+        <sc-if value="{{ hasJobs }}" hint-placeholder-val="{{ false }}">
+          <div class="nlist" style="margin-top: 48px">
+            <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="0">
+              <article class="nrow">
+                <span class="date">{{ j.where }}</span>
+                <div><h3>{{ j.title }}</h3><p>{{ j.body }}</p></div>
+              </article>
+            </sc-for>
+          </div>
+        </sc-if>
         <sc-if value="{{ noJobs }}" hint-placeholder-val="{{ true }}">
-          <div class="card elev-md" style="padding:var(--space-6);text-align:center">
-            <p style="margin:0 0 var(--space-3);font-size:15px;line-height:1.7">{{ txt.careersEmpty }}</p>
-            <a class="btn btn-primary" onClick="{{ goLocation }}" style="cursor:pointer">{{ txt.contactTitle }}</a>
+          <div class="empty">
+            <div>
+              <p class="lead">{{ txt.careersEmptyTitle }}</p>
+              <p class="side" style="margin: 12px 0 20px">{{ txt.careersEmpty }}</p>
+              <a class="cta" href="#location" onClick="{{ goLocation }}">{{ txt.contactTitle }}</a>
+            </div>
+            <img src="assets/photos/space-counter-kitchen.jpg" alt="" loading="lazy" style="object-position: center 55%">
           </div>
         </sc-if>
       </div>
@@ -418,35 +430,31 @@
   </sc-if>
 
   <!-- FOOTER (every tab) -->
-  <div class="r-pad" style="background:var(--color-neutral-900);color:var(--color-neutral-300);padding:var(--space-8) var(--space-6)">
-    <div class="r-foot" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1.6fr;gap:calc(var(--space-8) * 2)">
-
-      <div style="min-width:0">
-        <div class="r-foot-brand" style="position:relative">
-          <img src="assets/mugi-icon.svg" alt="Mugi icon" style="position:absolute;left:-46px;top:2px;height:34px;width:auto">
-          <h3 style="color: var(--color-neutral-100); font-size: 35px; margin-bottom:0">Mugi Ramen &amp; Izakaya</h3>
-          <div class="jp" style="color:var(--color-accent-300);font-size:15px;margin-top:4px;margin-bottom:var(--space-3)">麦 ラーメン・居酒屋</div>
-        </div>
-        <h6 style="color:var(--color-accent-300);margin-top:var(--space-4)">{{ txt.footerHours }}</h6>
-        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span>{{ txt.lunch }}</span><span>10:30 – 14:00</span></div>
-
-        <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--color-neutral-800);font-size:14px;max-width:280px"><span>{{ txt.dinner }}</span><span>17:00 – 22:00</span></div><div style="display:flex;gap:var(--space-2);margin-top:var(--space-4);flex-wrap:wrap">
-          <a class="btn btn-secondary" style="color:var(--color-neutral-200);border-color:var(--color-neutral-700)" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook</a>
-          <a class="btn btn-primary" href="reservation.html" style="color:var(--color-accent-300);border-color:var(--color-accent-600)">{{ txt.reserve }}</a>
-        </div>
-      </div><div>
-        <div class="r-foot-cols" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)">
-          <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
-            <div>
-              <div style="color: var(--color-neutral-100); font-family: var(--font-heading); font-size: 16px; margin-bottom: 8px; font-weight: 500">{{ loc.short }}</div>
-              <div style="font-size:13px;line-height:1.8">{{ loc.addressLine1 }} {{ loc.addressLine2 }}</div>
-              <a href="{{ loc.tel }}" style="display:inline-block;font-size:13px;color:var(--color-accent-300);margin-top:6px">{{ loc.phone }}</a>
-            </div>
-          </sc-for>
-        </div>
+  <footer>
+    <div class="wrap fgrid">
+      <div>
+        <b class="logo">MUGI</b>
+        <p class="jp" lang="ja" style="color: #e3c9a0">麦 ラーメン・居酒屋</p>
+        <p>{{ txt.lunch }} 10:30–14:00 · {{ txt.dinner }} 17:00–22:00</p>
+        <p><a href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook ↗</a> · <a href="reservation.html">{{ txt.reserve }}</a></p>
       </div>
+      <sc-for list="{{ locations }}" as="loc" hint-placeholder-count="3">
+        <div>
+          <h4>{{ loc.short }}</h4>
+          <p>{{ loc.addressLine1 }} {{ loc.addressLine2 }}</p>
+          <a href="{{ loc.tel }}">{{ loc.phone }}</a>
+        </div>
+      </sc-for>
     </div>
-  </div>
+    <div class="wrap fbot">
+      <span>© MUGI Ramen &amp; Izakaya</span>
+      <span>
+        <a href="#promotion" onClick="{{ goPromo }}">{{ txt.navNews }}</a> ·
+        <a href="#careers" onClick="{{ goCareers }}">{{ txt.careersTitle }}</a> ·
+        <a href="#location" onClick="{{ goLocation }}">{{ txt.contactTitle }}</a>
+      </span>
+    </div>
+  </footer>
 
 </div>
 
@@ -859,13 +867,13 @@ class Component extends DCLogic {
   // Hours are the same at every branch in the current data; override per
   // branch here if they ever differ. Address/phone match the printed menus.
   locationData = [
-    { short: 'Mon City, Hàm Nghi', slug: 'mon-city', addressLine1: 'Số 37 Lô TT01 Mon City, Ngõ 4 Hàm Nghi,', addressLine2: 'Từ Liêm, Hà Nội',
+    { short: 'Mon City, Hàm Nghi', slug: 'mon-city', area: 'Hàm Nghi', addressLine1: 'Số 37 Lô TT01 Mon City, Ngõ 4 Hàm Nghi,', addressLine2: 'Từ Liêm, Hà Nội',
       lunch: '10:30 – 14:00', dinner: '17:00 – 22:00', phone: '0966 75 0202', tel: 'tel:+84966750202',
       mapUrl: 'https://www.google.com/maps/search/?api=1&query=37+Lo+TT01+Mon+City+Ngo+4+Ham+Nghi+Tu+Liem+Hanoi' },
-    { short: 'Golden Palace, Mễ Trì', slug: 'golden-palace', addressLine1: 'Lô B1.9, Tầng hầm B1, Tòa nhà Golden Palace, Số 99 Mễ Trì,', addressLine2: 'Từ Liêm, Hà Nội',
+    { short: 'Golden Palace, Mễ Trì', slug: 'golden-palace', area: 'Mễ Trì', addressLine1: 'Lô B1.9, Tầng hầm B1, Tòa nhà Golden Palace, Số 99 Mễ Trì,', addressLine2: 'Từ Liêm, Hà Nội',
       lunch: '10:30 – 14:00', dinner: '17:00 – 22:00', phone: '0866 60 7560', tel: 'tel:+84866607560',
       mapUrl: 'https://www.google.com/maps/search/?api=1&query=Golden+Palace+99+Me+Tri+Tu+Liem+Hanoi' },
-    { short: 'Phan Chu Trinh', slug: 'phan-chu-trinh', addressLine1: 'Số 23 Phan Chu Trinh,', addressLine2: 'Cửa Nam, Hà Nội',
+    { short: 'Phan Chu Trinh', slug: 'phan-chu-trinh', area: 'Cửa Nam', addressLine1: 'Số 23 Phan Chu Trinh,', addressLine2: 'Cửa Nam, Hà Nội',
       lunch: '10:30 – 14:00', dinner: '17:00 – 22:00', phone: '0866 75 3375', tel: 'tel:+84866753375',
       mapUrl: 'https://www.google.com/maps/search/?api=1&query=23+Phan+Chu+Trinh+Cua+Nam+Hanoi' },
   ];
@@ -877,39 +885,25 @@ class Component extends DCLogic {
   newsItems = [];
   jobItems = [];
 
-  spotlights = [
-    { id: 'sp-ramen', num: '01', photo: 'assets/photos/ramen-toku-tonkotsu-shoyu.jpg', pos: 'center 55%', imgFirst: true,
-      kicker: 'Tokusei Tonkotsu Shoyu Ramen', kickerVi: 'Tokusei Tonkotsu Shoyu Ramen', kickerJa: '特製豚骨醤油ラーメン',
-      title: 'Ramen', titleVi: 'Ramen', titleJa: 'ラーメン',
-      body: 'Tonkotsu, miso, shoyu, shio and tantan, each with a Tokusei version.',
-      bodyVi: 'Tonkotsu, miso, shoyu, shio và tantan, mỗi loại đều có phiên bản Tokusei.',
-      bodyJa: '豚骨、味噌、醤油、塩、担々麺。それぞれに特製があります。' },
-    { id: 'sp-izakaya', num: '02', photo: 'assets/photos/grill-chicken-negima.jpg', pos: 'center', imgFirst: false,
-      kicker: 'Grilled Chicken with Green Onion', kickerVi: 'Đùi Gà Xiên Hành Nướng', kickerJa: '鶏ねぎま',
-      title: 'Izakaya', titleVi: 'Izakaya', titleJa: '居酒屋',
-      body: 'Grilled skewers and fish, kappayaki eel, with sake and Sapporo beer.',
-      bodyVi: 'Xiên nướng, cá nướng muối, lươn kappayaki, cùng sake và bia Sapporo.',
-      bodyJa: '串焼き、焼き魚、うなぎのカッパ焼き。日本酒やサッポロビールとともに。' },
-    { id: 'sp-sashimi', num: '03', photo: 'assets/photos/sashimi-special.jpg', pos: 'center', imgFirst: true,
-      kicker: 'Special Mixed Sashimi', kickerVi: 'Sashimi Tổng Hợp Đặc Biệt', kickerJa: '特刺身盛り合わせ',
-      title: 'Sashimi & Sushi', titleVi: 'Sashimi & Sushi', titleJa: '刺身・寿司',
-      body: 'Salmon, tuna, scallop, oyster and more, from mixed sets to single pieces.',
-      bodyVi: 'Cá hồi, cá ngừ, sò điệp, hàu Nhật và nhiều loại khác, từ set tổng hợp đến từng món lẻ.',
-      bodyJa: 'サーモン、マグロ、ホタテ、牡蠣など。盛り合わせから単品までお選びいただけます。' },
+  // Home "Featured" list: menu ids (names and prices are read from the
+  // Golden Palace menu) with the web-sized photos used on Home.
+  featuredDishes = [
+    { id: 'ramen-tonkotsu-shoyu-toku', photo: 'assets/photos/ramen-toku-tonkotsu-shoyu.jpg' },
+    { id: 'sashimi-mixed-special', photo: 'assets/photos/sashimi-special.jpg' },
+    { id: 'yaki-chicken-negima', photo: 'assets/photos/grill-chicken-negima.jpg' },
+    { id: 'rice-eel-bowl', photo: 'assets/photos/eel-bowl.jpg' },
+  ];
+
+  // Interior photos for the Home "space" strip. Which branch each shows is
+  // not known yet, so none is tied to a branch.
+  spacePhotos = [
+    { src: 'assets/photos/space-entrance.jpg', cls: '', caption: 'Entrance & noren', captionVi: 'Lối vào & rèm noren', captionJa: '入口とのれん' },
+    { src: 'assets/photos/space-sake-shelf.jpg', cls: '', caption: 'Sake above the counter', captionVi: 'Kệ sake trên quầy', captionJa: 'カウンター上の日本酒' },
+    { src: 'assets/photos/space-counter-sake.jpg', cls: '', caption: 'The bar', captionVi: 'Quầy bar', captionJa: 'バーカウンター' },
+    { src: 'assets/photos/space-counter-kitchen.jpg', cls: 'tall', caption: 'Open kitchen', captionVi: 'Bếp mở', captionJa: 'オープンキッチン' },
   ];
 
   _locations = null;
-
-  kitchenDishes = [
-    { name: 'Tokusei Tonkotsu Shoyu Ramen', nameJa: '特製豚骨醤油ラーメン', photo: 'assets/photos/ramen-toku-tonkotsu-shoyu.jpg' },
-    { name: 'Tantan Ramen', nameJa: '担々麺', photo: 'assets/photos/ramen-tantan.jpg' },
-    { name: 'Tokusei Miso Ramen', nameJa: '特味噌ラーメン', photo: 'assets/photos/ramen-toku-miso.jpg' },
-    { name: 'Grilled Chicken with Green Onion', nameVi: 'Đùi Gà Xiên Hành Nướng', nameJa: '鶏ねぎま', photo: 'assets/photos/grill-chicken-negima.jpg' },
-    { name: 'Gyoza', nameVi: 'Há Cảo', nameJa: '餃子', photo: 'assets/photos/gyoza.jpg' },
-    { name: 'Eel Bowl', nameVi: 'Cơm Lươn Nướng', nameJa: 'うな丼', photo: 'assets/photos/eel-bowl.jpg' },
-    { name: 'Sashimi Mix 6', nameJa: '刺身盛り合わせ6種', photo: 'assets/photos/sashimi-mix6.jpg' },
-    { name: 'Special Mixed Sashimi', nameVi: 'Sashimi Tổng Hợp Đặc Biệt', nameJa: '特刺身盛り合わせ', photo: 'assets/photos/sashimi-special.jpg' },
-  ];
 
   // Japanese category labels (the menu data carries Vietnamese + English).
   categoryLabelJa = {
@@ -955,10 +949,12 @@ class Component extends DCLogic {
       { key: 'promotion', label: t('News & Offers', 'Tin Tức & Ưu Đãi', 'お知らせ') },
       { key: 'careers', label: t('Careers', 'Tuyển Dụng', '採用情報') },
       { key: 'location', label: t('Contact', 'Liên Hệ', 'お問い合わせ') },
-    ].map(tb => ({ label: tb.label, current: tab === tb.key ? 'page' : undefined, select: setTab(tb.key) }));
+    ].map(tb => ({
+      label: tb.label, href: tb.key === 'home' ? 'index.html' : '#' + tb.key,
+      current: tab === tb.key ? 'page' : undefined, cls: tab === tb.key ? 'on' : '', select: setTab(tb.key),
+    }));
     const langOpts = [['vi', 'VI'], ['en', 'EN'], ['ja', 'JA']].map(([l, label]) => ({
-      key: l, label, select: setLang(l),
-      style: `cursor:pointer;padding:2px 5px;color:${l === lang ? 'var(--color-accent-700)' : 'var(--color-neutral-500)'};font-weight:${l === lang ? '600' : '400'}`,
+      key: l, label, pressed: l === lang, select: setLang(l),
     }));
 
     const loc = this.state.menuLocation;
@@ -966,7 +962,7 @@ class Component extends DCLogic {
     const localizeName = (it) => (isJa ? (it.nameJp || it.nameEn || it.name) : isVi ? (it.nameVi || it.name) : (it.nameEn || it.name));
     const localizeDesc = (it) => (isVi ? (it.descVi || it.desc) : it.desc);
     const menuLocationOpts = this.menuLocations.map(l => ({
-      label: l.label, active: l.key === loc,
+      label: l.label, active: l.key === loc, cls: l.key === loc ? 'pill on' : 'pill',
       select: () => this.setState({ menuLocation: l.key }),
     }));
     const menuGroupsForLocation = this.menuData
@@ -980,7 +976,8 @@ class Component extends DCLogic {
     const groupLabel = (g) => (isJa ? (this.categoryLabelJa[g.key.replace(/^(golden-palace|mon-city|phan-chu-trinh)-/, '')] || g.labelEn || g.label) : isVi ? (g.labelVi || g.label) : (g.labelEn || g.label));
     const categories = menuGroupsForLocation.map(g => ({
       label: groupLabel(g),
-      active: activeGroup && g.key === activeGroup.key,
+      active: !!activeGroup && g.key === activeGroup.key,
+      cls: activeGroup && g.key === activeGroup.key ? 'tab on' : 'tab',
       select: () => this.setState({ menuCategory: g.key }),
     }));
     const activeGroupHasAddOns = !!(activeGroup && activeGroup.addOns && activeGroup.addOns.length);
@@ -994,7 +991,7 @@ class Component extends DCLogic {
             ...d, name: localizeName(d), jp: d.nameJp || d.jp || '', hasJp: showJp, desc, hasDesc: !!desc,
             featured: !!d.featured,
             delay: (i * 60) + 'ms', hasPhoto: !!d.photo, noPhoto: !d.photo,
-            photoWrapClass: photoLoaded ? 'is-loaded' : '',
+            picCls: !d.photo ? 'pic nopic-wrap' : photoLoaded ? 'pic is-loaded' : 'pic',
           };
         })
       : [];
@@ -1006,11 +1003,9 @@ class Component extends DCLogic {
           hasJp: false,
           isCards: (activeGroup.layout || 'cards') === 'cards',
           isList: activeGroup.layout === 'list',
-          // Toppings sit in the grid itself (row 1's 3rd-column slot)
-          // rather than below it, so the dish list before it is capped at
-          // 2 — CSS grid auto-placement then wraps the rest around it.
-          dishes: activeGroupHasAddOns ? activeGroupDishes.slice(0, 2) : activeGroupDishes,
-          dishesTail: activeGroupHasAddOns ? activeGroupDishes.slice(2) : [],
+          allDishes: activeGroupDishes,
+          countLabel: (activeGroupDishes.length || (activeGroup.subgroups || []).reduce((n, sub) => n + sub.items.length, 0))
+            + ' ' + t('items', 'món', '品') + ' · ' + this.menuLocations.find(l => l.key === loc).label,
           subgroups: (activeGroup.subgroups || []).map(sub => ({
             title: isJa ? (sub.titleEn || sub.title) : isVi ? (sub.titleVi || sub.title) : (sub.titleEn || sub.title),
             items: sub.items.map(it => {
@@ -1025,27 +1020,37 @@ class Component extends DCLogic {
           hasAddOns: activeGroupHasAddOns,
           addOns: (activeGroup.addOns || []).map(a => ({ name: localizeName(a), price: a.price })),
         }
-      : { label: '', jp: '', hasJp: false, isCards: true, isList: false, dishes: [], dishesTail: [], subgroups: [], hasAddOns: false, addOns: [] };
+      : { label: '', jp: '', hasJp: false, isCards: true, isList: false, allDishes: [], countLabel: '', subgroups: [], hasAddOns: false, addOns: [] };
 
     const speed = 420;
     const style = this.props.transitionStyle || 'fade';
-    const animName = style === 'slide' ? 'tabSlideIn' : style === 'scale' ? 'tabScaleIn' : 'tabFadeIn';
+    const animName = style === 'slide' ? 'wsSlide' : style === 'scale' ? 'wsScale' : 'wsFade';
     const tabAnim = `animation:${animName} ${speed}ms cubic-bezier(.4,0,.2,1) both`;
 
+    const kanjiNum = ['一', '二', '三', '四', '五', '六'];
     const storySteps = this.storyData.map((s, i) => ({
-      ...s, kicker: pick(s, 'kicker'), title: pick(s, 'title'), body: pick(s, 'body'),
-      imgFirst: s.imgFirst ? '1fr 1.3fr' : '1.3fr 1fr',
-      showImgFirst: s.imgFirst, showImgLast: !s.imgFirst,
-      delay: (i * 90) + 'ms',
+      ...s, title: pick(s, 'title'), body: pick(s, 'body'),
+      numLabel: kanjiNum[i] + ' · ' + pick(s, 'kicker').toUpperCase(),
+      cls: s.imgFirst ? 'story' : 'story flip',
     }));
 
-    const spotlights = this.spotlights.map(s => ({
-      ...s,
-      kicker: pick(s, 'kicker'), title: pick(s, 'title'), body: pick(s, 'body'),
-      gridCols: s.imgFirst ? '1fr 1.1fr' : '1.1fr 1fr',
-      showImgFirst: s.imgFirst,
-      showImgLast: !s.imgFirst,
-    }));
+    // Featured dishes on Home come straight from the menu (Golden Palace
+    // prices) so names and prices stay in sync with the Menu tab.
+    const featuredSource = this.menuData.filter(g => g.key.startsWith('golden-palace-'));
+    const featured = this.featuredDishes.map(f => {
+      const grp = featuredSource.find(g => (g.dishes || []).some(d => d.id === 'golden-palace-' + f.id));
+      const d = grp.dishes.find(x => x.id === 'golden-palace-' + f.id);
+      return {
+        name: localizeName(d), jp: d.nameJp || '', hasJp: !isJa && !!d.nameJp, price: d.price, photo: f.photo,
+        go: (e) => {
+          if (e && e.preventDefault) e.preventDefault();
+          this.setState({ menuLocation: 'golden-palace', menuCategory: grp.key });
+          setTab('menu')(e);
+        },
+      };
+    });
+
+    const spacePhotos = this.spacePhotos.map(p => ({ ...p, caption: pick(p, 'caption') }));
 
     if (!this._locations) {
       const mapQueries = {
@@ -1057,13 +1062,13 @@ class Component extends DCLogic {
         ...l,
         // reservation.html preselects the branch from ?branch=
         reserveUrl: 'reservation.html?branch=' + encodeURIComponent(l.short),
-        // Same interior shots for every branch until per-branch photos exist.
-        photo: 'assets/photos/space-entrance.jpg',
         mapSrc: 'https://maps.google.com/maps?q=' + mapQueries[l.slug] + '+Vietnam&output=embed',
       }));
     }
-    const locations = this._locations.map(l => ({
+    const locations = this._locations.map((l, i) => ({
       ...l,
+      num: kanjiNum[i],
+      rowCls: i === 0 ? 'branch bfirst' : 'branch',
       goMenu: (e) => {
         if (e && e.preventDefault) e.preventDefault();
         this.setState({ menuLocation: l.slug });
@@ -1077,48 +1082,64 @@ class Component extends DCLogic {
     return {
       tabs, langOpts, isHome: tab === 'home', isAbout: tab === 'about', isMenu: tab === 'menu',
       isLocation: tab === 'location', isPromo: tab === 'promotion', isCareers: tab === 'careers',
-      goAbout: setTab('about'), goMenu: setTab('menu'), goLocation: setTab('location'),
-      storySteps,
+      goHome: setTab('home'), goAbout: setTab('about'), goMenu: setTab('menu'), goLocation: setTab('location'),
+      goPromo: setTab('promotion'), goCareers: setTab('careers'),
+      storySteps, featured, spacePhotos,
       categories, activeCategoryGroups: [activeGroupWithDelay],
       menuLocationOpts,
+      menuReserveUrl: 'reservation.html?branch=' + encodeURIComponent(this.locationData.find(l => l.slug === loc).short),
       locations,
-      news, noNews: news.length === 0, jobs, noJobs: jobs.length === 0,
+      news, hasNews: news.length > 0, noNews: news.length === 0, jobs, hasJobs: jobs.length > 0, noJobs: jobs.length === 0,
       tabAnim,
       txt: {
-        reserve: t('Reserve a Table', 'Đặt Bàn', '席を予約'),
-        heroDesc: t('Japanese ramen & izakaya in Hanoi', 'Ramen & izakaya Nhật Bản tại Hà Nội', 'ハノイの日本式ラーメン＆居酒屋'),
+        reserve: t('Reserve a table', 'Đặt bàn', '席を予約'),
+        heroTitle: t('A bowl of ramen,\na wooden counter,\nthree corners of Hanoi.', 'Một bát ramen,\nmột quầy gỗ,\nba góc Hà Nội.', 'ラーメン一杯、\n木のカウンター、\nハノイの3店舗。'),
+        heroSub: t('Japanese ramen & izakaya in Hanoi — Mon City, Golden Palace and Phan Chu Trinh.', 'Ramen & izakaya Nhật Bản tại Hà Nội — Mon City, Golden Palace và Phan Chu Trinh.', 'ハノイの日本式ラーメン＆居酒屋 — Mon City、Golden Palace、Phan Chu Trinh。'),
+        capCounter: t('Counter seats, open kitchen', 'Quầy ngồi, bếp mở', 'カウンター席とオープンキッチン'),
         aboutHeading: t('About MUGI', 'Về MUGI', 'MUGIについて'),
-        aboutBody: t('MUGI (麦) means wheat in Japanese. We serve ramen and izakaya dishes at three restaurants in Hanoi: Mon City, Golden Palace and Phan Chu Trinh. The menu covers ramen, sashimi, sushi, grilled and fried dishes, rice and udon, with sake, cocktails and beer.', 'MUGI (麦) nghĩa là lúa mạch trong tiếng Nhật. Chúng tôi phục vụ ramen và các món izakaya tại ba nhà hàng ở Hà Nội: Mon City, Golden Palace và Phan Chu Trinh. Thực đơn gồm ramen, sashimi, sushi, đồ nướng, đồ chiên, cơm và udon, kèm sake, cocktail và bia.', 'MUGI（麦）は日本語で「麦」の意味。ハノイのMon City、Golden Palace、Phan Chu Trinhの3店舗で、ラーメンと居酒屋料理をご提供しています。ラーメン、刺身、寿司、焼き物、揚げ物、ご飯もの、うどん、そして日本酒、カクテル、ビールをお楽しみいただけます。'),
-        readStory: t('Read more →', 'Xem thêm →', '詳しく →'),
-        ourStory: t('About MUGI', 'Giới Thiệu MUGI', 'MUGIについて'),
+        aboutLead: t('MUGI (麦) means wheat in Japanese — the grain behind every bowl of ramen. We serve ramen and izakaya dishes at three restaurants in Hanoi.', 'MUGI (麦) nghĩa là lúa mạch trong tiếng Nhật — hạt làm nên sợi mì ramen. Chúng tôi phục vụ ramen và các món izakaya tại ba nhà hàng ở Hà Nội.', 'MUGI（麦）は日本語で「麦」。ラーメンの麺のもととなる穀物です。ハノイの3店舗でラーメンと居酒屋料理をご提供しています。'),
+        aboutSide: t('The menu covers ramen, sashimi, sushi, grilled and fried dishes, rice and udon, with sake, cocktails and beer.', 'Thực đơn gồm ramen, sashimi, sushi, đồ nướng, đồ chiên, cơm và udon, kèm sake, cocktail và bia.', 'ラーメン、刺身、寿司、焼き物、揚げ物、ご飯もの、うどん、そして日本酒、カクテル、ビールをお楽しみいただけます。'),
+        aboutSub: t('Japanese ramen and izakaya, three restaurants in Hanoi.', 'Ramen và izakaya Nhật Bản, ba nhà hàng tại Hà Nội.', 'ハノイの3店舗で、ラーメンと居酒屋料理を。'),
+        readStory: t('Read more →', 'Đọc thêm →', '詳しく →'),
+        ourStory: t('About MUGI', 'Về MUGI', 'MUGIについて'),
         specialsHeading: t('Featured', 'Món nổi bật', 'おすすめ'),
-        signatureTag: t('Ramen', 'Ramen', 'ラーメン'), izakayaTag: t('Izakaya', 'Izakaya', '居酒屋'),
-        specialName1: t('Tokusei Tonkotsu Shoyu Ramen', 'Tokusei Tonkotsu Shoyu Ramen', '特製豚骨醤油ラーメン'),
-        specialName2: t('Grilled Chicken with Green Onion', 'Đùi Gà Xiên Hành Nướng', '鶏ねぎま'),
-        specialDesc1: t('Each ramen has a Tokusei version.', 'Mỗi loại ramen đều có phiên bản Tokusei.', 'ラーメンはすべて特製もあります。'),
-        specialDesc2: t('Grilled dishes, sake and Sapporo beer.', 'Đồ nướng, sake và bia Sapporo.', '焼き物、日本酒、サッポロビール。'),
         seeMenu: t('See the menu →', 'Xem thực đơn →', 'メニューを見る →'),
-        fromKitchen: t('FROM THE KITCHEN', 'TỪ NHÀ BẾP', 'キッチンから'),
-        viewMenuArrow: t('View menu →', 'Xem thực đơn →', 'メニューを見る →'),
-        findUs: t('Restaurants & Contact', 'Nhà Hàng & Liên Hệ', '店舗・お問い合わせ'),
-        threeLocations: t('Three locations in Hanoi', 'Ba địa điểm tại Hà Nội', 'ハノイの3店舗'),
+        fullMenu: t('Full menu by restaurant →', 'Thực đơn đầy đủ theo từng cơ sở →', '店舗別の全メニュー →'),
+        spaceHeading: t('The space', 'Không gian', '店内'),
+        restaurantsHeading: t('Restaurants', 'Nhà hàng', '店舗'),
+        directions: t('Directions →', 'Chỉ đường →', '行き方 →'),
+        bandTitle: t('Keep a seat at the counter.', 'Giữ một chỗ tại quầy.', 'カウンター席をご予約ください。'),
+        bandBody: t('Pick a restaurant, date and time — the restaurant will call to confirm.', 'Chọn nhà hàng, ngày và giờ — nhà hàng sẽ gọi lại để xác nhận.', '店舗・日時をお選びください。店舗から確認のお電話をいたします。'),
+        menuBandTitle: t('Know what you will order?', 'Đã chọn được món?', 'ご注文はお決まりですか？'),
+        reserveTitle: t('Reservations', 'Đặt bàn', 'ご予約'),
+        findUs: t('Restaurants & contact', 'Nhà hàng & liên hệ', '店舗・お問い合わせ'),
         lunch: t('Lunch', 'Trưa', 'ランチ'), dinner: t('Dinner', 'Tối', 'ディナー'),
-        openInMaps: t('Open in Maps', 'Xem Trên Bản Đồ', '地図を開く'),
+        addressLabel: t('Address', 'Địa chỉ', '住所'),
+        phoneLabel: t('Phone', 'Điện thoại', '電話'),
+        openInMaps: t('Google Maps ↗', 'Google Maps ↗', 'Googleマップ ↗'),
         menuHere: t('Menu for this branch', 'Thực đơn cơ sở này', 'この店のメニュー'),
-        menuTitle: t('Menu', 'Thực Đơn', 'メニュー'),
+        menuTitle: t('Menu', 'Thực đơn', 'メニュー'),
         menuSub: t('Choose a restaurant to see its menu and prices.', 'Chọn cơ sở để xem thực đơn và giá.', '店舗を選んでメニューと価格をご覧ください。'),
+        menuNote: t('Prices and dishes can differ between restaurants.', 'Giá và món có thể khác nhau giữa các cơ sở.', '価格・品目は店舗により異なる場合があります。'),
+        restaurantLabel: t('Restaurant', 'Nhà hàng', '店舗'),
         featuredTag: t('Featured', 'Nổi bật', 'おすすめ'),
-        toppings: t('Toppings', 'Topping Thêm', 'トッピング'),
-        promoHeading: t('News & Offers', 'Tin Tức & Ưu Đãi', 'お知らせ・特典'),
+        toppings: t('Toppings', 'Topping thêm', 'トッピング'),
+        navNews: t('News', 'Tin tức', 'お知らせ'),
+        promoHeading: t('News & offers', 'Tin tức & ưu đãi', 'お知らせ・特典'),
+        newsSub: t('Seasonal dishes, events and offers at MUGI restaurants.', 'Món mới theo mùa, sự kiện và ưu đãi tại các nhà hàng MUGI.', '季節の料理、イベント、特典のお知らせ。'),
+        newsEmptyTitle: t('No news yet.', 'Chưa có tin mới.', '現在お知らせはありません。'),
         newsEmpty: t('News and offers will be posted here. Follow MUGI on Facebook for updates.', 'Tin tức và ưu đãi sẽ được đăng tại đây. Theo dõi Facebook MUGI để cập nhật sớm nhất.', 'お知らせや特典はこちらに掲載します。最新情報はFacebookをご覧ください。'),
-        careersTitle: t('Careers', 'Tuyển Dụng', '採用情報'),
+        careersTitle: t('Careers', 'Tuyển dụng', '採用情報'),
+        careersSub: t('Work with MUGI in the kitchen and at the counter.', 'Làm việc cùng MUGI tại bếp và quầy phục vụ.', 'キッチンやホールでMUGIと一緒に働きませんか。'),
+        careersEmptyTitle: t('No openings right now.', 'Hiện chưa có vị trí đang tuyển.', '現在募集はありません。'),
         careersEmpty: t('Job openings will be posted here. Interested in joining MUGI? Contact your nearest restaurant.', 'Tin tuyển dụng sẽ được đăng tại đây. Quan tâm đến MUGI? Hãy liên hệ nhà hàng gần bạn.', '求人情報はこちらに掲載します。ご興味のある方は、お近くの店舗までご連絡ください。'),
-        contactTitle: t('Contact', 'Liên Hệ', 'お問い合わせ'),
-        contactSub: t('Call your nearest restaurant or message us on Facebook.', 'Gọi trực tiếp nhà hàng gần bạn hoặc nhắn qua Facebook.', 'お近くの店舗へお電話、またはFacebookからご連絡ください。'),
-        footerHours: t('Hours', 'Giờ Mở Cửa', '営業時間'),
+        contactTitle: t('Contact', 'Liên hệ', 'お問い合わせ'),
+        contactSub: t('Open daily, lunch 10:30–14:00 and dinner 17:00–22:00. Call your nearest restaurant or message us on Facebook.', 'Mở cửa mỗi ngày, trưa 10:30–14:00 và tối 17:00–22:00. Gọi nhà hàng gần bạn hoặc nhắn qua Facebook.', '毎日営業、ランチ10:30–14:00、ディナー17:00–22:00。お近くの店舗へお電話、またはFacebookからご連絡ください。'),
+        callTitle: t('Call a restaurant', 'Gọi nhà hàng', '店舗へ電話'),
+        callBody: t('Same-day bookings, large groups or menu questions — call your nearest restaurant.', 'Đặt bàn gấp, nhóm đông hoặc hỏi món — gọi trực tiếp cơ sở gần bạn.', '当日のご予約、団体様、メニューのご質問はお近くの店舗へ。'),
+        fbBody: t('Message MUGI and follow news and offers.', 'Nhắn tin cho MUGI và theo dõi tin tức, ưu đãi mới.', 'メッセージやお知らせはFacebookで。'),
+        footerHours: t('Hours', 'Giờ mở cửa', '営業時間'),
       },
-      spotlights,
-      kitchenDishesLoop: [...this.kitchenDishes, ...this.kitchenDishes].map((k, i) => ({ ...k, name: pick(k, 'name'), id: 'kd-' + i })),
     };
   }
 }
