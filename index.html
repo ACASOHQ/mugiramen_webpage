@@ -607,7 +607,16 @@ class Component extends DCLogic {
           window.location.hash = t2;
         }
       }
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      // On touch screens a smooth scroll from the bottom gets cut short when
+      // the new page swaps in (or a flick is still coasting), leaving you
+      // mid-page, so jump straight to the top and repeat once it has rendered.
+      if (window.matchMedia('(pointer: coarse)').matches) {
+        const top = () => window.scrollTo(0, 0);
+        top();
+        requestAnimationFrame(() => requestAnimationFrame(top));
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }
     };
     const setLang = (l) => (e) => {
       if (e && e.preventDefault) e.preventDefault();
