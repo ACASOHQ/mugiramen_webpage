@@ -1,0 +1,18 @@
+# MUGI public website on Netlify: the repo root is the site (no build step).
+# The admin portal is a separate repo and Netlify site (mugi_admin); it
+# publishes by committing content/site.json here, which redeploys this site.
+[build]
+  publish = "."
+
+# content changes must show up as soon as a deploy finishes
+[[headers]]
+  for = "/content/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# working files that shouldn't be served
+[[redirects]]
+  from = "/design-options/*"
+  to = "/404"
+  status = 404
+  force = true

@@ -5,44 +5,77 @@ Promotions live as tabs on a single page, with English/Vietnamese toggle.
 
 ## Running locally
 
-No build step. Serve the folder with any static file server and open it:
+No build step. Serve the folder with any static file server:
 
 ```sh
-python3 -m http.server 4321
-# then open http://localhost:4321/index.html
+python3 -m http.server 4322
+# then open http://localhost:4322/
 ```
 
-## How it works
+To work on the site and the admin portal together, run the admin's dev
+server from the `mugi_admin` repo next to this one. It serves this folder
+under `/site/` and commits content changes here.
 
-This was imported from a [Claude Design](https://claude.ai/design) project and
-runs as-is in the browser — no build/compile step needed.
+## How content works
 
-- `index.html` — the page itself: an `<x-dc>` template (markup with `sc-if` /
-  `sc-for` directives and `{{ }}` bindings) plus a `<script data-dc-script>`
-  block defining a `Component extends DCLogic` class that supplies the tab
-  state, menu/location/story data, and language toggle logic.
-- `support.js` — the runtime that parses that template + script, loads
-  React/ReactDOM from a CDN, and renders the page. Generated from Claude's
-  `dc-runtime`; treat as vendored, do not hand-edit.
-- `image-slot.js` — defines the `<image-slot>` custom element used as a
-  placeholder wherever a photo goes. Outside the Claude Design editor these
-  render as read-only placeholders (no drag-and-drop upload).
-- `assets/washi.css` — the "Washi" look (paper, ink brown, Mincho
-  headings) shared by `index.html` and `reservation.html`: nav, page
-  headers, menu grid, branch rows, footer, and overrides that retune the
-  Classical tokens below.
-- `_ds/classical-48be7531-0163-46df-8139-e4ab66773657/styles.css` — the
-  "Classical" design-system tokens and component classes (`.btn`,
-  `.input`, `.dialog`, …), still used by the reservation form.
+- `content/site.json` holds everything the restaurant can change: all page
+  text in vi/en/ja, photos with their descriptions (alt text), the "space" and
+  story sections, branch details, the menu, news posts, job openings and the
+  analytics ID.
+- `index.html` is only the template. It fetches `content/site.json` and
+  renders it, so content changes never touch code.
+- The menu is shared by the three branches. A dish's `at.<branch>` entry
+  either hides it at that branch (`{ "hidden": true }`) or overrides fields
+  there (`price`, `nameVi`, `photo`, …).
+- `index.html?preview` accepts unpublished content from the admin portal
+  (same address only) for its live preview.
+
+## Admin portal
+
+The staff portal lives in its own repo and Netlify site (`mugi_admin`). Each
+publish there is a commit to `content/site.json` (and new photos under
+`assets/uploads/`) in this repo, made with the staff member as author. Netlify
+then redeploys this site like any other push. Pull before editing content
+files by hand, or your push will be rejected.
+
+## Hosting on Netlify
+
+Import this repo as a Netlify site. `netlify.toml` already sets everything:
+no build command, and the publish directory is the repo root. Point the
+domain at it. Give the admin's `/site/*` proxy this site's address.
+
+### Visitor numbers (Umami)
+
+1. Create a site at https://cloud.umami.is (the free plan covers 100k events
+   a month).
+2. Put its **website ID** in `content/site.json` → `analytics.umamiWebsiteId`
+   and commit. The home page and the reservation page then load the tracker.
+   It never loads inside the admin preview. Every "Đặt bàn" (Reserve) link
+   counts as a `reserve` event, and a sent booking form counts as
+   `reservation-sent`.
+3. For real numbers in the admin, add the Umami API key to the admin's Netlify
+   site (see its README).
+
+## Accessibility
+
+- `assets/a11y.js` adds a display-options button to the site and the
+  reservation page (the admin portal loads it too): text size, high contrast, readable font, underlined links,
+  reduced motion and a bold keyboard focus ring. Styles are in `washi.css`
+  (`html.a11y-*`).
+- The admin portal requires a Vietnamese photo description before it
+  publishes a photo.
+- The Website preview can simulate low vision and colour blindness, and its
+  accessibility check lists low-contrast text, small text, photos without
+  descriptions, empty links and missing translations.
+- Guests can ask to confirm a reservation by text message or Zalo instead of
+  a phone call (`confirm_by` on the reservation form).
 
 ## Menus
 
-`index.html` already contains full menu data for the three locations
-(Golden Palace/Mễ Trì, Phan Chu Trinh, Mon City/Hàm Nghi), hand-authored in
-the design file. The three PDF menus in this repo (`29177 - MUGI - Mễ Trì.pdf`,
-`Menu Mỹ Đình.pdf`, `Menu cơ sở Phan Chu Trinh.pdf`) are the source references
-for those locations but are **not yet wired in** — reconciling the in-page
-menu data against them is future work.
+`content/site.json` → `menu` holds the full menu for the three locations
+(Golden Palace/Mễ Trì, Phan Chu Trinh, Mon City/Hàm Nghi), transcribed from
+the printed menus in `menus/*.md`, with each branch's differences stored as
+`at.<branch>` overrides. The PDFs in `assets/` are the source references.
 
 ## Updating the design
 
