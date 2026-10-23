@@ -10,11 +10,7 @@
       "en": "Reserve a table",
       "ja": "席を予約"
     },
-    "heroTitle": {
-      "vi": "Một bát ramen,\nmột quầy gỗ,\nba góc Hà Nội.",
-      "en": "A bowl of ramen,\na wooden counter,\nthree corners of Hanoi.",
-      "ja": "ラーメン一杯、\n木のカウンター、\nハノイの3店舗。"
-    },
+    "heroTitle": {"vi": "Một góc Nhật Bản\nthân quen", "en": "A familiar corner\nof Japan", "ja": "いつもの、\n小さな日本。"},
     "heroSub": {
       "vi": "Ramen & izakaya Nhật Bản tại Hà Nội — Mon City, Golden Palace và Phan Chu Trinh.",
       "en": "Japanese ramen & izakaya in Hanoi — Mon City, Golden Palace and Phan Chu Trinh.",

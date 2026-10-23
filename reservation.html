@@ -6,7 +6,7 @@
 <title>Đặt Bàn — Reserve a Table | Mugi Ramen &amp; Izakaya</title>
 <link rel="icon" type="image/svg+xml" href="assets/mugi-icon.svg">
 <link rel="stylesheet" href="_ds/classical-48be7531-0163-46df-8139-e4ab66773657/styles.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Be+Vietnam+Pro:wght@300;400;500;600&family=Noto+Sans+JP:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600&family=Shippori+Mincho:wght@500;700&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@400;500&display=swap">
 <link rel="stylesheet" href="assets/washi.css">
 <style>
   body { margin: 0; }
@@ -46,9 +46,9 @@
   .branch-addr { font-size: 13px; opacity: .8; margin-top: 2px; }
   .branch-phone { font-size: 12px; color: var(--color-accent-700); margin-top: 4px; display: inline-block; }
 
-  .ws .confirm-opt { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; font-size: 14px; color: var(--ink); cursor: pointer; }
+  /* .reservation-form label would make these block-level; keep them as inline buttons */
+  .ws .reservation-form .confirm-opt { display: inline-flex; margin-bottom: 0; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; font-size: 14px; color: var(--ink); cursor: pointer; }
   .ws .confirm-opt input { width: 16px; height: 16px; min-height: 0; margin: 0; padding: 0; border: 0; accent-color: var(--accent); }
-  .ws #field-confirm { margin-bottom: 8px; }
   .ws .confirm-opt:has(input:checked) { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
   #confirmDialog { display: none; }
   #confirmDialog.open { display: grid; }
@@ -58,21 +58,24 @@
   .reservation-panel { padding: var(--space-5); }
   .reservation-panel-title { margin: 0 0 var(--space-4); font-size: 18px; }
   .reservation-submit { grid-column: 1 / -1; min-height: 48px; max-width: 560px; justify-self: center; font-size: 16px; }
-  .ws .topbar { position: sticky; top: 0; z-index: 50; background: rgba(246, 241, 232, .94); backdrop-filter: blur(6px); }
-  .ws .lang button.active { color: var(--ink); text-decoration: underline; text-underline-offset: 6px; }
   .reservation-panel { background: var(--card); border: 1px solid var(--line); }
   /* Keep the form's own layout where washi.css has generic rules. */
   .ws .reservation-panel { padding: clamp(20px, 3vw, 32px); }
-  .ws .reservation-form .field { display: block; }
-  .ws .reservation-form label { display: block; margin-bottom: 4px; }
+  /* one rhythm for the whole form: 24px between blocks, 8px from a label to its control */
+  .ws .reservation-form .field { display: block; margin: 0 0 24px; }
+  .ws .reservation-panel > .field:last-child { margin-bottom: 0; }
+  .ws .reservation-form label, .ws .reservation-form legend { display: block; margin-bottom: 8px; }
+  .ws .reservation-form input.input { border: 1px solid var(--line); background: var(--paper); padding: 0 12px; min-height: 46px; }
+  .ws .reservation-form input.input:focus { border-color: var(--ink); outline: none; }
+  .ws .reservation-form .field.has-error input.input { border-color: #a3372a; }
   .ws .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; font-family: var(--sans); font-weight: 600; }
   .ws .btn-primary:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
   .ws .branch-card { font-size: 15px; color: var(--ink); background: var(--paper); }
   .ws .branch-card:has(input:checked) { background: var(--card); }
-  .ws .reservation-panel-title { font-family: var(--mincho); font-weight: 500; font-size: 22px; }
+  .ws .reservation-panel-title { font-family: var(--mincho); font-weight: 500; font-size: 22px; margin: 0 0 24px; }
 
   /* — date & time picker — */
-  .dt-cal-header { display: flex; align-items: center; justify-content: space-between; max-width:320px; margin:0 auto var(--space-2); }
+  .dt-cal-header { display: flex; align-items: center; justify-content: space-between; max-width:320px; margin:8px auto 12px; }
   .dt-cal-title { font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 14px; }
   .dt-cal-header .btn-icon { width: 28px; height: 28px; font-size: 16px; }
   .dt-cal-weekdays {
@@ -91,7 +94,7 @@
   .dt-day.dt-empty { visibility: hidden; cursor: default; }
   .dt-day:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 1px; }
 
-  .dt-hr { height: 1px; background: var(--color-divider); margin: var(--space-4) 0; }
+  .dt-hr { height: 1px; background: var(--color-divider); margin: 0 0 24px; }
   #field-time { position: relative; }
   .dt-time-picker { position: relative; width: 100%; }
   .dt-time-trigger { display: flex; align-items: center; justify-content: space-between; text-align: left; }
@@ -106,7 +109,7 @@
   .dt-time-option:hover:not(:disabled), .dt-time-option.selected { background: color-mix(in srgb, var(--color-accent) 12%, transparent); }
   .dt-time-option.selected { color: var(--color-accent-700); font-weight: 600; }
   .dt-time-option:disabled { opacity: .35; cursor: not-allowed; }
-  .dt-selected-date { margin: var(--space-3) 0 0; font-size: 13px; min-height: 20px; text-align: center; color: var(--color-accent-700); }
+  .dt-selected-date { margin: 16px 0 0; font-size: 13px; min-height: 20px; text-align: center; color: var(--color-accent-700); }
 
   @media (max-width: 720px) {
     .reservation-form { grid-template-columns: 1fr; gap: var(--space-5); }
@@ -122,14 +125,12 @@
   <div class="topbar">
     <div class="wrap">
       <nav class="nav" aria-label="MUGI">
-        <a class="brand" href="index.html"><img src="assets/mugi-icon.svg" alt=""><b>MUGI</b></a>
+        <a class="brand" href="index.html" aria-label="MUGI Ramen &amp; Izakaya"><img src="assets/mugi-icon.svg" alt=""><span class="bw"><b>MUGI</b><small>RAMEN &amp; IZAKAYA</small></span></a>
         <div class="links">
-          <a href="index.html" data-i18n="navHome">Home</a>
-          <a href="index.html#about" data-i18n="navAbout">About</a>
-          <a href="index.html#menu" data-i18n="navMenu">Menu</a>
-          <a href="index.html#promotion" data-i18n="navPromotions">Promotions</a>
-          <a href="index.html#careers" data-i18n="navCareers">Careers</a>
-          <a href="index.html#location" data-i18n="navLocations">Location</a>
+          <a href="index.html" data-i18n="navHome">Trang chủ</a>
+          <a href="index.html#menu" data-i18n="navMenu">Thực đơn</a>
+          <a href="index.html#location" data-i18n="navRestaurants">Nhà hàng</a>
+          <a href="index.html#about" data-i18n="navAbout">Về Mugi</a>
         </div>
         <div class="right">
           <div class="lang" role="group" aria-label="Language">
@@ -144,16 +145,15 @@
   </div>
 
   <!-- PAGE HEADER -->
-  <div class="wrap">
-    <header class="phead">
-      <p class="tate" lang="ja">ご予約</p>
-      <div>
-        <span class="num">予約 · MUGI</span>
-        <h1 data-i18n="heroTitle">Đặt Bàn</h1>
-        <p class="sub" data-i18n="heroMessage">Điền thông tin bên dưới, nhân viên sẽ liên hệ lại để xác nhận bàn sớm nhất có thể.</p>
-      </div>
-    </header>
-  </div>
+  <header class="bleed pbanner">
+    <img src="assets/photos/space-entrance.jpg" alt="" style="object-position: center 65%">
+    <div class="wrap">
+      <span class="kick" lang="ja">ご予約</span>
+      <h1 data-i18n="heroTitle">Đặt Bàn</h1>
+      <span class="redline" aria-hidden="true"></span>
+      <p class="sub" data-i18n="heroMessage">Điền thông tin bên dưới, nhân viên sẽ liên hệ lại để xác nhận bàn sớm nhất có thể.</p>
+    </div>
+  </header>
 
   <!-- FORM -->
   <div style="max-width:1080px;margin:0 auto;padding:var(--space-8) var(--space-6);animation:riseIn .5s ease .1s both">
@@ -229,14 +229,14 @@
         </div>
       </div>
 
-      <fieldset class="field" id="field-confirm" style="border:0;padding:0;margin:0">
-        <legend data-i18n="confirmBy" style="font-size:12px;color:var(--muted);padding:0;margin-bottom:6px">Xác nhận đặt bàn qua</legend>
+      <fieldset class="field" id="field-confirm" style="border:0;padding:0">
+        <legend data-i18n="confirmBy" style="font-size:12px;color:var(--muted);padding:0">Xác nhận đặt bàn qua</legend>
         <div class="slots" role="radiogroup">
           <label class="pill confirm-opt"><input type="radio" name="confirm_by" value="call" checked> <span data-i18n="confirmCall">Gọi điện</span></label>
           <label class="pill confirm-opt"><input type="radio" name="confirm_by" value="sms"> <span data-i18n="confirmSms">Tin nhắn SMS</span></label>
           <label class="pill confirm-opt"><input type="radio" name="confirm_by" value="zalo"> <span data-i18n="confirmZalo">Zalo</span></label>
         </div>
-        <p class="note" data-i18n="confirmHint" style="margin:6px 0 0">Chọn tin nhắn nếu bạn khiếm thính hoặc không tiện nghe máy.</p>
+        <p class="note" data-i18n="confirmHint" style="margin:8px 0 0">Chọn tin nhắn nếu bạn khiếm thính hoặc không tiện nghe máy.</p>
       </fieldset>
 
       <div class="field" id="field-party">
@@ -268,7 +268,7 @@
       -->
     </form>
 
-    <p style="text-align:center;font-size:13px;margin-top:var(--space-4);opacity:.7" data-i18n="callHint">Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất ở cuối trang.</p>
+    <p style="text-align:center;font-size:13px;margin-top:var(--space-4);opacity:.7" data-i18n="callHint">Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất (số điện thoại ở mục Chi nhánh).</p>
   </div>
 
   <!-- CONFIRMATION DIALOG -->
@@ -283,20 +283,40 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
+  <!-- FOOTER (same as index.html) -->
   <footer>
     <div class="wrap fgrid">
       <div>
-        <b class="logo">MUGI</b>
-        <p class="jp" lang="ja" style="color: #e3c9a0">麦 ラーメン・居酒屋</p>
-        <p><span data-i18n="lunch">Trưa</span> 10:30–14:00 · <span data-i18n="dinner">Tối</span> 17:00–22:00</p>
-        <p><a href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook ↗</a> · <a href="index.html" data-i18n="backHome">Về trang chủ</a></p>
+        <a class="flogo" href="index.html" aria-label="MUGI Ramen &amp; Izakaya"><img src="assets/mugi-icon.svg" alt=""><span><b>MUGI</b><small>RAMEN &amp; IZAKAYA</small></span></a>
       </div>
-      <div><h4>Mon City, Hàm Nghi</h4><p>Số 37 Lô TT01 Mon City, Ngõ 4 Hàm Nghi, Từ Liêm, Hà Nội</p><a href="tel:+84966750202">0966 75 0202</a></div>
-      <div><h4>Golden Palace, Mễ Trì</h4><p>Lô B1.9, Tầng hầm B1, Tòa nhà Golden Palace, Số 99 Mễ Trì, Từ Liêm, Hà Nội</p><a href="tel:+84866607560">0866 60 7560</a></div>
-      <div><h4>Phan Chu Trinh</h4><p>Số 23 Phan Chu Trinh, Cửa Nam, Hà Nội</p><a href="tel:+84866753375">0866 75 3375</a></div>
+      <div>
+        <h4 data-i18n="explore">Khám phá</h4>
+        <nav class="fnav">
+          <a href="index.html#menu" data-i18n="navMenu">Thực đơn</a>
+          <a href="index.html#location" data-i18n="navRestaurants">Nhà hàng</a>
+          <a href="index.html#about" data-i18n="navAbout">Về Mugi</a>
+        </nav>
+      </div>
+      <div>
+        <h4 data-i18n="info">Thông tin</h4>
+        <nav class="fnav">
+          <a href="index.html#promotion" data-i18n="navPromotions">Tin tức & Ưu đãi</a>
+          <a href="index.html#careers" data-i18n="navCareers">Tuyển dụng</a>
+          <a href="index.html#contact" data-i18n="navContact">Liên hệ</a>
+        </nav>
+      </div>
+      <div>
+        <h4 data-i18n="connect">Kết nối</h4>
+        <div class="social">
+          <a href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1Z"/></svg></a>
+        </div>
+      </div>
+      <div class="ftag">
+        <p data-i18n="tagline">Hương vị Nhật Bản<br>trong từng khoảnh khắc</p>
+        <span class="redline" aria-hidden="true"></span>
+        <small>© <span id="year"></span> MUGI Ramen &amp; Izakaya</small>
+      </div>
     </div>
-    <div class="wrap fbot"><span>© MUGI Ramen &amp; Izakaya</span></div>
   </footer>
 
 </div>
@@ -319,37 +339,38 @@
   if (LANGS.indexOf(params.get('lang')) !== -1) language = params.get('lang');
   var translations = {
     vi: {
-      navHome: 'Trang chủ', navAbout: 'Giới thiệu', navMenu: 'Thực đơn', navLocations: 'Liên hệ', navPromotions: 'Tin tức & Ưu đãi', navCareers: 'Tuyển dụng', navContact: 'Liên hệ', navReserve: 'Đặt bàn',
+      navHome: 'Trang chủ', tagline: 'Hương vị Nhật Bản trong từng khoảnh khắc', navAbout: 'Về Mugi', navRestaurants: 'Nhà hàng', explore: 'Khám phá', info: 'Thông tin', connect: 'Kết nối', navMenu: 'Thực đơn', navLocations: 'Liên hệ', navPromotions: 'Tin tức & Ưu đãi', navCareers: 'Tuyển dụng', navContact: 'Liên hệ', navReserve: 'Đặt bàn',
       heroTitle: 'Đặt bàn', heroMessage: 'Điền thông tin bên dưới, nhân viên sẽ liên hệ lại để xác nhận bàn sớm nhất có thể.',
       guestDetails: 'Thông tin của bạn', fullName: 'Họ tên', nameError: 'Vui lòng nhập họ tên (không quá 60 ký tự).', phone: 'Số điện thoại', phoneError: 'Số điện thoại này có vẻ chưa đúng.',
       branch: 'Chi nhánh', branchError: 'Vui lòng chọn một chi nhánh.', reservationDetails: 'Chi tiết đặt bàn', datetimeError: 'Vui lòng chọn ngày giờ hợp lệ, không ở trong quá khứ.',
       reservationTime: 'Giờ đặt bàn', chooseTime: 'Chọn giờ', chooseDate: 'Chọn một ngày từ lịch', chooseReservationTime: 'Chọn giờ đặt bàn', partySize: 'Số khách', partyError: 'Số khách phải là số nguyên từ 1 đến 100.',
-      sendReservation: 'Gửi đặt bàn', callHint: 'Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất ở cuối trang.', thankYou: 'Cảm ơn!', demoNote: '(Demo — trang này chưa kết nối với hệ thống đặt bàn. Vui lòng gọi trực tiếp chi nhánh để đặt bàn ngay.)', close: 'Đóng',
+      sendReservation: 'Gửi đặt bàn', callHint: 'Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất (số điện thoại ở mục Chi nhánh).', thankYou: 'Cảm ơn!', demoNote: '(Demo — trang này chưa kết nối với hệ thống đặt bàn. Vui lòng gọi trực tiếp chi nhánh để đặt bàn ngay.)', close: 'Đóng',
       confirmBy: 'Xác nhận đặt bàn qua', confirmCall: 'Gọi điện', confirmSms: 'Tin nhắn SMS', confirmZalo: 'Zalo', confirmHint: 'Chọn tin nhắn nếu bạn khiếm thính hoặc không tiện nghe máy.',
       hours: 'Giờ mở cửa', lunch: 'Trưa', dinner: 'Tối', backHome: 'Về trang chủ', prevMonth: 'Tháng trước', nextMonth: 'Tháng sau'
     },
     en: {
-      navHome: 'Home', navAbout: 'About', navMenu: 'Menu', navLocations: 'Contact', navPromotions: 'News & Offers', navCareers: 'Careers', navContact: 'Contact', navReserve: 'Reserve a Table',
+      navHome: 'Home', tagline: 'The taste of Japan in every moment', navAbout: 'About Mugi', navRestaurants: 'Restaurants', explore: 'Explore', info: 'Information', connect: 'Connect', navMenu: 'Menu', navLocations: 'Contact', navPromotions: 'News & Offers', navCareers: 'Careers', navContact: 'Contact', navReserve: 'Reserve a Table',
       heroTitle: 'Reserve a Table', heroMessage: 'Fill in your details below and our staff will contact you to confirm.',
       guestDetails: 'Your details', fullName: 'Full name', nameError: 'Please enter your full name (max 60 characters).', phone: 'Phone number', phoneError: "This phone number doesn't look right.",
       branch: 'Branch', branchError: 'Please select a branch.', reservationDetails: 'Reservation details', datetimeError: 'Please pick a valid date and time, not in the past.',
       reservationTime: 'Reservation time', chooseTime: 'Select a time', chooseDate: 'Select a date from the calendar', chooseReservationTime: 'Select a reservation time', partySize: 'Party size', partyError: 'Party size must be a whole number from 1 to 100.',
-      sendReservation: 'Send reservation', callHint: 'Need it faster? Call your nearest branch directly, listed below.', thankYou: 'Thank you!', demoNote: "(Demo — this page isn't connected to the booking system yet. Please call the branch directly to book right now.)", close: 'Close',
+      sendReservation: 'Send reservation', callHint: 'Need it faster? Call your nearest branch directly (numbers are in the Branch list).', thankYou: 'Thank you!', demoNote: "(Demo — this page isn't connected to the booking system yet. Please call the branch directly to book right now.)", close: 'Close',
       confirmBy: 'Confirm my booking by', confirmCall: 'Phone call', confirmSms: 'Text message', confirmZalo: 'Zalo', confirmHint: 'Choose a message if you are deaf, hard of hearing, or can’t take a call.',
       hours: 'Hours', lunch: 'Lunch', dinner: 'Dinner', backHome: 'Back home', prevMonth: 'Previous month', nextMonth: 'Next month'
     },
     ja: {
-      navHome: 'ホーム', navAbout: '私たちについて', navMenu: 'メニュー', navLocations: '店舗・お問い合わせ', navPromotions: 'お知らせ', navCareers: '採用情報', navContact: 'お問い合わせ', navReserve: '席を予約',
+      navHome: 'ホーム', tagline: '日本の味を、ひとときごとに', navAbout: 'MUGIについて', navRestaurants: '店舗', explore: 'メニュー・店舗', info: 'インフォメーション', connect: 'SNS', navMenu: 'メニュー', navLocations: '店舗・お問い合わせ', navPromotions: 'お知らせ', navCareers: '採用情報', navContact: 'お問い合わせ', navReserve: '席を予約',
       heroTitle: 'ご予約', heroMessage: '下記をご入力ください。スタッフが折り返しご連絡し、席を確認いたします。',
       guestDetails: 'お客様情報', fullName: 'お名前', nameError: 'お名前を入力してください（60文字以内）。', phone: '電話番号', phoneError: '電話番号が正しくないようです。',
       branch: '店舗', branchError: '店舗を選択してください。', reservationDetails: 'ご予約内容', datetimeError: '過去ではない日時を選択してください。',
       reservationTime: 'ご予約時間', chooseTime: '時間を選択', chooseDate: 'カレンダーから日付を選択', chooseReservationTime: 'ご予約時間を選択', partySize: '人数', partyError: '人数は1〜100の整数で入力してください。',
-      sendReservation: '予約を送信', callHint: 'お急ぎの場合は、ページ下部のお近くの店舗へお電話ください。', thankYou: 'ありがとうございます！', demoNote: '（デモ：このページは予約システムにまだ接続されていません。ご予約はお電話でお願いします。）', close: '閉じる',
+      sendReservation: '予約を送信', callHint: 'お急ぎの場合は、「店舗」欄の電話番号からお近くの店舗へお電話ください。', thankYou: 'ありがとうございます！', demoNote: '（デモ：このページは予約システムにまだ接続されていません。ご予約はお電話でお願いします。）', close: '閉じる',
       confirmBy: '予約確認の方法', confirmCall: '電話', confirmSms: 'SMS', confirmZalo: 'Zalo', confirmHint: '聴覚に障がいのある方やお電話に出られない方はメッセージをお選びください。',
       hours: '営業時間', lunch: 'ランチ', dinner: 'ディナー', backHome: 'ホームへ', prevMonth: '前の月', nextMonth: '次の月'
     }
   };
 
+  document.getElementById('year').textContent = new Date().getFullYear();
   function text(key) { return translations[language][key]; }
   function applyLanguage() {
     document.documentElement.lang = language;
@@ -469,7 +490,8 @@
         calGrid.appendChild(btn);
       }
 
-      for (var trailing = leadingBlanks + daysInMonth; trailing < 42; trailing++) {
+      // pad only to the end of the last week, so no empty row sits under the month
+      for (var trailing = leadingBlanks + daysInMonth; trailing % 7 !== 0; trailing++) {
         var trailingBlank = document.createElement('span');
         trailingBlank.className = 'dt-day dt-empty';
         calGrid.appendChild(trailingBlank);

@@ -8,8 +8,8 @@ Promotions live as tabs on a single page, with English/Vietnamese toggle.
 No build step. Serve the folder with any static file server:
 
 ```sh
-python3 -m http.server 4321
-# then open http://localhost:4321/
+python3 -m http.server 4322
+# then open http://localhost:4322/
 ```
 
 To work on the site and the admin portal together, run the admin's dev
