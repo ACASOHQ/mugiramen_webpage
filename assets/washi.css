@@ -407,12 +407,31 @@ html.a11y-focus *:focus-visible { outline: 3px solid #8c3a34 !important; outline
 @media (max-width: 960px) {
   .ws .fgrid { grid-template-columns: repeat(3, auto); justify-content: center; }
   .ws .fgrid > :first-child, .ws .ftag { grid-column: 1 / -1; justify-self: center; text-align: center; }
+  /* the logo block stays centered, but MUGI lines up with RAMEN below it */
+  .ws .flogo span { text-align: left; }
   .ws .ftag p { max-width: none; }
   .ws .ftag .redline { margin-left: auto; margin-right: auto; }
 }
+/* phones: brand + tagline on top, the two link lists side by side, then a
+   bottom bar with the social icons and the copyright */
 @media (max-width: 520px) {
-  .ws .fgrid { grid-template-columns: repeat(2, auto); column-gap: 40px; }
-  .ws .fgrid > div:nth-child(4) { grid-column: 1 / -1; justify-self: center; }
+  .ws .fgrid {
+    grid-template-columns: 1fr 1fr; column-gap: 40px; row-gap: 0;
+    grid-template-areas: "logo logo" "tag tag" "line line" "explore info" "connect connect" "copy copy";
+  }
+  .ws .fgrid > div:nth-child(1) { grid-area: logo; }
+  .ws .fgrid > div:nth-child(2) { grid-area: explore; justify-self: end; }
+  .ws .fgrid > div:nth-child(3) { grid-area: info; justify-self: start; }
+  .ws .fgrid > div:nth-child(4) {
+    grid-area: connect; justify-self: stretch; display: flex; align-items: center; justify-content: center; gap: 18px;
+    margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(243,231,211,.18);
+  }
+  .ws .fgrid > div:nth-child(4) h4 { margin: 0; }
+  .ws .fgrid > div:nth-child(4) .social { padding-top: 0; }
+  .ws .fgrid > .ftag { display: contents; }
+  .ws .ftag p { grid-area: tag; text-align: center; margin-top: 12px; }
+  .ws .ftag .redline { grid-area: line; justify-self: center; margin: 14px 0 20px; }
+  .ws .ftag small { grid-area: copy; text-align: center; padding-top: 10px; }
 }
 
 /* in-page jump targets clear the sticky header */
