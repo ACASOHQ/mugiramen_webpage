@@ -152,7 +152,7 @@
       <span class="kick" lang="ja">ご予約</span>
       <h1 data-i18n="heroTitle">Đặt Bàn</h1>
       <span class="redline" aria-hidden="true"></span>
-      <p class="sub" data-i18n="heroMessage">Điền thông tin bên dưới, nhân viên sẽ liên hệ lại để xác nhận bàn sớm nhất có thể.</p>
+      <p class="sub" data-i18n="heroMessage">Đặt bàn online được xác nhận ngay. Nếu cần, nhà hàng sẽ liên hệ lại với bạn.</p>
     </div>
   </header>
 
@@ -242,8 +242,8 @@
 
       <div class="field" id="field-party">
         <label for="party_size" data-i18n="partySize">Số khách</label>
-        <input class="input" type="number" id="party_size" name="party_size" min="1" max="100" step="1" required>
-        <div class="field-error" data-i18n="partyError">Số khách phải là số nguyên từ 1 đến 100.</div>
+        <input class="input" type="number" id="party_size" name="party_size" min="1" max="10" step="1" required>
+        <div class="field-error" data-i18n="partyError">Số khách từ 1 đến 10. Nhóm đông hơn vui lòng gọi chi nhánh.</div>
       </div>
 
       </section>
@@ -277,7 +277,7 @@
     <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
       <div class="dialog-title" id="confirmTitle" data-i18n="thankYou">Cảm ơn!</div>
       <div class="dialog-body" id="confirmBody"></div>
-      <div class="dialog-body" style="font-size:12px;opacity:.65" data-i18n="demoNote">(Demo — trang này chưa kết nối với hệ thống đặt bàn. Vui lòng gọi trực tiếp chi nhánh để đặt bàn ngay.)</div>
+      <div class="dialog-body" id="confirmNote" style="font-size:12px;opacity:.65" data-i18n="confirmedNote">Nếu cần đổi hoặc huỷ, vui lòng gọi trực tiếp chi nhánh.</div>
       <div class="dialog-actions">
         <button type="button" class="btn btn-primary" id="confirmClose" data-i18n="close">Đóng</button>
       </div>
@@ -336,6 +336,9 @@ trong từng khoảnh khắc</p>
   var dialogBody = document.getElementById('confirmBody');
   var closeBtn = document.getElementById('confirmClose');
   var LANGS = ['vi', 'en', 'ja'];
+  // Online booking rules, set in the admin's Settings and fetched below.
+  // These defaults are used until (or unless) that answer arrives.
+  var RULES = { maxOnline: 10, daysAhead: 30, lastLunch: '13:30', lastDinner: '21:00', closed: [], open: { lunch: '10:30', dinner: '17:00' } };
   var params = new URLSearchParams(window.location.search);
   var language = 'vi';
   try {
@@ -346,38 +349,41 @@ trong từng khoảnh khắc</p>
   var translations = {
     vi: {
       navHome: 'Trang chủ', tagline: 'Hương vị Nhật Bản\ntrong từng khoảnh khắc', navAbout: 'Về Mugi', navRestaurants: 'Nhà hàng', explore: 'Khám phá', info: 'Thông tin', connect: 'Kết nối', navMenu: 'Thực đơn', navLocations: 'Liên hệ', navPromotions: 'Tin tức & Ưu đãi', navCareers: 'Tuyển dụng', navContact: 'Liên hệ', navReserve: 'Đặt bàn',
-      heroTitle: 'Đặt bàn', heroMessage: 'Điền thông tin bên dưới, nhân viên sẽ liên hệ lại để xác nhận bàn sớm nhất có thể.',
+      heroTitle: 'Đặt bàn', heroMessage: 'Đặt bàn online được xác nhận ngay. Nếu cần, nhà hàng sẽ liên hệ lại với bạn.',
       guestDetails: 'Thông tin của bạn', fullName: 'Họ tên', nameError: 'Vui lòng nhập họ tên (không quá 60 ký tự).', phone: 'Số điện thoại', phoneError: 'Số điện thoại này có vẻ chưa đúng.',
       branch: 'Chi nhánh', branchError: 'Vui lòng chọn một chi nhánh.', reservationDetails: 'Chi tiết đặt bàn', datetimeError: 'Vui lòng chọn ngày giờ hợp lệ, không ở trong quá khứ.',
-      reservationTime: 'Giờ đặt bàn', chooseTime: 'Chọn giờ', chooseDate: 'Chọn một ngày từ lịch', chooseReservationTime: 'Chọn giờ đặt bàn', partySize: 'Số khách', partyError: 'Số khách phải là số nguyên từ 1 đến 100.',
-      sendReservation: 'Gửi đặt bàn', callHint: 'Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất (số điện thoại ở mục Chi nhánh).', thankYou: 'Cảm ơn!', demoNote: '(Demo — trang này chưa kết nối với hệ thống đặt bàn. Vui lòng gọi trực tiếp chi nhánh để đặt bàn ngay.)', close: 'Đóng',
+      reservationTime: 'Giờ đặt bàn', chooseTime: 'Chọn giờ', chooseDate: 'Chọn một ngày từ lịch', chooseReservationTime: 'Chọn giờ đặt bàn', partySize: 'Số khách',
+      sendReservation: 'Gửi đặt bàn', callHint: 'Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất (số điện thoại ở mục Chi nhánh).', thankYou: 'Cảm ơn!', close: 'Đóng',
       confirmBy: 'Xác nhận đặt bàn qua', confirmCall: 'Gọi điện', confirmSms: 'Tin nhắn SMS', confirmZalo: 'Zalo', confirmHint: 'Chọn tin nhắn nếu bạn khiếm thính hoặc không tiện nghe máy.',
-      hours: 'Giờ mở cửa', lunch: 'Trưa', dinner: 'Tối', backHome: 'Về trang chủ', prevMonth: 'Tháng trước', nextMonth: 'Tháng sau'
+      hours: 'Giờ mở cửa', lunch: 'Trưa', dinner: 'Tối', backHome: 'Về trang chủ', prevMonth: 'Tháng trước', nextMonth: 'Tháng sau',
+      confirmedNote: 'Nếu cần đổi hoặc huỷ, vui lòng gọi trực tiếp chi nhánh.', partyError: 'Số khách từ 1 đến {max}. Nhóm đông hơn vui lòng gọi chi nhánh.', bookedTitle: 'Đã đặt bàn!', failTitle: 'Chưa gửi được', sending: 'Đang gửi…', err_send: 'Không gửi được đặt bàn. Vui lòng thử lại, hoặc gọi trực tiếp chi nhánh.', err_past: 'Giờ này đã qua. Vui lòng chọn giờ khác.', err_tooFar: 'Chỉ nhận đặt bàn online trước tối đa {days} ngày.', err_closed: 'Ngày này nhà hàng không nhận đặt bàn online. Vui lòng chọn ngày khác hoặc gọi chi nhánh.', err_hours: 'Giờ này không nhận đặt bàn. Vui lòng chọn giờ khác.', err_tooMany: 'Nhóm trên {max} khách vui lòng gọi chi nhánh để đặt bàn.', err_rate: 'Bạn vừa gửi nhiều đặt bàn liên tiếp. Vui lòng gọi trực tiếp chi nhánh.'
     },
     en: {
       navHome: 'Home', tagline: 'The taste of Japan\nin every moment', navAbout: 'About Mugi', navRestaurants: 'Restaurants', explore: 'Explore', info: 'Information', connect: 'Connect', navMenu: 'Menu', navLocations: 'Contact', navPromotions: 'News & Offers', navCareers: 'Careers', navContact: 'Contact', navReserve: 'Reserve a Table',
-      heroTitle: 'Reserve a Table', heroMessage: 'Fill in your details below and our staff will contact you to confirm.',
+      heroTitle: 'Reserve a Table', heroMessage: 'Online bookings are confirmed straight away. The restaurant will contact you if anything needs checking.',
       guestDetails: 'Your details', fullName: 'Full name', nameError: 'Please enter your full name (max 60 characters).', phone: 'Phone number', phoneError: "This phone number doesn't look right.",
       branch: 'Branch', branchError: 'Please select a branch.', reservationDetails: 'Reservation details', datetimeError: 'Please pick a valid date and time, not in the past.',
-      reservationTime: 'Reservation time', chooseTime: 'Select a time', chooseDate: 'Select a date from the calendar', chooseReservationTime: 'Select a reservation time', partySize: 'Party size', partyError: 'Party size must be a whole number from 1 to 100.',
-      sendReservation: 'Send reservation', callHint: 'Need it faster? Call your nearest branch directly (numbers are in the Branch list).', thankYou: 'Thank you!', demoNote: "(Demo — this page isn't connected to the booking system yet. Please call the branch directly to book right now.)", close: 'Close',
+      reservationTime: 'Reservation time', chooseTime: 'Select a time', chooseDate: 'Select a date from the calendar', chooseReservationTime: 'Select a reservation time', partySize: 'Party size',
+      sendReservation: 'Send reservation', callHint: 'Need it faster? Call your nearest branch directly (numbers are in the Branch list).', thankYou: 'Thank you!', close: 'Close',
       confirmBy: 'Confirm my booking by', confirmCall: 'Phone call', confirmSms: 'Text message', confirmZalo: 'Zalo', confirmHint: 'Choose a message if you are deaf, hard of hearing, or can’t take a call.',
-      hours: 'Hours', lunch: 'Lunch', dinner: 'Dinner', backHome: 'Back home', prevMonth: 'Previous month', nextMonth: 'Next month'
+      hours: 'Hours', lunch: 'Lunch', dinner: 'Dinner', backHome: 'Back home', prevMonth: 'Previous month', nextMonth: 'Next month',
+      confirmedNote: 'To change or cancel, please call the branch directly.', partyError: 'Party size is 1 to {max}. For larger groups, please call the branch.', bookedTitle: 'You’re booked!', failTitle: 'Not sent yet', sending: 'Sending…', err_send: 'We couldn\'t send your booking. Please try again, or call the branch directly.', err_past: 'That time has passed. Please pick another.', err_tooFar: 'Online bookings open up to {days} days ahead.', err_closed: 'We don\'t take online bookings that day. Please pick another day or call the branch.', err_hours: 'We don\'t take bookings at that time. Please pick another.', err_tooMany: 'For more than {max} guests, please call the branch to book.', err_rate: 'You\'ve sent several bookings in a row. Please call the branch directly.'
     },
     ja: {
       navHome: 'ホーム', tagline: '日本の味を、\nひとときごとに', navAbout: 'MUGIについて', navRestaurants: '店舗', explore: 'メニュー・店舗', info: 'インフォメーション', connect: 'SNS', navMenu: 'メニュー', navLocations: '店舗・お問い合わせ', navPromotions: 'お知らせ', navCareers: '採用情報', navContact: 'お問い合わせ', navReserve: '席を予約',
-      heroTitle: 'ご予約', heroMessage: '下記をご入力ください。スタッフが折り返しご連絡し、席を確認いたします。',
+      heroTitle: 'ご予約', heroMessage: 'オンライン予約はその場で確定します。確認が必要な場合は店舗からご連絡します。',
       guestDetails: 'お客様情報', fullName: 'お名前', nameError: 'お名前を入力してください（60文字以内）。', phone: '電話番号', phoneError: '電話番号が正しくないようです。',
       branch: '店舗', branchError: '店舗を選択してください。', reservationDetails: 'ご予約内容', datetimeError: '過去ではない日時を選択してください。',
-      reservationTime: 'ご予約時間', chooseTime: '時間を選択', chooseDate: 'カレンダーから日付を選択', chooseReservationTime: 'ご予約時間を選択', partySize: '人数', partyError: '人数は1〜100の整数で入力してください。',
-      sendReservation: '予約を送信', callHint: 'お急ぎの場合は、「店舗」欄の電話番号からお近くの店舗へお電話ください。', thankYou: 'ありがとうございます！', demoNote: '（デモ：このページは予約システムにまだ接続されていません。ご予約はお電話でお願いします。）', close: '閉じる',
+      reservationTime: 'ご予約時間', chooseTime: '時間を選択', chooseDate: 'カレンダーから日付を選択', chooseReservationTime: 'ご予約時間を選択', partySize: '人数',
+      sendReservation: '予約を送信', callHint: 'お急ぎの場合は、「店舗」欄の電話番号からお近くの店舗へお電話ください。', thankYou: 'ありがとうございます！', close: '閉じる',
       confirmBy: '予約確認の方法', confirmCall: '電話', confirmSms: 'SMS', confirmZalo: 'Zalo', confirmHint: '聴覚に障がいのある方やお電話に出られない方はメッセージをお選びください。',
-      hours: '営業時間', lunch: 'ランチ', dinner: 'ディナー', backHome: 'ホームへ', prevMonth: '前の月', nextMonth: '次の月'
+      hours: '営業時間', lunch: 'ランチ', dinner: 'ディナー', backHome: 'ホームへ', prevMonth: '前の月', nextMonth: '次の月',
+      confirmedNote: '変更・キャンセルは店舗へ直接お電話ください。', partyError: '人数は1〜{max}名です。それ以上は店舗へお電話ください。', bookedTitle: 'ご予約が確定しました', failTitle: '送信できませんでした', sending: '送信中…', err_send: 'ご予約を送信できませんでした。もう一度お試しいただくか、店舗へ直接お電話ください。', err_past: 'その時間は過ぎています。別の時間をお選びください。', err_tooFar: 'オンライン予約は{days}日先までです。', err_closed: 'この日はオンライン予約を受け付けていません。別の日をお選びいただくか、店舗へお電話ください。', err_hours: 'その時間はご予約を受け付けていません。別の時間をお選びください。', err_tooMany: '{max}名を超える場合は店舗へお電話ください。', err_rate: '続けて何件も送信されています。店舗へ直接お電話ください。'
     }
   };
 
   document.getElementById('year').textContent = new Date().getFullYear();
-  function text(key) { return translations[language][key]; }
+  function text(key) { return String(translations[language][key]).replace('{max}', RULES.maxOnline).replace('{days}', RULES.daysAhead); }
   function applyLanguage() {
     document.documentElement.lang = language;
     document.title = { vi: 'Đặt Bàn', en: 'Reserve a Table', ja: 'ご予約' }[language] + ' | Mugi Ramen & Izakaya';
@@ -463,7 +469,16 @@ trong từng khoảnh khắc</p>
       return slots;
     }
 
-    var RESERVATION_SLOTS = buildSlots(10, 30, 22, 30, 30);
+    // Every half hour from opening to the last booking time, lunch and dinner.
+    function slotsFromRules() {
+      var toMin = function (hhmm) { var p = hhmm.split(':'); return Number(p[0]) * 60 + Number(p[1]); };
+      var lunch = RULES.open.lunch.split(':'), dinner = RULES.open.dinner.split(':');
+      return buildSlots(Number(lunch[0]), Number(lunch[1]), Math.floor((toMin(RULES.lastLunch) + 1) / 60), (toMin(RULES.lastLunch) + 1) % 60, 30)
+        .concat(buildSlots(Number(dinner[0]), Number(dinner[1]), Math.floor((toMin(RULES.lastDinner) + 1) / 60), (toMin(RULES.lastDinner) + 1) % 60, 30));
+    }
+    var RESERVATION_SLOTS = slotsFromRules();
+    function lastBookableDay() { var d = new Date(today.getTime()); d.setDate(d.getDate() + RULES.daysAhead); return d; }
+    function isoDay(d) { return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
 
     function sameDay(a, b) {
       return a && b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -497,7 +512,7 @@ trong từng khoảnh khắc</p>
         btn.type = 'button';
         btn.className = 'dt-day';
         btn.textContent = String(d);
-        if (cellDate.getTime() < today.getTime()) {
+        if (cellDate.getTime() < today.getTime() || cellDate.getTime() > lastBookableDay().getTime() || RULES.closed.indexOf(isoDay(cellDate)) !== -1) {
           btn.disabled = true;
         } else {
           if (sameDay(cellDate, selectedDate)) btn.classList.add('selected');
@@ -523,6 +538,7 @@ trong từng khoảnh khắc</p>
       }
 
       prevMonthBtn.disabled = (viewYear === today.getFullYear() && viewMonth === today.getMonth());
+      nextMonthBtn.disabled = viewYear * 12 + viewMonth >= lastBookableDay().getFullYear() * 12 + lastBookableDay().getMonth();
     }
 
     var timeOptions = [];
@@ -625,6 +641,23 @@ trong từng khoảnh khắc</p>
     updateTimeAvailability();
     updateTimeTrigger();
     renderWeekdays();
+
+    fetch('api/booking-rules', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (rules) {
+      if (!rules) return;
+      Object.assign(RULES, rules);
+      RESERVATION_SLOTS = slotsFromRules();
+      timeMenu.innerHTML = '';
+      timeOptions = [];
+      buildTimeOptions();
+      if (selectedTime && RESERVATION_SLOTS.indexOf(selectedTime) === -1) selectedTime = null;
+      if (selectedDate && (selectedDate.getTime() > lastBookableDay().getTime() || RULES.closed.indexOf(isoDay(selectedDate)) !== -1)) selectedDate = null;
+      renderCalendar();
+      updateTimeAvailability();
+      updateTimeTrigger();
+      updateOutput();
+      document.getElementById('party_size').max = RULES.maxOnline;
+      document.querySelector('[data-i18n="partyError"]').textContent = text('partyError');
+    }).catch(function () {});
   })();
 
   function setError(fieldId, hasError) {
@@ -662,7 +695,7 @@ trong từng khoảnh khắc</p>
     }
 
     var party = Number(data.party_size);
-    if (!Number.isInteger(party) || party < 1 || party > 100) errors.party = true;
+    if (!Number.isInteger(party) || party < 1 || party > RULES.maxOnline) errors.party = true;
 
     return errors;
   }
@@ -696,16 +729,43 @@ trong từng khoảnh khắc</p>
       return;
     }
 
-    // TODO: replace this placeholder with a real fetch() POST to
-    // MugiRamenSystem's /api/bookings once that backend is deployed.
-    // Field names already match: name, phone, branch, datetime, party_size.
-    dialogBody.textContent = {
-      vi: data.name + ', mình đã ghi nhận yêu cầu đặt bàn tại ' + data.branch + ' cho ' + data.party_size + ' khách.',
-      en: data.name + ', we’ve noted your reservation request at ' + data.branch + ' for ' + data.party_size + ' guests.',
-      ja: data.name + '様、' + data.branch + '（' + data.party_size + '名様）のご予約リクエストを承りました。'
-    }[language];
-    dialog.classList.add('open');
-    if (window.umami) window.umami.track('reservation-sent', { branch: data.branch });
+    // Sent through this site's /api/* proxy to the admin portal, which stores
+    // the booking (confirmed straight away) and emails the branch.
+    var submitBtn = form.querySelector('.reservation-submit');
+    submitBtn.disabled = true;
+    submitBtn.textContent = text('sending');
+    var showDialog = function (ok, message) {
+      document.getElementById('confirmTitle').textContent = text(ok ? 'bookedTitle' : 'failTitle');
+      document.getElementById('confirmNote').hidden = !ok;
+      dialogBody.textContent = message;
+      dialog.classList.add('open');
+    };
+    data.lang = language;
+    fetch('api/reservations', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (body) { return { ok: r.ok, body: body }; }); })
+      .then(function (res) {
+        if (res.ok) {
+          var when = data.datetime.split('T');
+          var day = when[0].split('-').reverse().join('/');
+          showDialog(true, {
+            vi: data.name + ', bàn của bạn tại ' + data.branch + ' lúc ' + when[1] + ' ngày ' + day + ' cho ' + data.party_size + ' khách đã được xác nhận.',
+            en: data.name + ', your table at ' + data.branch + ' for ' + data.party_size + ' at ' + when[1] + ' on ' + day + ' is confirmed.',
+            ja: data.name + '様、' + day + ' ' + when[1] + '、' + data.branch + '（' + data.party_size + '名様）のご予約を承りました。'
+          }[language]);
+          if (window.umami) window.umami.track('reservation-sent', { branch: data.branch });
+          return;
+        }
+        var code = res.body.code;
+        if (res.body.rules) Object.assign(RULES, res.body.rules);
+        var fieldIds = { name: 'field-name', phone: 'field-phone', branch: 'field-branch', datetime: 'field-datetime', party: 'field-party' };
+        if (res.body.field && fieldIds[res.body.field]) setError(fieldIds[res.body.field], true);
+        showDialog(false, translations[language]['err_' + code] ? text('err_' + code) : text('err_send'));
+      })
+      .catch(function () { showDialog(false, text('err_send')); })
+      .then(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = text('sendReservation');
+      });
   });
 
   closeBtn.addEventListener('click', function () {

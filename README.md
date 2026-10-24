@@ -31,6 +31,15 @@ under `/site/` and commits content changes here.
 - `index.html?preview` accepts unpublished content from the admin portal
   (same address only) for its live preview.
 
+## Reservations
+
+`reservation.html` reads the booking rules from `api/booking-rules` (party
+size, days ahead, last booking times, closed days) and posts bookings to
+`api/reservations`. `netlify.toml` proxies `/api/*` to the admin portal,
+which stores the booking, confirms it straight away and emails the branch.
+Opened on its own (for example with `python3 -m http.server`), the form has
+no API and says the booking couldn't be sent.
+
 ## Admin portal
 
 The staff portal lives in its own repo and Netlify site (`mugi_admin`). Each
