@@ -20,8 +20,9 @@ under `/site/` and commits content changes here.
 
 - `content/site.json` holds everything the restaurant can change: all page
   text in vi/en/ja, photos with their descriptions (alt text), the "space" and
-  story sections, branch details, the menu, news posts, job openings and the
-  analytics ID.
+  story sections, branch details, the menu, news posts, job openings, the
+  footer's tagline and social links (an icon shows once its link is filled
+  in) and the analytics ID.
 - `index.html` is only the template. It fetches `content/site.json` and
   renders it, so content changes never touch code.
 - The menu is shared by the three branches. A dish's `at.<branch>` entry

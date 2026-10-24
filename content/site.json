@@ -4,27 +4,23 @@
     "umamiWebsiteId": "",
     "umamiScript": "https://cloud.umami.is/script.js"
   },
+  "social": {
+    "facebook": "https://www.facebook.com/MugiRamen.Izakaya",
+    "zalo": "",
+    "instagram": "",
+    "tiktok": "",
+    "youtube": ""
+  },
   "text": {
     "reserve": {
       "vi": "Đặt bàn",
       "en": "Reserve a table",
       "ja": "席を予約"
     },
-    "heroTitle": {"vi": "Một góc Nhật Bản\nthân quen", "en": "A familiar corner\nof Japan", "ja": "いつもの、\n小さな日本。"},
-    "heroSub": {
-      "vi": "Ramen & izakaya Nhật Bản tại Hà Nội — Mon City, Golden Palace và Phan Chu Trinh.",
-      "en": "Japanese ramen & izakaya in Hanoi — Mon City, Golden Palace and Phan Chu Trinh.",
-      "ja": "ハノイの日本式ラーメン＆居酒屋 — Mon City、Golden Palace、Phan Chu Trinh。"
-    },
-    "capCounter": {
-      "vi": "Quầy ngồi, bếp mở",
-      "en": "Counter seats, open kitchen",
-      "ja": "カウンター席とオープンキッチン"
-    },
-    "aboutHeading": {
-      "vi": "Về MUGI",
-      "en": "About MUGI",
-      "ja": "MUGIについて"
+    "heroTitle": {
+      "vi": "Một góc Nhật Bản thân quen",
+      "en": "A familiar corner of Japan",
+      "ja": "いつもの、小さな日本。"
     },
     "aboutLead": {
       "vi": "MUGI (麦) nghĩa là lúa mạch trong tiếng Nhật — hạt làm nên sợi mì ramen. Chúng tôi phục vụ ramen và các món izakaya tại ba nhà hàng ở Hà Nội.",
@@ -41,45 +37,15 @@
       "en": "Japanese ramen and izakaya, three restaurants in Hanoi.",
       "ja": "ハノイの3店舗で、ラーメンと居酒屋料理を。"
     },
-    "readStory": {
-      "vi": "Đọc thêm →",
-      "en": "Read more →",
-      "ja": "詳しく →"
-    },
     "ourStory": {
       "vi": "Về MUGI",
       "en": "About MUGI",
       "ja": "MUGIについて"
     },
-    "specialsHeading": {
-      "vi": "Món nổi bật",
-      "en": "Featured",
-      "ja": "おすすめ"
-    },
-    "seeMenu": {
-      "vi": "Xem thực đơn →",
-      "en": "See the menu →",
-      "ja": "メニューを見る →"
-    },
-    "fullMenu": {
-      "vi": "Thực đơn đầy đủ theo từng cơ sở →",
-      "en": "Full menu by restaurant →",
-      "ja": "店舗別の全メニュー →"
-    },
     "spaceHeading": {
       "vi": "Không gian",
       "en": "The space",
       "ja": "店内"
-    },
-    "restaurantsHeading": {
-      "vi": "Nhà hàng",
-      "en": "Restaurants",
-      "ja": "店舗"
-    },
-    "directions": {
-      "vi": "Chỉ đường →",
-      "en": "Directions →",
-      "ja": "行き方 →"
     },
     "bandTitle": {
       "vi": "Giữ một chỗ tại quầy.",
@@ -166,11 +132,6 @@
       "en": "Toppings",
       "ja": "トッピング"
     },
-    "navNews": {
-      "vi": "Tin tức",
-      "en": "News",
-      "ja": "お知らせ"
-    },
     "promoHeading": {
       "vi": "Tin tức & ưu đãi",
       "en": "News & offers",
@@ -240,6 +201,11 @@
       "vi": "Giờ mở cửa",
       "en": "Hours",
       "ja": "営業時間"
+    },
+    "footerTagline": {
+      "vi": "Hương vị Nhật Bản\ntrong từng khoảnh khắc",
+      "en": "The taste of Japan\nin every moment",
+      "ja": "日本の味を、\nひとときごとに"
     }
   },
   "images": {
@@ -442,24 +408,6 @@
         "en": "Open kitchen",
         "ja": "オープンキッチン"
       }
-    }
-  ],
-  "featured": [
-    {
-      "id": "ramen-tonkotsu-shoyu-toku",
-      "photo": "assets/photos/ramen-toku-tonkotsu-shoyu.jpg"
-    },
-    {
-      "id": "sashimi-mixed-special",
-      "photo": "assets/photos/sashimi-special.jpg"
-    },
-    {
-      "id": "yaki-chicken-negima",
-      "photo": "assets/photos/grill-chicken-negima.jpg"
-    },
-    {
-      "id": "rice-eel-bowl",
-      "photo": "assets/photos/eel-bowl.jpg"
     }
   ],
   "locations": [
