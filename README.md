@@ -40,6 +40,30 @@ which stores the booking, confirms it straight away and emails the branch.
 Opened on its own (for example with `python3 -m http.server`), the form has
 no API and says the booking couldn't be sent.
 
+## Feedback to the studio
+
+`assets/feedback.js` adds a small speech-bubble button to the bottom-right
+corner of the site and the reservation page (the display options sit
+bottom-left). It opens a short form in vi/en/ja: type (problem, request,
+question or praise), message, and an optional name and email. The page being
+viewed goes along with it. It is hidden in the admin's preview.
+
+The form posts to `netlify/functions/feedback.mjs`, which passes the message
+on to ACASOHQ (the studio's monitoring) with this site's key. The key stays
+on the server. A hidden decoy field catches bots. If ACASOHQ is slow or down,
+the guest sees a friendly error and the site carries on.
+
+Set these on the Netlify site (Site settings → Environment variables):
+
+```
+MONITOR_URL=https://hq.acasohq.com
+MONITOR_KEY=<this site's key, from its settings page in ACASOHQ>
+```
+
+Without them the form says the message couldn't be sent. Opened with
+`python3 -m http.server` there's no function either; use `netlify dev` to
+try the form locally.
+
 ## Admin portal
 
 The staff portal lives in its own repo and Netlify site (`mugi_admin`). Each

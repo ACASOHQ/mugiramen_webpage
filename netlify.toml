@@ -17,6 +17,13 @@
   status = 404
   force = true
 
+# the feedback function's source (it runs at /.netlify/functions/feedback)
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404"
+  status = 404
+  force = true
+
 # The reservation form posts to /api/reservations on this site; Netlify passes
 # it to the admin portal's API, which stores the booking and emails the
 # branch. Same address, so the browser makes no cross-origin request. Change

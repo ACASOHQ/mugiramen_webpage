@@ -454,3 +454,43 @@ html.a11y-focus *:focus-visible { outline: 3px solid #8c3a34 !important; outline
   .ws .social a::before { content: ""; position: absolute; inset: -11px; }
   .ws a[href^="tel:"] { display: inline-flex; align-items: center; min-height: 40px; }
 }
+
+/* feedback to the studio (assets/feedback.js): bottom-right, mirroring the display-options button */
+.fb { position: fixed; right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 80; font-family: "Be Vietnam Pro", "Noto Sans JP", system-ui, sans-serif; color: #2b211b; }
+.fb-btn { width: 48px; height: 48px; border-radius: 50%; border: 1px solid #2b211b; background: #fbf8f2; color: #2b211b; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(43,33,27,.18); }
+.fb-btn:hover { background: #2b211b; color: #f6f1e8; }
+.fb-btn:focus-visible, .fb-dlg :focus-visible { outline: 2px solid #8c3a34; outline-offset: 2px; }
+.fb-dlg { box-sizing: border-box; width: min(400px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; margin: auto 16px 16px auto; padding: 6px 18px 16px; background: #fbf8f2; color: #2b211b; border: 1px solid #2b211b; box-shadow: 6px 6px 0 #ede5d6; font: 14px/1.5 "Be Vietnam Pro", "Noto Sans JP", system-ui, sans-serif; }
+.fb-dlg::backdrop { background: rgba(43,33,27,.35); }
+.fb-dlg *, .fb-dlg *::before { box-sizing: border-box; }
+.fb-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d6cab6; min-height: 44px; }
+.fb-head b { font-family: "Noto Serif", "Shippori Mincho", serif; font-weight: 500; font-size: 18px; }
+.fb-head button { background: none; border: 0; font-size: 24px; width: 44px; height: 44px; margin-right: -10px; cursor: pointer; color: #2b211b; }
+.fb-intro { margin: 10px 0 12px; color: #65574a; font-size: 13px; }
+.fb-types { border: 0; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.fb-types legend { padding: 0; margin-bottom: 6px; font-size: 13px; font-weight: 500; }
+.fb-types label { position: relative; }
+.fb-types input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.fb-types span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid #d6cab6; background: #fbf8f2; font-size: 13px; }
+.fb-types input:checked + span { background: #2b211b; border-color: #2b211b; color: #f6f1e8; }
+.fb-types input:focus-visible + span { outline: 2px solid #8c3a34; outline-offset: 2px; }
+.fb-f { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; font-size: 13px; font-weight: 500; min-width: 0; }
+.fb-f small { color: #65574a; font-weight: 400; }
+.fb-f input, .fb-f textarea { width: 100%; min-height: 44px; padding: 10px 12px; border: 1px solid #b9ab94; background: #fff; color: #2b211b; font: 16px/1.5 "Be Vietnam Pro", "Noto Sans JP", system-ui, sans-serif; border-radius: 0; }
+.fb-f textarea { resize: vertical; min-height: 96px; }
+.fb-f [aria-invalid="true"] { border-color: #8e2b22; }
+.fb-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 10px; }
+.fb-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.fb-err { margin: 0; min-height: 0; color: #8e2b22; font-size: 13px; }
+.fb-err:not(:empty) { margin-bottom: 10px; }
+.fb-foot { display: flex; justify-content: flex-end; align-items: center; gap: 16px; }
+.fb-link { background: none; border: 0; border-bottom: 1px solid #2b211b; font: 500 13px "Be Vietnam Pro", system-ui, sans-serif; cursor: pointer; color: #2b211b; padding: 0; min-height: 32px; }
+.fb-send { min-height: 44px; padding: 0 22px; border: 0; background: #2b211b; color: #f6f1e8; font: 600 14px "Be Vietnam Pro", system-ui, sans-serif; cursor: pointer; }
+.fb-send:hover { background: #8e2b22; }
+.fb-send:disabled { opacity: .6; cursor: progress; }
+.fb-done { padding: 18px 0 4px; }
+.fb-done p { margin: 0 0 12px; font-family: "Noto Serif", "Shippori Mincho", serif; font-size: 17px; }
+@media (max-width: 480px) { .fb-row { grid-template-columns: minmax(0, 1fr); } .fb-dlg { margin: auto auto 16px; } }
+html.a11y-contrast .fb-intro, html.a11y-contrast .fb-f small { color: #2b211b; }
+html.a11y-motion .fb-dlg { animation: none; }
+@media print { .fb { display: none; } }
