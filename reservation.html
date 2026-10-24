@@ -248,9 +248,8 @@
 
       </section>
 
-      <!-- Honeypot: left empty by real visitors, hidden off-screen. Mirrors
-           MugiRamenSystem's web form spam guard so this page is ready to
-           reuse that backend's validation as-is once wired up. -->
+      <!-- Honeypot: left empty by real visitors, hidden off-screen. The admin
+           API quietly drops any booking that fills it in. -->
       <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px">
         <label for="website">Website</label>
         <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
@@ -258,18 +257,10 @@
 
       <button type="submit" class="btn btn-primary btn-block reservation-submit" data-i18n="sendReservation">Gửi đặt bàn</button>
 
-      <!--
-        TODO: wire to MugiRamenSystem POST /api/bookings once that backend is
-        deployed (see MugiRamenSystem/DEPLOY.md — no live URL exists yet).
-        The field names above (name, phone, branch, datetime, party_size)
-        already match MugiRamenSystem/src/constants.js FIELDS, so once a URL
-        exists this just needs a fetch() POST with those five values as JSON.
-        For now the form only validates client-side and shows a placeholder
-        confirmation — no booking is actually sent anywhere.
-      -->
     </form>
 
     <p style="text-align:center;font-size:13px;margin-top:var(--space-4);opacity:.7" data-i18n="callHint">Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất (số điện thoại ở mục Chi nhánh).</p>
+    <p class="privacy-note" style="text-align:center;font-size:12px;margin-top:var(--space-2);opacity:.6" data-i18n="privacy">Thông tin của bạn chỉ dùng để giữ bàn và liên hệ về lần đặt này, và được xoá sau 12 tháng.</p>
   </div>
 
   <!-- CONFIRMATION DIALOG -->
@@ -353,7 +344,7 @@ trong từng khoảnh khắc</p>
       guestDetails: 'Thông tin của bạn', fullName: 'Họ tên', nameError: 'Vui lòng nhập họ tên (không quá 60 ký tự).', phone: 'Số điện thoại', phoneError: 'Số điện thoại này có vẻ chưa đúng.',
       branch: 'Chi nhánh', branchError: 'Vui lòng chọn một chi nhánh.', reservationDetails: 'Chi tiết đặt bàn', datetimeError: 'Vui lòng chọn ngày giờ hợp lệ, không ở trong quá khứ.',
       reservationTime: 'Giờ đặt bàn', chooseTime: 'Chọn giờ', chooseDate: 'Chọn một ngày từ lịch', chooseReservationTime: 'Chọn giờ đặt bàn', partySize: 'Số khách',
-      sendReservation: 'Gửi đặt bàn', callHint: 'Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất (số điện thoại ở mục Chi nhánh).', thankYou: 'Cảm ơn!', close: 'Đóng',
+      sendReservation: 'Gửi đặt bàn', privacy: 'Thông tin của bạn chỉ dùng để giữ bàn và liên hệ về lần đặt này, và được xoá sau 12 tháng.', callHint: 'Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất (số điện thoại ở mục Chi nhánh).', thankYou: 'Cảm ơn!', close: 'Đóng',
       confirmBy: 'Xác nhận đặt bàn qua', confirmCall: 'Gọi điện', confirmSms: 'Tin nhắn SMS', confirmZalo: 'Zalo', confirmHint: 'Chọn tin nhắn nếu bạn khiếm thính hoặc không tiện nghe máy.',
       hours: 'Giờ mở cửa', lunch: 'Trưa', dinner: 'Tối', backHome: 'Về trang chủ', prevMonth: 'Tháng trước', nextMonth: 'Tháng sau',
       confirmedNote: 'Nếu cần đổi hoặc huỷ, vui lòng gọi trực tiếp chi nhánh.', partyError: 'Số khách từ 1 đến {max}. Nhóm đông hơn vui lòng gọi chi nhánh.', bookedTitle: 'Đã đặt bàn!', failTitle: 'Chưa gửi được', sending: 'Đang gửi…', err_send: 'Không gửi được đặt bàn. Vui lòng thử lại, hoặc gọi trực tiếp chi nhánh.', err_past: 'Giờ này đã qua. Vui lòng chọn giờ khác.', err_tooFar: 'Chỉ nhận đặt bàn online trước tối đa {days} ngày.', err_closed: 'Ngày này nhà hàng không nhận đặt bàn online. Vui lòng chọn ngày khác hoặc gọi chi nhánh.', err_hours: 'Giờ này không nhận đặt bàn. Vui lòng chọn giờ khác.', err_tooMany: 'Nhóm trên {max} khách vui lòng gọi chi nhánh để đặt bàn.', err_rate: 'Bạn vừa gửi nhiều đặt bàn liên tiếp. Vui lòng gọi trực tiếp chi nhánh.'
@@ -364,7 +355,7 @@ trong từng khoảnh khắc</p>
       guestDetails: 'Your details', fullName: 'Full name', nameError: 'Please enter your full name (max 60 characters).', phone: 'Phone number', phoneError: "This phone number doesn't look right.",
       branch: 'Branch', branchError: 'Please select a branch.', reservationDetails: 'Reservation details', datetimeError: 'Please pick a valid date and time, not in the past.',
       reservationTime: 'Reservation time', chooseTime: 'Select a time', chooseDate: 'Select a date from the calendar', chooseReservationTime: 'Select a reservation time', partySize: 'Party size',
-      sendReservation: 'Send reservation', callHint: 'Need it faster? Call your nearest branch directly (numbers are in the Branch list).', thankYou: 'Thank you!', close: 'Close',
+      sendReservation: 'Send reservation', privacy: 'Your details are only used to hold your table and contact you about this booking, and are deleted after 12 months.', callHint: 'Need it faster? Call your nearest branch directly (numbers are in the Branch list).', thankYou: 'Thank you!', close: 'Close',
       confirmBy: 'Confirm my booking by', confirmCall: 'Phone call', confirmSms: 'Text message', confirmZalo: 'Zalo', confirmHint: 'Choose a message if you are deaf, hard of hearing, or can’t take a call.',
       hours: 'Hours', lunch: 'Lunch', dinner: 'Dinner', backHome: 'Back home', prevMonth: 'Previous month', nextMonth: 'Next month',
       confirmedNote: 'To change or cancel, please call the branch directly.', partyError: 'Party size is 1 to {max}. For larger groups, please call the branch.', bookedTitle: 'You’re booked!', failTitle: 'Not sent yet', sending: 'Sending…', err_send: 'We couldn\'t send your booking. Please try again, or call the branch directly.', err_past: 'That time has passed. Please pick another.', err_tooFar: 'Online bookings open up to {days} days ahead.', err_closed: 'We don\'t take online bookings that day. Please pick another day or call the branch.', err_hours: 'We don\'t take bookings at that time. Please pick another.', err_tooMany: 'For more than {max} guests, please call the branch to book.', err_rate: 'You\'ve sent several bookings in a row. Please call the branch directly.'
@@ -375,7 +366,7 @@ trong từng khoảnh khắc</p>
       guestDetails: 'お客様情報', fullName: 'お名前', nameError: 'お名前を入力してください（60文字以内）。', phone: '電話番号', phoneError: '電話番号が正しくないようです。',
       branch: '店舗', branchError: '店舗を選択してください。', reservationDetails: 'ご予約内容', datetimeError: '過去ではない日時を選択してください。',
       reservationTime: 'ご予約時間', chooseTime: '時間を選択', chooseDate: 'カレンダーから日付を選択', chooseReservationTime: 'ご予約時間を選択', partySize: '人数',
-      sendReservation: '予約を送信', callHint: 'お急ぎの場合は、「店舗」欄の電話番号からお近くの店舗へお電話ください。', thankYou: 'ありがとうございます！', close: '閉じる',
+      sendReservation: '予約を送信', privacy: 'お客様の情報はお席の確保と本予約に関するご連絡にのみ使用し、12か月後に削除します。', callHint: 'お急ぎの場合は、「店舗」欄の電話番号からお近くの店舗へお電話ください。', thankYou: 'ありがとうございます！', close: '閉じる',
       confirmBy: '予約確認の方法', confirmCall: '電話', confirmSms: 'SMS', confirmZalo: 'Zalo', confirmHint: '聴覚に障がいのある方やお電話に出られない方はメッセージをお選びください。',
       hours: '営業時間', lunch: 'ランチ', dinner: 'ディナー', backHome: 'ホームへ', prevMonth: '前の月', nextMonth: '次の月',
       confirmedNote: '変更・キャンセルは店舗へ直接お電話ください。', partyError: '人数は1〜{max}名です。それ以上は店舗へお電話ください。', bookedTitle: 'ご予約が確定しました', failTitle: '送信できませんでした', sending: '送信中…', err_send: 'ご予約を送信できませんでした。もう一度お試しいただくか、店舗へ直接お電話ください。', err_past: 'その時間は過ぎています。別の時間をお選びください。', err_tooFar: 'オンライン予約は{days}日先までです。', err_closed: 'この日はオンライン予約を受け付けていません。別の日をお選びいただくか、店舗へお電話ください。', err_hours: 'その時間はご予約を受け付けていません。別の時間をお選びください。', err_tooMany: '{max}名を超える場合は店舗へお電話ください。', err_rate: '続けて何件も送信されています。店舗へ直接お電話ください。'
