@@ -1,7 +1,7 @@
 {
   "_about": "Website content. Edited from the admin portal (admin/) or by hand; every change is a git commit. index.html is the template that renders it.",
   "analytics": {
-    "umamiWebsiteId": "",
+    "umamiWebsiteId": "f5604282-21fe-4bda-a22d-c21d3b51d891",
     "umamiScript": "https://cloud.umami.is/script.js"
   },
   "social": {
