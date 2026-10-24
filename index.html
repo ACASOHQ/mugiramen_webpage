@@ -57,7 +57,7 @@
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <div class="tabpage" style="{{ tabAnim }}">
       <header class="bleed hero2">
-        <img src="{{ img.hero.src }}" alt="{{ img.hero.alt }}" style="{{ img.hero.pos }}">
+        <img loading="lazy" src="{{ img.hero.src }}" alt="{{ img.hero.alt }}" style="{{ img.hero.pos }}">
         <div class="wrap">
           <h1>MUGI</h1>
           <span class="hsub">RAMEN &amp; IZAKAYA</span>
@@ -72,7 +72,7 @@
   <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
     <div class="tabpage" style="{{ tabAnim }}">
       <header class="bleed pbanner">
-          <img src="{{ img.bandAbout.src }}" alt="" style="{{ img.bandAbout.pos }}">
+          <img loading="lazy" src="{{ img.bandAbout.src }}" alt="" style="{{ img.bandAbout.pos }}">
           <div class="wrap">
             <span class="kick" lang="ja">私たちについて</span>
             <h1>{{ txt.ourStory }}</h1>
@@ -126,7 +126,7 @@
   <sc-if value="{{ isMenu }}" hint-placeholder-val="{{ false }}">
     <div class="tabpage" style="{{ tabAnim }}">
       <header class="bleed pbanner">
-          <img src="{{ img.bandMenu.src }}" alt="" style="{{ img.bandMenu.pos }}">
+          <img loading="lazy" src="{{ img.bandMenu.src }}" alt="" style="{{ img.bandMenu.pos }}">
           <div class="wrap">
             <span class="kick" lang="ja">お品書き</span>
             <h1>{{ txt.menuTitle }}</h1>
@@ -237,7 +237,7 @@
   <sc-if value="{{ isLocation }}" hint-placeholder-val="{{ false }}">
     <div class="tabpage" style="{{ tabAnim }}">
       <header class="bleed pbanner">
-          <img src="{{ img.bandHome.src }}" alt="" style="{{ img.bandHome.pos }}">
+          <img loading="lazy" src="{{ img.bandHome.src }}" alt="" style="{{ img.bandHome.pos }}">
           <div class="wrap">
             <span class="kick" lang="ja">店舗案内</span>
             <h1>{{ txt.findUs }}</h1>
@@ -297,7 +297,7 @@
   <sc-if value="{{ isPromo }}" hint-placeholder-val="{{ false }}">
     <div class="tabpage" style="{{ tabAnim }}">
       <header class="bleed pbanner">
-          <img src="{{ img.newsEmpty.src }}" alt="" style="{{ img.newsEmpty.pos }}">
+          <img loading="lazy" src="{{ img.newsEmpty.src }}" alt="" style="{{ img.newsEmpty.pos }}">
           <div class="wrap">
             <span class="kick" lang="ja">お知らせ</span>
             <h1>{{ txt.promoHeading }}</h1>
@@ -338,7 +338,7 @@
   <sc-if value="{{ isCareers }}" hint-placeholder-val="{{ false }}">
     <div class="tabpage" style="{{ tabAnim }}">
       <header class="bleed pbanner">
-          <img src="{{ img.careersEmpty.src }}" alt="" style="{{ img.careersEmpty.pos }}">
+          <img loading="lazy" src="{{ img.careersEmpty.src }}" alt="" style="{{ img.careersEmpty.pos }}">
           <div class="wrap">
             <span class="kick" lang="ja">採用情報</span>
             <h1>{{ txt.careersTitle }}</h1>
@@ -352,7 +352,7 @@
             <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="0">
               <article class="nrow">
                 <span class="date">{{ j.where }}</span>
-                <div><span class="jkind">{{ j.kind }}</span><h3>{{ j.title }}</h3><p>{{ j.body }}</p></div>
+                <div><span class="jkind">{{ j.kind }}</span><h3>{{ j.title }}</h3><p>{{ j.body }}</p><a class="tlink" href="{{ j.applyHref }}" onClick="{{ j.applyGo }}" style="margin-top: 8px">{{ j.applyLabel }}</a></div>
               </article>
             </sc-for>
           </div>
@@ -767,8 +767,19 @@ class Component extends DCLogic {
         hasUntil: n.type === 'offer' && !!n.until, untilLabel: t('Until', 'Đến hết', '期限') + ' ' + dm(n.until),
       }));
     const branchName = (id) => id === 'all' ? t('All restaurants', 'Tất cả nhà hàng', '全店舗') : ((C.locations.find(l => l.slug === id) || {}).short || '');
+    // How to apply, as chosen in the admin: call or Zalo the branch. A job at
+    // every branch, or one set to the (not yet built) online form, points to
+    // the Contact section, which lists every branch's phone.
+    const toContact = (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ tab: 'location' }); history.replaceState(null, '', window.location.pathname + window.location.search + '#contact'); scrollToContact(true); };
+    const applyFor = (j) => {
+      const loc = C.locations.find(l => l.slug === j.branch);
+      const digits = loc ? loc.phone.replace(/\D/g, '') : '';
+      if (loc && j.apply === 'phone') return { applyHref: 'tel:+84' + digits.replace(/^0/, ''), applyGo: () => {}, applyLabel: t('Call ', 'Gọi ', '電話 ') + loc.phone + t(' to apply', ' để ứng tuyển', ' で応募') };
+      if (loc && j.apply === 'zalo') return { applyHref: 'https://zalo.me/' + digits, applyGo: () => {}, applyLabel: t('Apply on Zalo ↗', 'Ứng tuyển qua Zalo ↗', 'Zaloで応募 ↗') };
+      return { applyHref: '#contact', applyGo: toContact, applyLabel: t('Contact us to apply', 'Liên hệ để ứng tuyển', 'お問い合わせ・応募') };
+    };
     const jobs = C.jobs.filter(j => !j.status || j.status === 'published').map(j => ({
-      title: p3(j.title), body: p3(j.body), where: branchName(j.branch),
+      title: p3(j.title), body: p3(j.body), where: branchName(j.branch), ...applyFor(j),
       kind: j.kind === 'part' ? t('Part-time', 'Bán thời gian', 'アルバイト') : t('Full-time', 'Toàn thời gian', '正社員'),
     }));
     const img = Object.fromEntries(IMAGE_SLOTS.map(k => {

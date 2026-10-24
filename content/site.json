@@ -53,9 +53,9 @@
       "ja": "カウンター席をご予約ください。"
     },
     "bandBody": {
-      "vi": "Chọn nhà hàng, ngày và giờ — nhà hàng sẽ gọi hoặc nhắn tin để xác nhận.",
-      "en": "Pick a restaurant, date and time — the restaurant will call or message you to confirm.",
-      "ja": "店舗・日時をお選びください。店舗からお電話またはメッセージで確認いたします。"
+      "vi": "Chọn nhà hàng, ngày và giờ — bàn được xác nhận ngay khi bạn đặt.",
+      "en": "Pick a restaurant, date and time — your table is confirmed as soon as you book.",
+      "ja": "店舗・日時をお選びください。ご予約はその場で確定します。"
     },
     "menuBandTitle": {
       "vi": "Đã chọn được món?",
