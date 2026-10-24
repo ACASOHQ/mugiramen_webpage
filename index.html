@@ -280,7 +280,7 @@
             <div class="box">
               <h3>Facebook</h3>
               <p>{{ txt.fbBody }}</p>
-              <a class="cta ghost" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">MugiRamen.Izakaya ↗</a>
+              <a class="cta ghost" href="{{ social.facebook }}" target="_blank" rel="noopener">{{ fbHandle }} ↗</a>
             </div>
             <div class="box">
               <h3>{{ txt.reserveTitle }}</h3>
@@ -326,7 +326,7 @@
             <div>
               <p class="lead">{{ txt.newsEmptyTitle }}</p>
               <p class="side" style="margin: 12px 0 20px">{{ txt.newsEmpty }}</p>
-              <a class="cta" href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener">Facebook ↗</a>
+              <a class="cta" href="{{ social.facebook }}" target="_blank" rel="noopener">Facebook ↗</a>
             </div>
           </div>
         </sc-if>
@@ -396,7 +396,7 @@
       <div>
         <h4>{{ ui.connect }}</h4>
         <div class="social">
-          <a href="https://www.facebook.com/MugiRamen.Izakaya" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1Z"/></svg></a>
+          <sc-if value="{{ hasFacebook }}" hint-placeholder-val="{{ true }}"><a href="{{ social.facebook }}" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1Z"/></svg></a></sc-if>
           <sc-if value="{{ hasZalo }}" hint-placeholder-val="{{ false }}"><a class="zalo" href="{{ social.zalo }}" target="_blank" rel="noopener" aria-label="Zalo">Zalo</a></sc-if>
           <sc-if value="{{ hasInstagram }}" hint-placeholder-val="{{ false }}"><a href="{{ social.instagram }}" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="currentColor" stroke="none"/></svg></a></sc-if>
           <sc-if value="{{ hasTiktok }}" hint-placeholder-val="{{ false }}"><a href="{{ social.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.3 2.2 1.6 3.6 3.8 3.8v2.6c-1.4.1-2.6-.3-3.8-1.1v5.6c0 3.4-2.6 5.9-5.8 5.9a5.7 5.7 0 0 1-1-11.4v2.7a3 3 0 1 0 2.1 2.9V3h2.7Z"/></svg></a></sc-if>
@@ -404,7 +404,7 @@
         </div>
       </div>
       <div class="ftag">
-        <p>{{ ui.tagline1 }}<br>{{ ui.tagline2 }}</p>
+        <p style="white-space: pre-line">{{ txt.footerTagline }}</p>
         <span class="redline" aria-hidden="true"></span>
         <small>© {{ year }} MUGI Ramen &amp; Izakaya</small>
       </div>
@@ -428,9 +428,7 @@ const loadAnalytics = (c) => {
   document.head.appendChild(sc);
 };
 // Rendered for the moment before content/site.json arrives.
-const EMPTY_CONTENT = { text: {}, images: {}, story: [], space: [], featured: [], locations: [], menu: { branches: [], categories: [] }, news: [], jobs: [] };
-// Each icon appears in the footer once its link is filled in (Facebook is always shown).
-const SOCIAL = { zalo: '', instagram: '', tiktok: '', youtube: '' };
+const EMPTY_CONTENT = { text: {}, images: {}, social: {}, story: [], space: [], locations: [], menu: { branches: [], categories: [] }, news: [], jobs: [] };
 const IMAGE_SLOTS = ['hero', 'about1', 'about2', 'bandHome', 'bandAbout', 'bandMenu', 'newsEmpty', 'careersEmpty'];
 // Language: ?lang= in the URL wins (shareable per-language links), then the
 // remembered choice, then Vietnamese.
@@ -552,7 +550,8 @@ class Component extends DCLogic {
     }));
     this.storyData = C.story.map(s => ({ ...s, ...l3(s, 'kicker'), ...l3(s, 'title'), ...l3(s, 'body') }));
     this.spacePhotos = C.space.map(p => ({ ...p, ...l3(p, 'caption') }));
-    this.featuredDishes = C.featured;
+    // Each footer icon appears once its link is filled in (content/site.json → social).
+    this.social = { facebook: '', zalo: '', instagram: '', tiktok: '', youtube: '', ...C.social };
     this.locationData = C.locations.map(l => ({ ...l, tel: 'tel:+84' + l.phone.replace(/\D/g, '').replace(/^0/, '') }));
     this._locations = null;
   }
@@ -635,7 +634,6 @@ class Component extends DCLogic {
       navRestaurants: t('Restaurants', 'Nhà hàng', '店舗'), navAbout: t('About Mugi', 'Về Mugi', 'MUGIについて'),
       navNews: t('News & Offers', 'Tin tức & Ưu đãi', 'お知らせ・特典'),
       explore: t('Explore', 'Khám phá', 'メニュー・店舗'), info: t('Information', 'Thông tin', 'インフォメーション'), connect: t('Connect', 'Kết nối', 'SNS'),
-      tagline1: t('The taste of Japan', 'Hương vị Nhật Bản', '日本の味を、'), tagline2: t('in every moment', 'trong từng khoảnh khắc', 'ひとときごとに'),
     };
     // News, Careers and Contact are linked from the footer.
     const tabs = [
@@ -728,22 +726,6 @@ class Component extends DCLogic {
       cls: s.imgFirst ? 'story' : 'story flip',
     }));
 
-    // Featured dishes on Home come straight from the menu (Golden Palace
-    // prices) so names and prices stay in sync with the Menu tab.
-    const featuredSource = this.menuData.filter(g => g.key.startsWith('golden-palace-'));
-    const featured = this.featuredDishes.filter(f => featuredSource.some(g => (g.dishes || []).some(d => d.id === 'golden-palace-' + f.id))).map(f => {
-      const grp = featuredSource.find(g => (g.dishes || []).some(d => d.id === 'golden-palace-' + f.id));
-      const d = grp.dishes.find(x => x.id === 'golden-palace-' + f.id);
-      return {
-        name: localizeName(d), jp: d.nameJp || '', hasJp: !isJa && !!d.nameJp, price: d.price, photo: f.photo,
-        go: (e) => {
-          if (e && e.preventDefault) e.preventDefault();
-          this.setState({ menuLocation: 'golden-palace', menuCategory: grp.key });
-          setTab('menu')(e);
-        },
-      };
-    });
-
     const spacePhotos = this.spacePhotos.map(p => ({ ...p, caption: pick(p, 'caption') }));
 
     if (!this._locations) {
@@ -796,7 +778,8 @@ class Component extends DCLogic {
 
     return {
       wsCls: tab === 'home' ? 'ws home' : 'ws', ui, year: new Date().getFullYear(),
-      social: SOCIAL, hasZalo: !!SOCIAL.zalo, hasTiktok: !!SOCIAL.tiktok, hasInstagram: !!SOCIAL.instagram, hasYoutube: !!SOCIAL.youtube,
+      social: this.social, hasFacebook: !!this.social.facebook, hasZalo: !!this.social.zalo, hasTiktok: !!this.social.tiktok, hasInstagram: !!this.social.instagram, hasYoutube: !!this.social.youtube,
+      fbHandle: this.social.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\//, '').replace(/\/$/, ''),
       tabs, langOpts, isHome: tab === 'home', isAbout: tab === 'about', isMenu: tab === 'menu',
       isLocation: tab === 'location', isPromo: tab === 'promotion', isCareers: tab === 'careers',
       goHome: setTab('home'), goAbout: setTab('about'), goMenu: setTab('menu'), goLocation: setTab('location'),
@@ -807,7 +790,7 @@ class Component extends DCLogic {
         history.replaceState(null, '', window.location.pathname + window.location.search + '#contact');
         scrollToContact(true);
       },
-      storySteps, featured, spacePhotos,
+      storySteps, spacePhotos,
       categories, activeCategoryGroups: [activeGroupWithDelay],
       menuLocationOpts,
       menuReserveUrl: 'reservation.html?branch=' + encodeURIComponent((this.locationData.find(l => l.slug === loc) || {}).short || ''),

@@ -373,6 +373,7 @@ html.a11y-focus *:focus-visible { outline: 3px solid #8c3a34 !important; outline
 .ws .social { display: flex; gap: 14px; padding-top: 2px; }
 .ws .social a { width: 22px; height: 22px; color: #f3e7d3; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
 .ws .social a:hover { color: #fff; }
+.ws .social a[hidden] { display: none; }
 .ws .social svg { width: 20px; height: 20px; }
 .ws .social .zalo { font: 700 9px var(--sans); border: 1.5px solid currentColor; border-radius: 50%; width: 22px; }
 .ws .ftag { border-left: 1px solid rgba(243,231,211,.18); padding-left: clamp(16px, 3vw, 40px); }
