@@ -12,7 +12,7 @@
   body { margin: 0; }
   /* the guest's confirmation link: confirm on its own row, then cancel / close */
   .dialog-actions.link { display: flex; flex-wrap: wrap; gap: 8px; }
-  .dialog-actions.link #linkConfirm { flex: 1 1 100%; order: -1; }
+  .dialog-actions.link #linkConfirm, .dialog-actions.link #joinWaitlist { flex: 1 1 100%; order: -1; }
   .dialog-actions.link #linkCancel, .dialog-actions.link #confirmClose { flex: 1 1 0; }
   a { color: var(--color-accent-700); }
   a:hover { color: var(--color-accent-800); }
@@ -114,6 +114,7 @@
   .dt-time-option:hover:not(:disabled), .dt-time-option.selected { background: color-mix(in srgb, var(--color-accent) 12%, transparent); }
   .dt-time-option.selected { color: var(--color-accent-700); font-weight: 600; }
   .dt-time-option:disabled { opacity: .35; cursor: not-allowed; }
+  .dt-time-option.full { color: var(--color-text-muted, #7d7064); font-style: italic; }
   .dt-selected-date { margin: 16px 0 0; font-size: 13px; min-height: 20px; text-align: center; color: var(--color-accent-700); }
 
   @media (max-width: 720px) {
@@ -276,6 +277,7 @@
       <div class="dialog-actions">
         <button type="button" class="btn btn-ghost" id="linkCancel" hidden data-i18n="cancelBooking">Huỷ đặt bàn</button>
         <button type="button" class="btn btn-primary" id="linkConfirm" hidden data-i18n="confirmBooking">Xác nhận đặt bàn</button>
+        <button type="button" class="btn btn-primary" id="joinWaitlist" hidden data-i18n="joinWaitlist">Vào danh sách chờ</button>
         <button type="button" class="btn btn-primary" id="confirmClose" data-i18n="close">Đóng</button>
       </div>
     </div>
@@ -347,10 +349,10 @@ trong từng khoảnh khắc</p>
     vi: {
       navHome: 'Trang chủ', tagline: 'Hương vị Nhật Bản\ntrong từng khoảnh khắc', navAbout: 'Về Mugi', navRestaurants: 'Nhà hàng', explore: 'Khám phá', info: 'Thông tin', connect: 'Kết nối', navMenu: 'Thực đơn', navLocations: 'Liên hệ', navPromotions: 'Tin tức & Ưu đãi', navCareers: 'Tuyển dụng', navContact: 'Liên hệ', navReserve: 'Đặt bàn',
       heroTitle: 'Đặt bàn', heroMessage: 'Bàn được giữ ngay khi bạn gửi. Nhà hàng sẽ gửi link để bạn xác nhận.',
-      fullShort: 'hết bàn', viaCall: 'điện thoại', viaSms: 'tin nhắn SMS', viaZalo: 'Zalo', err_full: 'Giờ này đã hết bàn.', freeAt: 'Còn bàn lúc: {times}.', noneFree: 'Ngày này đã kín bàn. Vui lòng chọn ngày khác hoặc gọi chi nhánh.',
+      fullShort: 'hết bàn · xin chờ', joinWaitlist: 'Vào danh sách chờ', waitTitle: 'Đã vào danh sách chờ', waitBody: '{name}, giờ {time} ngày {day} tại {branch} đã hết bàn. Bạn đang trong danh sách chờ cho {party} khách; nhà hàng sẽ liên hệ qua {via} nếu có bàn trống.', orWait: 'Hoặc vào danh sách chờ cho giờ {time}.', viaCall: 'điện thoại', viaSms: 'tin nhắn SMS', viaZalo: 'Zalo', err_full: 'Giờ này đã hết bàn.', freeAt: 'Còn bàn lúc: {times}.', noneFree: 'Ngày này đã kín bàn. Vui lòng chọn ngày khác hoặc gọi chi nhánh.',
       heldBody: '{name}, bàn cho {party} khách tại {branch} lúc {time} ngày {day} đã được giữ. Nhà hàng sẽ liên hệ qua {via} để xác nhận.',
       yourBooking: 'Đặt bàn của bạn', bookingLine: '{name} · {party} khách · {time} ngày {day} · {branch}', confirmBooking: 'Xác nhận đặt bàn', cancelBooking: 'Huỷ đặt bàn', cancelAsk: 'Huỷ đặt bàn này?',
-      st_new: 'Đang chờ bạn xác nhận.', st_confirmed: 'Đã xác nhận. Hẹn gặp bạn!', st_cancelled: 'Đặt bàn này đã được huỷ.', st_noshow: 'Đặt bàn này đã kết thúc.',
+      st_new: 'Đang chờ bạn xác nhận.', st_confirmed: 'Đã xác nhận. Hẹn gặp bạn!', st_cancelled: 'Đặt bàn này đã được huỷ.', st_noshow: 'Đặt bàn này đã kết thúc.', st_waitlist: 'Bạn đang trong danh sách chờ. Nhà hàng sẽ liên hệ nếu có bàn trống.',
       linkConfirmed: 'Cảm ơn! Đặt bàn đã được xác nhận.', linkCancelled: 'Đã huỷ đặt bàn. Hẹn gặp bạn lần sau!', linkBad: 'Link này không đúng hoặc đã hết hạn. Vui lòng gọi chi nhánh.', linkClosed: 'Đặt bàn này không thể thay đổi nữa. Vui lòng gọi chi nhánh.',
       guestDetails: 'Thông tin của bạn', fullName: 'Họ tên', nameError: 'Vui lòng nhập họ tên (không quá 60 ký tự).', phone: 'Số điện thoại', phoneError: 'Số điện thoại này có vẻ chưa đúng.',
       branch: 'Chi nhánh', branchError: 'Vui lòng chọn một chi nhánh.', reservationDetails: 'Chi tiết đặt bàn', datetimeError: 'Vui lòng chọn ngày giờ hợp lệ, không ở trong quá khứ.',
@@ -363,10 +365,10 @@ trong từng khoảnh khắc</p>
     en: {
       navHome: 'Home', tagline: 'The taste of Japan\nin every moment', navAbout: 'About Mugi', navRestaurants: 'Restaurants', explore: 'Explore', info: 'Information', connect: 'Connect', navMenu: 'Menu', navLocations: 'Contact', navPromotions: 'News & Offers', navCareers: 'Careers', navContact: 'Contact', navReserve: 'Reserve a Table',
       heroTitle: 'Reserve a Table', heroMessage: 'Your table is held as soon as you send. The restaurant will send you a link to confirm.',
-      fullShort: 'full', viaCall: 'phone', viaSms: 'text message', viaZalo: 'Zalo', err_full: 'That time is fully booked.', freeAt: 'Tables are free at: {times}.', noneFree: 'That day is fully booked. Please pick another day or call the branch.',
+      fullShort: 'full · join waiting list', joinWaitlist: 'Join the waiting list', waitTitle: 'You’re on the waiting list', waitBody: '{name}, {time} on {day} at {branch} is fully booked. You’re on the waiting list for {party}; the restaurant will contact you by {via} if a table frees up.', orWait: 'Or join the waiting list for {time}.', viaCall: 'phone', viaSms: 'text message', viaZalo: 'Zalo', err_full: 'That time is fully booked.', freeAt: 'Tables are free at: {times}.', noneFree: 'That day is fully booked. Please pick another day or call the branch.',
       heldBody: '{name}, a table for {party} at {branch} at {time} on {day} is held for you. The restaurant will contact you by {via} to confirm.',
       yourBooking: 'Your booking', bookingLine: '{name} · {party} guests · {time} on {day} · {branch}', confirmBooking: 'Confirm booking', cancelBooking: 'Cancel booking', cancelAsk: 'Cancel this booking?',
-      st_new: 'Waiting for you to confirm.', st_confirmed: 'Confirmed. See you soon!', st_cancelled: 'This booking was cancelled.', st_noshow: 'This booking has ended.',
+      st_new: 'Waiting for you to confirm.', st_confirmed: 'Confirmed. See you soon!', st_cancelled: 'This booking was cancelled.', st_noshow: 'This booking has ended.', st_waitlist: 'You’re on the waiting list. The restaurant will contact you if a table frees up.',
       linkConfirmed: 'Thank you! Your booking is confirmed.', linkCancelled: 'Your booking is cancelled. We hope to see you another time!', linkBad: 'This link isn’t valid or has expired. Please call the branch.', linkClosed: 'This booking can’t be changed any more. Please call the branch.',
       guestDetails: 'Your details', fullName: 'Full name', nameError: 'Please enter your full name (max 60 characters).', phone: 'Phone number', phoneError: "This phone number doesn't look right.",
       branch: 'Branch', branchError: 'Please select a branch.', reservationDetails: 'Reservation details', datetimeError: 'Please pick a valid date and time, not in the past.',
@@ -379,10 +381,10 @@ trong từng khoảnh khắc</p>
     ja: {
       navHome: 'ホーム', tagline: '日本の味を、\nひとときごとに', navAbout: 'MUGIについて', navRestaurants: '店舗', explore: 'メニュー・店舗', info: 'インフォメーション', connect: 'SNS', navMenu: 'メニュー', navLocations: '店舗・お問い合わせ', navPromotions: 'お知らせ', navCareers: '採用情報', navContact: 'お問い合わせ', navReserve: '席を予約',
       heroTitle: 'ご予約', heroMessage: '送信と同時にお席を確保します。店舗から確定用のリンクをお送りします。',
-      fullShort: '満席', viaCall: 'お電話', viaSms: 'SMS', viaZalo: 'Zalo', err_full: 'その時間は満席です。', freeAt: '空きのある時間: {times}', noneFree: 'この日は満席です。別の日をお選びいただくか、店舗へお電話ください。',
+      fullShort: '満席・キャンセル待ち', joinWaitlist: 'キャンセル待ちに登録', waitTitle: 'キャンセル待ちに登録しました', waitBody: '{name}様、{day} {time}の{branch}は満席です。{party}名様でキャンセル待ちに登録しました。お席が空きましたら{via}でご連絡します。', orWait: '{time}のキャンセル待ちに登録することもできます。', viaCall: 'お電話', viaSms: 'SMS', viaZalo: 'Zalo', err_full: 'その時間は満席です。', freeAt: '空きのある時間: {times}', noneFree: 'この日は満席です。別の日をお選びいただくか、店舗へお電話ください。',
       heldBody: '{name}様、{day} {time}、{branch}（{party}名様）のお席を確保しました。確定のため店舗から{via}でご連絡します。',
       yourBooking: 'ご予約内容', bookingLine: '{name}様 · {party}名 · {day} {time} · {branch}', confirmBooking: '予約を確定する', cancelBooking: '予約をキャンセル', cancelAsk: 'このご予約をキャンセルしますか？',
-      st_new: 'ご確定をお待ちしています。', st_confirmed: '確定済みです。ご来店をお待ちしております！', st_cancelled: 'このご予約はキャンセルされました。', st_noshow: 'このご予約は終了しました。',
+      st_new: 'ご確定をお待ちしています。', st_confirmed: '確定済みです。ご来店をお待ちしております！', st_cancelled: 'このご予約はキャンセルされました。', st_noshow: 'このご予約は終了しました。', st_waitlist: 'キャンセル待ちです。お席が空きましたら店舗からご連絡します。',
       linkConfirmed: 'ありがとうございます。ご予約が確定しました。', linkCancelled: 'ご予約をキャンセルしました。またのご来店をお待ちしております。', linkBad: 'このリンクは無効か期限切れです。店舗へお電話ください。', linkClosed: 'このご予約は変更できません。店舗へお電話ください。',
       guestDetails: 'お客様情報', fullName: 'お名前', nameError: 'お名前を入力してください（60文字以内）。', phone: '電話番号', phoneError: '電話番号が正しくないようです。',
       branch: '店舗', branchError: '店舗を選択してください。', reservationDetails: 'ご予約内容', datetimeError: '過去ではない日時を選択してください。',
@@ -402,6 +404,8 @@ trong từng khoảnh khắc</p>
   }
   // Set once the date picker below is ready: rechecks which times are full.
   var refreshAvailability = function () {};
+  // Whether the chosen time is full, so sending joins its waiting list.
+  var wantsWaitlist = false;
   function applyLanguage() {
     document.documentElement.lang = language;
     document.title = { vi: 'Đặt Bàn', en: 'Reserve a Table', ja: 'ご予約' }[language] + ' | Mugi Ramen & Izakaya';
@@ -583,7 +587,9 @@ trong từng khoảnh khắc</p>
     function updateTimeAvailability() {
       timeOptions.forEach(function (option) {
         var full = !!selectedDate && fullSet.indexOf(option.time) !== -1;
-        option.el.disabled = !!(selectedDate && isPastSlot(selectedDate, option.time)) || full;
+        // a full time can still be picked: it joins that time's waiting list
+        option.el.disabled = !!(selectedDate && isPastSlot(selectedDate, option.time));
+        option.el.classList.toggle('full', full);
         option.el.textContent = option.time + (full ? ' · ' + text('fullShort') : '');
       });
     }
@@ -597,7 +603,6 @@ trong từng khoảnh khắc</p>
         .then(function (a) {
           if (key !== fullKey) return; // a newer choice is already being checked
           fullSet = a.full || [];
-          if (selectedTime && fullSet.indexOf(selectedTime) !== -1) selectedTime = null;
           updateTimeAvailability();
           updateTimeTrigger();
           updateOutput();
@@ -624,6 +629,9 @@ trong từng khoảnh khắc</p>
     }
 
     function updateOutput() {
+      wantsWaitlist = !!(selectedDate && selectedTime && fullSet.indexOf(selectedTime) !== -1);
+      var submit = form.querySelector('.reservation-submit');
+      if (!submit.disabled) submit.textContent = text(wantsWaitlist ? 'joinWaitlist' : 'sendReservation');
       if (selectedDate && selectedTime) {
         var yyyy = selectedDate.getFullYear();
         var mm = pad2(selectedDate.getMonth() + 1);
@@ -772,30 +780,39 @@ trong từng khoảnh khắc</p>
       return;
     }
 
-    // Sent through this site's /api/* proxy to the admin portal, which stores
-    // the booking (confirmed straight away) and emails the branch.
+    data.lang = language;
+    data.waitlist = wantsWaitlist;
+    send(data);
+  });
+
+  // Sent through this site's /api/* proxy to the admin portal, which holds the
+  // table (or adds the guest to a full time's waiting list) and tells the branch.
+  var lastSent = null;
+  function showDialog(ok, message, title) {
+    document.getElementById('confirmTitle').textContent = title || text(ok ? 'bookedTitle' : 'failTitle');
+    document.getElementById('confirmNote').hidden = !ok;
+    document.getElementById('linkConfirm').hidden = document.getElementById('linkCancel').hidden = document.getElementById('joinWaitlist').hidden = true;
+    closeBtn.parentNode.classList.remove('link');
+    closeBtn.className = 'btn btn-primary';
+    dialogBody.textContent = message;
+    dialog.classList.add('open');
+  }
+  function send(data) {
     var submitBtn = form.querySelector('.reservation-submit');
     submitBtn.disabled = true;
     submitBtn.textContent = text('sending');
-    var showDialog = function (ok, message) {
-      document.getElementById('confirmTitle').textContent = text(ok ? 'bookedTitle' : 'failTitle');
-      document.getElementById('confirmNote').hidden = !ok;
-      document.getElementById('linkConfirm').hidden = document.getElementById('linkCancel').hidden = true;
-      closeBtn.parentNode.classList.remove('link');
-      closeBtn.className = 'btn btn-primary';
-      dialogBody.textContent = message;
-      dialog.classList.add('open');
-    };
-    data.lang = language;
+    lastSent = data;
     fetch('api/reservations', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(data) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (body) { return { ok: r.ok, body: body }; }); })
       .then(function (res) {
         if (res.ok) {
           var when = data.datetime.split('T');
           var via = { call: 'viaCall', sms: 'viaSms', zalo: 'viaZalo' }[data.confirm_by] || 'viaCall';
-          showDialog(true, text('heldBody', { name: data.name, party: data.party_size, branch: data.branch, time: when[1], day: when[0].split('-').reverse().join('/'), via: text(via) }));
+          var vars = { name: data.name, party: data.party_size, branch: data.branch, time: when[1], day: when[0].split('-').reverse().join('/'), via: text(via) };
+          if (res.body.status === 'waitlist') showDialog(true, text('waitBody', vars), text('waitTitle'));
+          else showDialog(true, text('heldBody', vars));
           refreshAvailability();
-          if (window.umami) window.umami.track('reservation-sent', { branch: data.branch });
+          if (window.umami) window.umami.track(res.body.status === 'waitlist' ? 'waitlist-joined' : 'reservation-sent', { branch: data.branch });
           return;
         }
         var code = res.body.code;
@@ -803,9 +820,13 @@ trong từng khoảnh khắc</p>
         var fieldIds = { name: 'field-name', phone: 'field-phone', branch: 'field-branch', datetime: 'field-datetime', party: 'field-party' };
         if (res.body.field && fieldIds[res.body.field]) setError(fieldIds[res.body.field], true);
         if (code === 'full') {
+          // the time filled up while they were choosing: other times, or its waiting list
           refreshAvailability();
           var times = res.body.suggest || [];
-          showDialog(false, text('err_full') + ' ' + (times.length ? text('freeAt', { times: times.join(', ') }) : text('noneFree')));
+          showDialog(false, text('err_full') + ' ' + (times.length ? text('freeAt', { times: times.join(', ') }) : text('noneFree')) + ' ' + text('orWait', { time: data.datetime.split('T')[1] }));
+          document.getElementById('joinWaitlist').hidden = false;
+          closeBtn.parentNode.classList.add('link');
+          closeBtn.className = 'btn btn-ghost';
           return;
         }
         showDialog(false, translations[language]['err_' + code] ? text('err_' + code) : text('err_send'));
@@ -813,8 +834,12 @@ trong từng khoảnh khắc</p>
       .catch(function () { showDialog(false, text('err_send')); })
       .then(function () {
         submitBtn.disabled = false;
-        submitBtn.textContent = text('sendReservation');
+        submitBtn.textContent = text(wantsWaitlist ? 'joinWaitlist' : 'sendReservation');
       });
+  }
+  document.getElementById('joinWaitlist').addEventListener('click', function () {
+    dialog.classList.remove('open');
+    if (lastSent) send(Object.assign({}, lastSent, { waitlist: true }));
   });
 
   closeBtn.addEventListener('click', function () {
@@ -836,7 +861,7 @@ trong từng khoảnh khắc</p>
       dialogBody.textContent = (b ? text('bookingLine', { name: b.name, party: b.party_size, time: b.time, day: b.date.split('-').reverse().join('/'), branch: branchNames[b.branch] || b.branch }) + '\n\n' : '') + (message || text('st_' + b.status));
       dialogBody.style.whiteSpace = 'pre-line';
       yes.hidden = !b || b.status !== 'new' || !!message;
-      no.hidden = !b || ['new', 'confirmed'].indexOf(b.status) === -1 || !!message;
+      no.hidden = !b || ['new', 'confirmed', 'waitlist'].indexOf(b.status) === -1 || !!message;
       closeBtn.parentNode.classList.toggle('link', !yes.hidden || !no.hidden);
       closeBtn.className = 'btn ' + (yes.hidden && no.hidden ? 'btn-primary' : 'btn-ghost');
       dialog.classList.add('open');

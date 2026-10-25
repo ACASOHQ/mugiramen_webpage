@@ -35,8 +35,8 @@ under `/site/` and commits content changes here.
 
 `reservation.html` reads the booking rules from `api/booking-rules` (party
 size, days ahead, last booking times, closed days) and posts bookings to
-`api/reservations`, greying out times with no table left
-(`api/availability`). `netlify.toml` proxies `/api/*` to the admin portal,
+`api/reservations`. Times with no table left (`api/availability`) are
+marked full; choosing one sends the guest to that time's waiting list. `netlify.toml` proxies `/api/*` to the admin portal,
 which holds the table, keeps the booking waiting for confirmation and emails
 the branch. The guest's confirmation link, `reservation.html#c=<token>`,
 opens the booking with buttons to confirm or cancel it (`api/my-booking`).
