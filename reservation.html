@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="assets/washi.css">
 <style>
   body { margin: 0; }
+  /* the guest's confirmation link: confirm on its own row, then cancel / close */
+  .dialog-actions.link { display: flex; flex-wrap: wrap; gap: 8px; }
+  .dialog-actions.link #linkConfirm { flex: 1 1 100%; order: -1; }
+  .dialog-actions.link #linkCancel, .dialog-actions.link #confirmClose { flex: 1 1 0; }
   a { color: var(--color-accent-700); }
   a:hover { color: var(--color-accent-800); }
   .jp { font-family: "Noto Serif JP", var(--font-heading), serif; }
@@ -152,7 +156,7 @@
       <span class="kick" lang="ja">ご予約</span>
       <h1 data-i18n="heroTitle">Đặt Bàn</h1>
       <span class="redline" aria-hidden="true"></span>
-      <p class="sub" data-i18n="heroMessage">Đặt bàn online được xác nhận ngay. Nếu cần, nhà hàng sẽ liên hệ lại với bạn.</p>
+      <p class="sub" data-i18n="heroMessage">Bàn được giữ ngay khi bạn gửi. Nhà hàng sẽ gửi link để bạn xác nhận.</p>
     </div>
   </header>
 
@@ -270,6 +274,8 @@
       <div class="dialog-body" id="confirmBody"></div>
       <div class="dialog-body" id="confirmNote" style="font-size:12px;opacity:.65" data-i18n="confirmedNote">Nếu cần đổi hoặc huỷ, vui lòng gọi trực tiếp chi nhánh.</div>
       <div class="dialog-actions">
+        <button type="button" class="btn btn-ghost" id="linkCancel" hidden data-i18n="cancelBooking">Huỷ đặt bàn</button>
+        <button type="button" class="btn btn-primary" id="linkConfirm" hidden data-i18n="confirmBooking">Xác nhận đặt bàn</button>
         <button type="button" class="btn btn-primary" id="confirmClose" data-i18n="close">Đóng</button>
       </div>
     </div>
@@ -340,41 +346,62 @@ trong từng khoảnh khắc</p>
   var translations = {
     vi: {
       navHome: 'Trang chủ', tagline: 'Hương vị Nhật Bản\ntrong từng khoảnh khắc', navAbout: 'Về Mugi', navRestaurants: 'Nhà hàng', explore: 'Khám phá', info: 'Thông tin', connect: 'Kết nối', navMenu: 'Thực đơn', navLocations: 'Liên hệ', navPromotions: 'Tin tức & Ưu đãi', navCareers: 'Tuyển dụng', navContact: 'Liên hệ', navReserve: 'Đặt bàn',
-      heroTitle: 'Đặt bàn', heroMessage: 'Đặt bàn online được xác nhận ngay. Nếu cần, nhà hàng sẽ liên hệ lại với bạn.',
+      heroTitle: 'Đặt bàn', heroMessage: 'Bàn được giữ ngay khi bạn gửi. Nhà hàng sẽ gửi link để bạn xác nhận.',
+      fullShort: 'hết bàn', viaCall: 'điện thoại', viaSms: 'tin nhắn SMS', viaZalo: 'Zalo', err_full: 'Giờ này đã hết bàn.', freeAt: 'Còn bàn lúc: {times}.', noneFree: 'Ngày này đã kín bàn. Vui lòng chọn ngày khác hoặc gọi chi nhánh.',
+      heldBody: '{name}, bàn cho {party} khách tại {branch} lúc {time} ngày {day} đã được giữ. Nhà hàng sẽ liên hệ qua {via} để xác nhận.',
+      yourBooking: 'Đặt bàn của bạn', bookingLine: '{name} · {party} khách · {time} ngày {day} · {branch}', confirmBooking: 'Xác nhận đặt bàn', cancelBooking: 'Huỷ đặt bàn', cancelAsk: 'Huỷ đặt bàn này?',
+      st_new: 'Đang chờ bạn xác nhận.', st_confirmed: 'Đã xác nhận. Hẹn gặp bạn!', st_cancelled: 'Đặt bàn này đã được huỷ.', st_noshow: 'Đặt bàn này đã kết thúc.',
+      linkConfirmed: 'Cảm ơn! Đặt bàn đã được xác nhận.', linkCancelled: 'Đã huỷ đặt bàn. Hẹn gặp bạn lần sau!', linkBad: 'Link này không đúng hoặc đã hết hạn. Vui lòng gọi chi nhánh.', linkClosed: 'Đặt bàn này không thể thay đổi nữa. Vui lòng gọi chi nhánh.',
       guestDetails: 'Thông tin của bạn', fullName: 'Họ tên', nameError: 'Vui lòng nhập họ tên (không quá 60 ký tự).', phone: 'Số điện thoại', phoneError: 'Số điện thoại này có vẻ chưa đúng.',
       branch: 'Chi nhánh', branchError: 'Vui lòng chọn một chi nhánh.', reservationDetails: 'Chi tiết đặt bàn', datetimeError: 'Vui lòng chọn ngày giờ hợp lệ, không ở trong quá khứ.',
       reservationTime: 'Giờ đặt bàn', chooseTime: 'Chọn giờ', chooseDate: 'Chọn một ngày từ lịch', chooseReservationTime: 'Chọn giờ đặt bàn', partySize: 'Số khách',
       sendReservation: 'Gửi đặt bàn', privacy: 'Thông tin của bạn chỉ dùng để giữ bàn và liên hệ về lần đặt này, và được xoá sau 12 tháng.', callHint: 'Muốn đặt bàn ngay? Gọi trực tiếp chi nhánh gần bạn nhất (số điện thoại ở mục Chi nhánh).', thankYou: 'Cảm ơn!', close: 'Đóng',
       confirmBy: 'Xác nhận đặt bàn qua', confirmCall: 'Gọi điện', confirmSms: 'Tin nhắn SMS', confirmZalo: 'Zalo', confirmHint: 'Chọn tin nhắn nếu bạn khiếm thính hoặc không tiện nghe máy.',
       hours: 'Giờ mở cửa', lunch: 'Trưa', dinner: 'Tối', backHome: 'Về trang chủ', prevMonth: 'Tháng trước', nextMonth: 'Tháng sau',
-      confirmedNote: 'Nếu cần đổi hoặc huỷ, vui lòng gọi trực tiếp chi nhánh.', partyError: 'Số khách từ 1 đến {max}. Nhóm đông hơn vui lòng gọi chi nhánh.', bookedTitle: 'Đã đặt bàn!', failTitle: 'Chưa gửi được', sending: 'Đang gửi…', err_send: 'Không gửi được đặt bàn. Vui lòng thử lại, hoặc gọi trực tiếp chi nhánh.', err_past: 'Giờ này đã qua. Vui lòng chọn giờ khác.', err_tooFar: 'Chỉ nhận đặt bàn online trước tối đa {days} ngày.', err_closed: 'Ngày này nhà hàng không nhận đặt bàn online. Vui lòng chọn ngày khác hoặc gọi chi nhánh.', err_hours: 'Giờ này không nhận đặt bàn. Vui lòng chọn giờ khác.', err_tooMany: 'Nhóm trên {max} khách vui lòng gọi chi nhánh để đặt bàn.', err_rate: 'Bạn vừa gửi nhiều đặt bàn liên tiếp. Vui lòng gọi trực tiếp chi nhánh.'
+      confirmedNote: 'Nếu cần đổi hoặc huỷ, vui lòng gọi trực tiếp chi nhánh.', partyError: 'Số khách từ 1 đến {max}. Nhóm đông hơn vui lòng gọi chi nhánh.', bookedTitle: 'Đã giữ bàn!', failTitle: 'Chưa gửi được', sending: 'Đang gửi…', err_send: 'Không gửi được đặt bàn. Vui lòng thử lại, hoặc gọi trực tiếp chi nhánh.', err_past: 'Giờ này đã qua. Vui lòng chọn giờ khác.', err_tooFar: 'Chỉ nhận đặt bàn online trước tối đa {days} ngày.', err_closed: 'Ngày này nhà hàng không nhận đặt bàn online. Vui lòng chọn ngày khác hoặc gọi chi nhánh.', err_hours: 'Giờ này không nhận đặt bàn. Vui lòng chọn giờ khác.', err_tooMany: 'Nhóm trên {max} khách vui lòng gọi chi nhánh để đặt bàn.', err_rate: 'Bạn vừa gửi nhiều đặt bàn liên tiếp. Vui lòng gọi trực tiếp chi nhánh.'
     },
     en: {
       navHome: 'Home', tagline: 'The taste of Japan\nin every moment', navAbout: 'About Mugi', navRestaurants: 'Restaurants', explore: 'Explore', info: 'Information', connect: 'Connect', navMenu: 'Menu', navLocations: 'Contact', navPromotions: 'News & Offers', navCareers: 'Careers', navContact: 'Contact', navReserve: 'Reserve a Table',
-      heroTitle: 'Reserve a Table', heroMessage: 'Online bookings are confirmed straight away. The restaurant will contact you if anything needs checking.',
+      heroTitle: 'Reserve a Table', heroMessage: 'Your table is held as soon as you send. The restaurant will send you a link to confirm.',
+      fullShort: 'full', viaCall: 'phone', viaSms: 'text message', viaZalo: 'Zalo', err_full: 'That time is fully booked.', freeAt: 'Tables are free at: {times}.', noneFree: 'That day is fully booked. Please pick another day or call the branch.',
+      heldBody: '{name}, a table for {party} at {branch} at {time} on {day} is held for you. The restaurant will contact you by {via} to confirm.',
+      yourBooking: 'Your booking', bookingLine: '{name} · {party} guests · {time} on {day} · {branch}', confirmBooking: 'Confirm booking', cancelBooking: 'Cancel booking', cancelAsk: 'Cancel this booking?',
+      st_new: 'Waiting for you to confirm.', st_confirmed: 'Confirmed. See you soon!', st_cancelled: 'This booking was cancelled.', st_noshow: 'This booking has ended.',
+      linkConfirmed: 'Thank you! Your booking is confirmed.', linkCancelled: 'Your booking is cancelled. We hope to see you another time!', linkBad: 'This link isn’t valid or has expired. Please call the branch.', linkClosed: 'This booking can’t be changed any more. Please call the branch.',
       guestDetails: 'Your details', fullName: 'Full name', nameError: 'Please enter your full name (max 60 characters).', phone: 'Phone number', phoneError: "This phone number doesn't look right.",
       branch: 'Branch', branchError: 'Please select a branch.', reservationDetails: 'Reservation details', datetimeError: 'Please pick a valid date and time, not in the past.',
       reservationTime: 'Reservation time', chooseTime: 'Select a time', chooseDate: 'Select a date from the calendar', chooseReservationTime: 'Select a reservation time', partySize: 'Party size',
       sendReservation: 'Send reservation', privacy: 'Your details are only used to hold your table and contact you about this booking, and are deleted after 12 months.', callHint: 'Need it faster? Call your nearest branch directly (numbers are in the Branch list).', thankYou: 'Thank you!', close: 'Close',
       confirmBy: 'Confirm my booking by', confirmCall: 'Phone call', confirmSms: 'Text message', confirmZalo: 'Zalo', confirmHint: 'Choose a message if you are deaf, hard of hearing, or can’t take a call.',
       hours: 'Hours', lunch: 'Lunch', dinner: 'Dinner', backHome: 'Back home', prevMonth: 'Previous month', nextMonth: 'Next month',
-      confirmedNote: 'To change or cancel, please call the branch directly.', partyError: 'Party size is 1 to {max}. For larger groups, please call the branch.', bookedTitle: 'You’re booked!', failTitle: 'Not sent yet', sending: 'Sending…', err_send: 'We couldn\'t send your booking. Please try again, or call the branch directly.', err_past: 'That time has passed. Please pick another.', err_tooFar: 'Online bookings open up to {days} days ahead.', err_closed: 'We don\'t take online bookings that day. Please pick another day or call the branch.', err_hours: 'We don\'t take bookings at that time. Please pick another.', err_tooMany: 'For more than {max} guests, please call the branch to book.', err_rate: 'You\'ve sent several bookings in a row. Please call the branch directly.'
+      confirmedNote: 'To change or cancel, please call the branch directly.', partyError: 'Party size is 1 to {max}. For larger groups, please call the branch.', bookedTitle: 'Table held!', failTitle: 'Not sent yet', sending: 'Sending…', err_send: 'We couldn\'t send your booking. Please try again, or call the branch directly.', err_past: 'That time has passed. Please pick another.', err_tooFar: 'Online bookings open up to {days} days ahead.', err_closed: 'We don\'t take online bookings that day. Please pick another day or call the branch.', err_hours: 'We don\'t take bookings at that time. Please pick another.', err_tooMany: 'For more than {max} guests, please call the branch to book.', err_rate: 'You\'ve sent several bookings in a row. Please call the branch directly.'
     },
     ja: {
       navHome: 'ホーム', tagline: '日本の味を、\nひとときごとに', navAbout: 'MUGIについて', navRestaurants: '店舗', explore: 'メニュー・店舗', info: 'インフォメーション', connect: 'SNS', navMenu: 'メニュー', navLocations: '店舗・お問い合わせ', navPromotions: 'お知らせ', navCareers: '採用情報', navContact: 'お問い合わせ', navReserve: '席を予約',
-      heroTitle: 'ご予約', heroMessage: 'オンライン予約はその場で確定します。確認が必要な場合は店舗からご連絡します。',
+      heroTitle: 'ご予約', heroMessage: '送信と同時にお席を確保します。店舗から確定用のリンクをお送りします。',
+      fullShort: '満席', viaCall: 'お電話', viaSms: 'SMS', viaZalo: 'Zalo', err_full: 'その時間は満席です。', freeAt: '空きのある時間: {times}', noneFree: 'この日は満席です。別の日をお選びいただくか、店舗へお電話ください。',
+      heldBody: '{name}様、{day} {time}、{branch}（{party}名様）のお席を確保しました。確定のため店舗から{via}でご連絡します。',
+      yourBooking: 'ご予約内容', bookingLine: '{name}様 · {party}名 · {day} {time} · {branch}', confirmBooking: '予約を確定する', cancelBooking: '予約をキャンセル', cancelAsk: 'このご予約をキャンセルしますか？',
+      st_new: 'ご確定をお待ちしています。', st_confirmed: '確定済みです。ご来店をお待ちしております！', st_cancelled: 'このご予約はキャンセルされました。', st_noshow: 'このご予約は終了しました。',
+      linkConfirmed: 'ありがとうございます。ご予約が確定しました。', linkCancelled: 'ご予約をキャンセルしました。またのご来店をお待ちしております。', linkBad: 'このリンクは無効か期限切れです。店舗へお電話ください。', linkClosed: 'このご予約は変更できません。店舗へお電話ください。',
       guestDetails: 'お客様情報', fullName: 'お名前', nameError: 'お名前を入力してください（60文字以内）。', phone: '電話番号', phoneError: '電話番号が正しくないようです。',
       branch: '店舗', branchError: '店舗を選択してください。', reservationDetails: 'ご予約内容', datetimeError: '過去ではない日時を選択してください。',
       reservationTime: 'ご予約時間', chooseTime: '時間を選択', chooseDate: 'カレンダーから日付を選択', chooseReservationTime: 'ご予約時間を選択', partySize: '人数',
       sendReservation: '予約を送信', privacy: 'お客様の情報はお席の確保と本予約に関するご連絡にのみ使用し、12か月後に削除します。', callHint: 'お急ぎの場合は、「店舗」欄の電話番号からお近くの店舗へお電話ください。', thankYou: 'ありがとうございます！', close: '閉じる',
       confirmBy: '予約確認の方法', confirmCall: '電話', confirmSms: 'SMS', confirmZalo: 'Zalo', confirmHint: '聴覚に障がいのある方やお電話に出られない方はメッセージをお選びください。',
       hours: '営業時間', lunch: 'ランチ', dinner: 'ディナー', backHome: 'ホームへ', prevMonth: '前の月', nextMonth: '次の月',
-      confirmedNote: '変更・キャンセルは店舗へ直接お電話ください。', partyError: '人数は1〜{max}名です。それ以上は店舗へお電話ください。', bookedTitle: 'ご予約が確定しました', failTitle: '送信できませんでした', sending: '送信中…', err_send: 'ご予約を送信できませんでした。もう一度お試しいただくか、店舗へ直接お電話ください。', err_past: 'その時間は過ぎています。別の時間をお選びください。', err_tooFar: 'オンライン予約は{days}日先までです。', err_closed: 'この日はオンライン予約を受け付けていません。別の日をお選びいただくか、店舗へお電話ください。', err_hours: 'その時間はご予約を受け付けていません。別の時間をお選びください。', err_tooMany: '{max}名を超える場合は店舗へお電話ください。', err_rate: '続けて何件も送信されています。店舗へ直接お電話ください。'
+      confirmedNote: '変更・キャンセルは店舗へ直接お電話ください。', partyError: '人数は1〜{max}名です。それ以上は店舗へお電話ください。', bookedTitle: 'お席を確保しました', failTitle: '送信できませんでした', sending: '送信中…', err_send: 'ご予約を送信できませんでした。もう一度お試しいただくか、店舗へ直接お電話ください。', err_past: 'その時間は過ぎています。別の時間をお選びください。', err_tooFar: 'オンライン予約は{days}日先までです。', err_closed: 'この日はオンライン予約を受け付けていません。別の日をお選びいただくか、店舗へお電話ください。', err_hours: 'その時間はご予約を受け付けていません。別の時間をお選びください。', err_tooMany: '{max}名を超える場合は店舗へお電話ください。', err_rate: '続けて何件も送信されています。店舗へ直接お電話ください。'
     }
   };
 
   document.getElementById('year').textContent = new Date().getFullYear();
-  function text(key) { return String(translations[language][key]).replace('{max}', RULES.maxOnline).replace('{days}', RULES.daysAhead); }
+  function text(key, vars) {
+    var s = String(translations[language][key]).replace('{max}', RULES.maxOnline).replace('{days}', RULES.daysAhead);
+    Object.keys(vars || {}).forEach(function (k) { s = s.split('{' + k + '}').join(vars[k]); });
+    return s;
+  }
+  // Set once the date picker below is ready: rechecks which times are full.
+  var refreshAvailability = function () {};
   function applyLanguage() {
     document.documentElement.lang = language;
     document.title = { vi: 'Đặt Bàn', en: 'Reserve a Table', ja: 'ご予約' }[language] + ' | Mugi Ramen & Izakaya';
@@ -515,6 +542,7 @@ trong từng khoảnh khắc</p>
               updateTimeAvailability();
               updateTimeTrigger();
               updateOutput();
+              refreshAvailability();
             };
           }(cellDate));
         }
@@ -549,11 +577,35 @@ trong từng khoảnh khắc</p>
       });
     }
 
+    // Times with no table left for this branch, day and party size, from the
+    // admin's table counts (/api/availability).
+    var fullSet = [], fullKey = '';
     function updateTimeAvailability() {
       timeOptions.forEach(function (option) {
-        option.el.disabled = !!(selectedDate && isPastSlot(selectedDate, option.time));
+        var full = !!selectedDate && fullSet.indexOf(option.time) !== -1;
+        option.el.disabled = !!(selectedDate && isPastSlot(selectedDate, option.time)) || full;
+        option.el.textContent = option.time + (full ? ' · ' + text('fullShort') : '');
       });
     }
+    refreshAvailability = function () {
+      var branch = (form.querySelector('input[name="branch"]:checked') || {}).value;
+      var party = Number(document.getElementById('party_size').value) || 1;
+      if (!branch || !selectedDate) { fullSet = []; fullKey = ''; updateTimeAvailability(); return; }
+      var key = fullKey = branch + '|' + isoDay(selectedDate) + '|' + party;
+      fetch('api/availability?branch=' + encodeURIComponent(branch) + '&date=' + isoDay(selectedDate) + '&party=' + party, { cache: 'no-cache' })
+        .then(function (r) { return r.ok ? r.json() : { full: [] }; })
+        .then(function (a) {
+          if (key !== fullKey) return; // a newer choice is already being checked
+          fullSet = a.full || [];
+          if (selectedTime && fullSet.indexOf(selectedTime) !== -1) selectedTime = null;
+          updateTimeAvailability();
+          updateTimeTrigger();
+          updateOutput();
+        }).catch(function () {});
+    };
+    form.addEventListener('change', function (event) {
+      if (event.target.name === 'branch' || event.target.id === 'party_size') refreshAvailability();
+    });
 
     function updateTimeTrigger() {
       timeTrigger.textContent = selectedTime || text('chooseTime');
@@ -728,6 +780,9 @@ trong từng khoảnh khắc</p>
     var showDialog = function (ok, message) {
       document.getElementById('confirmTitle').textContent = text(ok ? 'bookedTitle' : 'failTitle');
       document.getElementById('confirmNote').hidden = !ok;
+      document.getElementById('linkConfirm').hidden = document.getElementById('linkCancel').hidden = true;
+      closeBtn.parentNode.classList.remove('link');
+      closeBtn.className = 'btn btn-primary';
       dialogBody.textContent = message;
       dialog.classList.add('open');
     };
@@ -737,12 +792,9 @@ trong từng khoảnh khắc</p>
       .then(function (res) {
         if (res.ok) {
           var when = data.datetime.split('T');
-          var day = when[0].split('-').reverse().join('/');
-          showDialog(true, {
-            vi: data.name + ', bàn của bạn tại ' + data.branch + ' lúc ' + when[1] + ' ngày ' + day + ' cho ' + data.party_size + ' khách đã được xác nhận.',
-            en: data.name + ', your table at ' + data.branch + ' for ' + data.party_size + ' at ' + when[1] + ' on ' + day + ' is confirmed.',
-            ja: data.name + '様、' + day + ' ' + when[1] + '、' + data.branch + '（' + data.party_size + '名様）のご予約を承りました。'
-          }[language]);
+          var via = { call: 'viaCall', sms: 'viaSms', zalo: 'viaZalo' }[data.confirm_by] || 'viaCall';
+          showDialog(true, text('heldBody', { name: data.name, party: data.party_size, branch: data.branch, time: when[1], day: when[0].split('-').reverse().join('/'), via: text(via) }));
+          refreshAvailability();
           if (window.umami) window.umami.track('reservation-sent', { branch: data.branch });
           return;
         }
@@ -750,6 +802,12 @@ trong từng khoảnh khắc</p>
         if (res.body.rules) Object.assign(RULES, res.body.rules);
         var fieldIds = { name: 'field-name', phone: 'field-phone', branch: 'field-branch', datetime: 'field-datetime', party: 'field-party' };
         if (res.body.field && fieldIds[res.body.field]) setError(fieldIds[res.body.field], true);
+        if (code === 'full') {
+          refreshAvailability();
+          var times = res.body.suggest || [];
+          showDialog(false, text('err_full') + ' ' + (times.length ? text('freeAt', { times: times.join(', ') }) : text('noneFree')));
+          return;
+        }
         showDialog(false, translations[language]['err_' + code] ? text('err_' + code) : text('err_send'));
       })
       .catch(function () { showDialog(false, text('err_send')); })
@@ -762,6 +820,50 @@ trong từng khoảnh khắc</p>
   closeBtn.addEventListener('click', function () {
     dialog.classList.remove('open');
   });
+
+  // The guest's confirmation link: reservation.html#c=<token>, sent by the
+  // restaurant. Shows the booking with buttons to confirm or cancel it.
+  var linkToken = (/^#c=([\w.-]+)$/.exec(window.location.hash) || [])[1];
+  if (linkToken) (function () {
+    var yes = document.getElementById('linkConfirm'), no = document.getElementById('linkCancel');
+    var branchNames = {};
+    document.querySelectorAll('input[name="branch"]').forEach(function (r) {
+      branchNames[r.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(',')[0].trim().replace(/\s+/g, '-')] = r.value;
+    });
+    var show = function (b, message) {
+      document.getElementById('confirmTitle').textContent = text('yourBooking');
+      document.getElementById('confirmNote').hidden = true;
+      dialogBody.textContent = (b ? text('bookingLine', { name: b.name, party: b.party_size, time: b.time, day: b.date.split('-').reverse().join('/'), branch: branchNames[b.branch] || b.branch }) + '\n\n' : '') + (message || text('st_' + b.status));
+      dialogBody.style.whiteSpace = 'pre-line';
+      yes.hidden = !b || b.status !== 'new' || !!message;
+      no.hidden = !b || ['new', 'confirmed'].indexOf(b.status) === -1 || !!message;
+      closeBtn.parentNode.classList.toggle('link', !yes.hidden || !no.hidden);
+      closeBtn.className = 'btn ' + (yes.hidden && no.hidden ? 'btn-primary' : 'btn-ghost');
+      dialog.classList.add('open');
+    };
+    var act = function (action) {
+      if (action === 'cancel' && !window.confirm(text('cancelAsk'))) return;
+      yes.disabled = no.disabled = true;
+      fetch('api/my-booking', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ token: linkToken, action: action }) })
+        .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, b: b }; }); })
+        .then(function (res) {
+          if (res.ok) show(res.b, text(action === 'confirm' ? 'linkConfirmed' : 'linkCancelled'));
+          else show(res.b.status ? res.b : null, text(res.b.code === 'closed' ? 'linkClosed' : 'linkBad'));
+        })
+        .catch(function () { show(null, text('err_send')); })
+        .then(function () { yes.disabled = no.disabled = false; });
+    };
+    yes.addEventListener('click', function () { act('confirm'); });
+    no.addEventListener('click', function () { act('cancel'); });
+    fetch('api/my-booking?token=' + encodeURIComponent(linkToken), { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (b) {
+        // answer in the language they booked in, unless they picked one here
+        if (b && b.lang && !params.get('lang') && b.lang !== language && LANGS.indexOf(b.lang) !== -1) { language = b.lang; applyLanguage(); }
+        show(b, b ? '' : text('linkBad'));
+      })
+      .catch(function () { show(null, text('linkBad')); });
+  })();
   dialog.addEventListener('click', function (e) {
     if (e.target === dialog) dialog.classList.remove('open');
   });
