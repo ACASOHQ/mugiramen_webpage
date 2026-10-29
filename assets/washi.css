@@ -32,8 +32,6 @@ html, body { overscroll-behavior: none; }
 .ws .links a { text-decoration: none; color: var(--muted); display: inline-flex; align-items: center; min-height: 44px; border-bottom: 1px solid transparent; }
 .ws .links a.on { color: var(--ink); border-bottom-color: var(--accent); }
 .ws .right { display: flex; align-items: center; gap: 10px; }
-.ws .lang button { background: none; border: 0; font: 500 13px var(--sans); color: var(--muted); cursor: pointer; min-width: 44px; min-height: 44px; }
-.ws .lang button[aria-pressed="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 6px; }
 .ws .cta { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; font: 600 14px var(--sans); text-decoration: none; background: var(--ink); color: var(--paper) !important; padding: 0 20px; border: 0; cursor: pointer; }
 .ws .cta:hover { background: var(--accent); }
 .ws .cta.red { background: var(--accent); }
@@ -222,13 +220,7 @@ html, body { overscroll-behavior: none; }
 .ws footer { background: var(--ink); color: var(--paper2); margin-top: auto; }
 .ws footer a { color: var(--paper2); }
 .ws footer a:hover { color: #fff; }
-.ws .fgrid { display: grid; grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, 1fr)); gap: 32px; padding-top: 56px; padding-bottom: 32px; font-size: 14px; }
-.ws .fgrid b.logo { font-family: var(--mincho); letter-spacing: .3em; font-size: 22px; display: block; margin-bottom: 8px; }
-.ws .fgrid h4 { font-family: var(--mincho); font-weight: 500; font-size: 16px; margin: 0 0 10px; color: #fff; }
-.ws .fgrid p { margin: 0 0 6px; color: #cfc3ae; }
-.ws .fnav { display: flex; flex-direction: column; gap: 2px; }
 .ws .fnav a { text-decoration: none; min-height: 32px; display: inline-flex; align-items: center; }
-.ws .fbot { border-top: 1px solid #4a3d33; padding-top: 18px; padding-bottom: 28px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: #cfc3ae; }
 
 @media (max-width: 960px) {
   .ws .links { order: 3; width: 100%; overflow-x: auto; flex-wrap: nowrap; }
@@ -249,7 +241,6 @@ html, body { overscroll-behavior: none; }
   .ws .agrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ws .cards, .ws .contact-grid { grid-template-columns: minmax(0, 1fr); }
   .ws .job { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-  .ws .fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .ws .phead { grid-template-columns: auto minmax(0, 1fr); }
   .ws .phead > :last-child { grid-column: 1 / -1; }
 }
@@ -266,7 +257,6 @@ html, body { overscroll-behavior: none; }
   .ws .fields, .ws .bopts { grid-template-columns: minmax(0, 1fr); }
   .ws .dish h3 { font-size: 14px; }
   .ws .agrid { grid-template-columns: minmax(0, 1fr); }
-  .ws .fgrid { grid-template-columns: minmax(0, 1fr); }
   .ws .dl, .ws .summary { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .ws .dl dd, .ws .summary dd { margin-bottom: 10px; }
   .ws .map { height: 240px; }
@@ -325,12 +315,24 @@ html.a11y-focus *:focus-visible { outline: 3px solid #8c3a34 !important; outline
 .ws .links a:hover { color: var(--accent); }
 .ws .links a.on { border-bottom-color: var(--accent); }
 .ws .right { gap: 20px; justify-self: end; }
-.ws .right .lang { order: 2; display: flex; align-items: center; }
-.ws .lang button { min-width: 30px; font-size: 13px; color: var(--muted); }
-.ws .lang button + button { border-left: 1px solid var(--line); border-radius: 0; min-height: 22px; }
-.ws .lang button[aria-pressed="true"], .ws .lang button.active { color: var(--ink); font-weight: 600; text-decoration: none; }
+/* language: one small button that opens a short list */
+.ws .langdd { position: relative; order: 2; }
+.ws .langbtn { background: none; border: 0; padding: 0; min-height: 44px; cursor: pointer; font: inherit; color: var(--ink); }
+.ws .langbtn .lpill { display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 8px; border: 1px solid var(--line); border-radius: 999px; font: 600 12px/1 var(--sans); letter-spacing: .06em; }
+.ws .langbtn:hover .lpill { border-color: var(--ink); }
+.ws .langbtn svg { width: 14px; height: 14px; }
+.ws .langbtn .chev { width: 11px; height: 11px; transition: transform .15s; }
+.ws .langbtn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+.ws .langmenu { position: absolute; right: 0; top: calc(100% + 4px); z-index: 60; min-width: 168px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 28px rgba(43,33,27,.16); padding: 6px; display: flex; flex-direction: column; }
+.ws .langmenu[hidden] { display: none; }
+.ws .langmenu button { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 40px; padding: 0 10px; border: 0; border-radius: 6px; background: none; font: 500 14px var(--sans); color: var(--ink); cursor: pointer; text-align: left; }
+.ws .langmenu button:hover { background: var(--paper2); }
+.ws .langmenu button[aria-pressed="true"] { font-weight: 600; color: var(--accent); }
+.ws .langmenu small { font-size: 11px; letter-spacing: .08em; color: var(--muted); }
 .ws .right .cta { background: var(--accent); border-radius: 4px; padding: 0 26px; font-size: 14px; font-weight: 500; min-height: 40px; }
 .ws .right .cta:hover { background: var(--wood); }
+/* the home hero has its own Reserve button */
+.ws.home .right .cta { display: none; }
 
 /* full-bleed hero (home) and shorter photo banner (inner pages) */
 .ws .bleed { position: relative; overflow: hidden; background: var(--wood); color: var(--cream); display: flex; align-items: center; }
@@ -342,57 +344,58 @@ html.a11y-focus *:focus-visible { outline: 3px solid #8c3a34 !important; outline
 .ws .bleed .kick { font-family: var(--mincho); font-size: 13px; letter-spacing: .25em; color: #e3c9a0; display: block; margin-bottom: 8px; }
 .ws .bleed .sub { color: #eadcc6; margin: 0; font-size: 15px; }
 .ws .hero2 { flex: 1; min-height: 420px; }
-.ws .hero2 .wrap { padding-left: clamp(16px, 8vw, 120px); }
 .ws .hero2 h1 { font-size: clamp(44px, 5vw, 72px); font-weight: 500; line-height: 1; letter-spacing: .02em; }
 .ws .hero2 .hsub { display: block; font: 400 clamp(14px, 1.4vw, 19px)/1 var(--sans); letter-spacing: .32em; color: #f3e7d3; margin-top: 18px; }
 .ws .hero2 .redline { margin: 26px 0 22px; }
 .ws .hero2 .tagline { font-family: var(--mincho); font-size: clamp(22px, 2.3vw, 32px); color: #fbf3e6; margin: 0; }
+.ws .hero2 .kick { font-family: "Shippori Mincho", var(--mincho); font-size: 14px; letter-spacing: .4em; color: #d8ae56; margin-bottom: 14px; }
+.ws .hacts { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.ws .hacts .cta { min-height: 52px; padding: 0 28px; border-radius: 4px; font-size: 15px; gap: 10px; }
+.ws .hacts .cta svg { width: 18px; height: 18px; }
+.ws .hacts .cta.red:hover { background: #6e2019; }
+.ws .hacts .cta.ghost { color: #fbf3e6 !important; border-color: rgba(251,243,230,.6); }
+.ws .hacts .cta.ghost:hover { background: rgba(251,243,230,.14); color: #fbf3e6 !important; }
 .ws .pbanner { min-height: clamp(200px, 26vh, 280px); }
 .ws .pbanner .wrap { padding-top: 40px; padding-bottom: 40px; }
 .ws .pbanner h1 { font-size: clamp(30px, 3.4vw, 46px); }
 .ws .pbanner .redline { margin: 16px 0; }
 
 /* home: header + hero + footer fill one screen, no scrolling */
-@media (min-width: 961px) and (min-height: 560px) {
+@media (min-width: 961px) and (min-height: 700px) {
   .ws.home { height: 100vh; height: 100svh; overflow: hidden; }
   .ws.home .tabpage { flex: 1; display: flex; flex-direction: column; padding-bottom: 0; min-height: 0; }
   .ws.home .hero2 { min-height: 0; }
   .ws.home footer { margin-top: 0; }
 }
 
-/* footer */
+/* footer: links, phone numbers and socials, then a bottom line, on the same
+   edges as the header and hero */
 .ws footer { background: #2e2019; color: var(--cream); }
-.ws .fgrid { grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, .8fr)) minmax(0, 1.1fr); gap: 24px; padding-top: 28px; padding-bottom: 28px; font-size: 13px; }
-.ws .flogo { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
-.ws .flogo img { width: auto; height: 34px; }
-.ws .flogo b { font: 700 24px/1 var(--sans); letter-spacing: .08em; color: var(--cream); display: block; }
-.ws .flogo small { font: 500 8.5px/1 var(--sans); letter-spacing: .24em; color: var(--cream); display: block; margin-top: 5px; }
-.ws .fgrid h4 { font-family: var(--sans); font-weight: 500; font-size: 14px; color: #fbf3e6; margin: 0 0 8px; }
-.ws .fnav { gap: 0; }
-.ws .fnav a { color: #d9cbb4; font-size: 13px; min-height: 26px; }
-.ws .social { display: flex; gap: 14px; padding-top: 2px; }
-.ws .social a { width: 22px; height: 22px; color: #f3e7d3; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
-.ws .social a:hover { color: #fff; }
+.ws .fwrap { padding-top: 32px; padding-bottom: 20px; display: flex; flex-direction: column; gap: 24px; }
+.ws .fcols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px 48px; align-items: start; }
+.ws .fcols h4 { font: 600 12px/1.4 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: #d8ae56; margin: 0 0 6px; }
+.ws .fnav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
+.ws .fnav a { color: #cdbfa8; font-size: 14px; min-height: 36px; }
+.ws .fphones { list-style: none; margin: 0; padding: 0; max-width: 340px; }
+.ws .fphones a { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 36px; color: #cdbfa8; font-size: 14px; text-decoration: none; }
+.ws .fphones b { font-weight: 600; color: var(--cream); white-space: nowrap; }
+.ws .fphones a:hover, .ws .fphones a:hover b { color: #fff; }
+.ws .social { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 6px; }
+.ws .social a { width: 44px; height: 44px; border: 1px solid rgba(243,231,211,.3); border-radius: 50%; color: var(--cream); display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+.ws .social a:hover { background: var(--cream); color: #2e2019; }
 .ws .social a[hidden] { display: none; }
-.ws .social svg { width: 20px; height: 20px; }
-.ws .social .zalo { font: 700 9px var(--sans); border: 1.5px solid currentColor; border-radius: 50%; width: 22px; }
-.ws .ftag { border-left: 1px solid rgba(243,231,211,.18); padding-left: clamp(16px, 3vw, 40px); }
-.ws .ftag p { color: #cdbfa8 !important; font-size: 13px; line-height: 1.7; margin: 0; max-width: 220px; }
-.ws .ftag .redline { width: 28px; height: 1.5px; margin: 12px 0; }
-.ws .ftag small { color: #9c8c76; font-size: 11px; }
+.ws .social svg { width: 18px; height: 18px; }
+.ws .social .zalo { font: 700 11px var(--sans); }
+.ws .fbot { border-top: 1px solid rgba(243,231,211,.14); padding-top: 14px; display: flex; justify-content: space-between; gap: 4px 24px; flex-wrap: wrap; font-size: 12px; color: #b9a98f; }
 
 @media (max-width: 960px) {
   .ws .nav { grid-template-columns: auto minmax(0, 1fr); }
   .ws .links { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; }
   .ws .right { justify-content: flex-end; }
   .ws .hero2 { min-height: calc(100svh - 120px); }
-  .ws .fgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .ws .fgrid > :first-child, .ws .ftag { grid-column: 1 / -1; }
-  .ws .ftag { border-left: 0; padding-left: 0; }
 }
 @media (max-width: 520px) {
   .ws .right { gap: 6px; }
-  .ws .fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* menu: category tabs stay pinned under the header once scrolled to */
@@ -403,38 +406,6 @@ html.a11y-focus *:focus-visible { outline: 3px solid #8c3a34 !important; outline
 .ws .tabpage > .wrap:last-child { padding-bottom: clamp(32px, 4vw, 56px); }
 .ws .tabpage > .wrap:last-child > section:last-child { padding-bottom: 0; }
 
-/* footer: columns sized to content, spread across the same width as the header */
-.ws .fgrid { grid-template-columns: repeat(5, auto); justify-content: space-between; column-gap: 32px; }
-@media (max-width: 960px) {
-  .ws .fgrid { grid-template-columns: repeat(3, auto); justify-content: center; }
-  .ws .fgrid > :first-child, .ws .ftag { grid-column: 1 / -1; justify-self: center; text-align: center; }
-  /* the logo block stays centered, but MUGI lines up with RAMEN below it */
-  .ws .flogo span { text-align: left; }
-  .ws .ftag p { max-width: none; }
-  .ws .ftag .redline { margin-left: auto; margin-right: auto; }
-}
-/* phones: brand + tagline on top, the two link lists side by side, then a
-   bottom bar with the social icons and the copyright */
-@media (max-width: 520px) {
-  .ws .fgrid {
-    grid-template-columns: 1fr 1fr; column-gap: 40px; row-gap: 0;
-    grid-template-areas: "logo logo" "tag tag" "line line" "explore info" "connect connect" "copy copy";
-  }
-  .ws .fgrid > div:nth-child(1) { grid-area: logo; }
-  .ws .fgrid > div:nth-child(2) { grid-area: explore; justify-self: end; }
-  .ws .fgrid > div:nth-child(3) { grid-area: info; justify-self: start; }
-  .ws .fgrid > div:nth-child(4) {
-    grid-area: connect; justify-self: stretch; display: flex; align-items: center; justify-content: center; gap: 18px;
-    margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(243,231,211,.18);
-  }
-  .ws .fgrid > div:nth-child(4) h4 { margin: 0; }
-  .ws .fgrid > div:nth-child(4) .social { padding-top: 0; }
-  .ws .fgrid > .ftag { display: contents; }
-  .ws .ftag p { grid-area: tag; text-align: center; margin-top: 12px; }
-  .ws .ftag .redline { grid-area: line; justify-self: center; margin: 14px 0 20px; }
-  .ws .ftag small { grid-area: copy; text-align: center; padding-top: 10px; }
-}
-
 /* in-page jump targets clear the sticky header */
 .ws .anchor { scroll-margin-top: calc(var(--topbar-h, 64px) + 16px); }
 
@@ -444,13 +415,7 @@ html.a11y-focus *:focus-visible { outline: 3px solid #8c3a34 !important; outline
 
 /* touch screens: tap targets at least 40–44px, same look */
 @media (pointer: coarse) {
-  .ws .lang button, .ws .lang button + button { min-height: 44px; min-width: 40px; }
-  /* keep the short divider between VI | EN | JA */
-  .ws .lang button + button { border-left: 0; background: linear-gradient(var(--line), var(--line)) left center / 1px 18px no-repeat; }
   .ws .fnav a { min-height: 40px; }
-  /* invisible 44px hit area around the 22px icons */
-  .ws .social { gap: 22px; }
-  .ws .social a { position: relative; }
-  .ws .social a::before { content: ""; position: absolute; inset: -11px; }
   .ws a[href^="tel:"] { display: inline-flex; align-items: center; min-height: 40px; }
+  .ws .fphones a { display: flex; }
 }

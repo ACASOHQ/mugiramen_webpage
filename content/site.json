@@ -23,7 +23,7 @@
       "ja": "いつもの、小さな日本。"
     },
     "aboutLead": {
-      "vi": "MUGI (麦) nghĩa là lúa mạch trong tiếng Nhật — hạt làm nên sợi mì ramen. Chúng tôi phục vụ ramen và các món izakaya tại ba nhà hàng ở Hà Nội.",
+      "vi": "MUGI (麦) nghĩa là lúa mạch trong tiếng Nhật — hạt làm nên sợi mì ramen. Chúng tôi phục vụ ramen và các món izakaya tại ba cơ sở ở Hà Nội.",
       "en": "MUGI (麦) means wheat in Japanese — the grain behind every bowl of ramen. We serve ramen and izakaya dishes at three restaurants in Hanoi.",
       "ja": "MUGI（麦）は日本語で「麦」。ラーメンの麺のもととなる穀物です。ハノイの3店舗でラーメンと居酒屋料理をご提供しています。"
     },
@@ -33,7 +33,7 @@
       "ja": "ラーメン、刺身、寿司、焼き物、揚げ物、ご飯もの、うどん、そして日本酒、カクテル、ビールをお楽しみいただけます。"
     },
     "aboutSub": {
-      "vi": "Ramen và izakaya Nhật Bản, ba nhà hàng tại Hà Nội.",
+      "vi": "Ramen và izakaya Nhật Bản, ba cơ sở tại Hà Nội.",
       "en": "Japanese ramen and izakaya, three restaurants in Hanoi.",
       "ja": "ハノイの3店舗で、ラーメンと居酒屋料理を。"
     },
@@ -53,7 +53,7 @@
       "ja": "カウンター席をご予約ください。"
     },
     "bandBody": {
-      "vi": "Chọn nhà hàng, ngày và giờ — bàn được xác nhận ngay khi bạn đặt.",
+      "vi": "Chọn cơ sở, ngày và giờ — bàn được xác nhận ngay khi bạn đặt.",
       "en": "Pick a restaurant, date and time — your table is confirmed as soon as you book.",
       "ja": "店舗・日時をお選びください。ご予約はその場で確定します。"
     },
@@ -68,7 +68,7 @@
       "ja": "ご予約"
     },
     "findUs": {
-      "vi": "Nhà hàng & liên hệ",
+      "vi": "Cơ sở & liên hệ",
       "en": "Restaurants & contact",
       "ja": "店舗・お問い合わせ"
     },
@@ -118,7 +118,7 @@
       "ja": "価格・品目は店舗により異なる場合があります。"
     },
     "restaurantLabel": {
-      "vi": "Nhà hàng",
+      "vi": "Cơ sở",
       "en": "Restaurant",
       "ja": "店舗"
     },
@@ -138,7 +138,7 @@
       "ja": "お知らせ・特典"
     },
     "newsSub": {
-      "vi": "Món mới theo mùa, sự kiện và ưu đãi tại các nhà hàng MUGI.",
+      "vi": "Món mới theo mùa, sự kiện và ưu đãi tại các cơ sở MUGI.",
       "en": "Seasonal dishes, events and offers at MUGI restaurants.",
       "ja": "季節の料理、イベント、特典のお知らせ。"
     },
@@ -168,7 +168,7 @@
       "ja": "現在募集はありません。"
     },
     "careersEmpty": {
-      "vi": "Tin tuyển dụng sẽ được đăng tại đây. Quan tâm đến MUGI? Hãy liên hệ nhà hàng gần bạn.",
+      "vi": "Tin tuyển dụng sẽ được đăng tại đây. Quan tâm đến MUGI? Hãy liên hệ cơ sở gần bạn.",
       "en": "Job openings will be posted here. Interested in joining MUGI? Contact your nearest restaurant.",
       "ja": "求人情報はこちらに掲載します。ご興味のある方は、お近くの店舗までご連絡ください。"
     },
@@ -178,12 +178,12 @@
       "ja": "お問い合わせ"
     },
     "contactSub": {
-      "vi": "Mở cửa mỗi ngày, trưa 10:30–14:00 và tối 17:00–22:00. Gọi nhà hàng gần bạn hoặc nhắn qua Facebook.",
+      "vi": "Mở cửa mỗi ngày, trưa 10:30–14:00 và tối 17:00–22:00. Gọi cơ sở gần bạn hoặc nhắn qua Facebook.",
       "en": "Open daily, lunch 10:30–14:00 and dinner 17:00–22:00. Call your nearest restaurant or message us on Facebook.",
       "ja": "毎日営業、ランチ10:30–14:00、ディナー17:00–22:00。お近くの店舗へお電話、またはFacebookからご連絡ください。"
     },
     "callTitle": {
-      "vi": "Gọi nhà hàng",
+      "vi": "Gọi cơ sở",
       "en": "Call a restaurant",
       "ja": "店舗へ電話"
     },
@@ -352,12 +352,12 @@
       "pos": "center 45%",
       "imgFirst": false,
       "kicker": {
-        "vi": "Nhà hàng",
+        "vi": "Cơ sở",
         "en": "The restaurants",
         "ja": "店舗"
       },
       "title": {
-        "vi": "Ba nhà hàng tại Hà Nội",
+        "vi": "Ba cơ sở tại Hà Nội",
         "en": "Three restaurants in Hanoi",
         "ja": "ハノイの3店舗"
       },

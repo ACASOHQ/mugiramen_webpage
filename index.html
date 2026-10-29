@@ -42,10 +42,17 @@
           </sc-for>
         </div>
         <div class="right">
-          <div class="lang" role="group" aria-label="Language">
-            <sc-for list="{{ langOpts }}" as="lg" hint-placeholder-count="3">
-              <button type="button" aria-pressed="{{ lg.pressed }}" onClick="{{ lg.select }}">{{ lg.label }}</button>
-            </sc-for>
+          <div class="langdd">
+            <button type="button" class="langbtn" aria-haspopup="true" aria-expanded="{{ langExpanded }}" aria-label="{{ ui.language }}" onClick="{{ toggleLang }}">
+              <span class="lpill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>{{ langCode }}<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span>
+            </button>
+            <sc-if value="{{ langOpen }}" hint-placeholder-val="{{ false }}">
+              <div class="langmenu" role="group" aria-label="{{ ui.language }}">
+                <sc-for list="{{ langOpts }}" as="lg" hint-placeholder-count="3">
+                  <button type="button" lang="{{ lg.key }}" aria-pressed="{{ lg.pressed }}" onClick="{{ lg.select }}"><span>{{ lg.name }}</span><small>{{ lg.label }}</small></button>
+                </sc-for>
+              </div>
+            </sc-if>
           </div>
           <a class="cta" href="reservation.html" data-umami-event="reserve">{{ txt.reserve }}</a>
         </div>
@@ -59,10 +66,15 @@
       <header class="bleed hero2">
         <img loading="lazy" src="{{ img.hero.src }}" alt="{{ img.hero.alt }}" style="{{ img.hero.pos }}">
         <div class="wrap">
+          <span class="kick" lang="ja">麦 · ハノイ</span>
           <h1>MUGI</h1>
           <span class="hsub">RAMEN &amp; IZAKAYA</span>
           <span class="redline" aria-hidden="true"></span>
           <p class="tagline">{{ txt.heroTitle }}</p>
+          <div class="hacts">
+            <a class="cta red" href="reservation.html" data-umami-event="reserve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>{{ txt.reserve }}</a>
+            <a class="cta ghost" href="#menu" onClick="{{ goMenu }}">{{ ui.viewMenu }}</a>
+          </div>
         </div>
       </header>
     </div>
@@ -373,40 +385,41 @@
 
   <!-- FOOTER (every tab) -->
   <footer>
-    <div class="wrap fgrid">
-      <div>
-        <a class="flogo" href="index.html" onClick="{{ goHome }}" aria-label="MUGI Ramen &amp; Izakaya"><img src="assets/mugi-icon.svg" alt=""><span><b>MUGI</b><small>RAMEN &amp; IZAKAYA</small></span></a>
-      </div>
-      <div>
-        <h4>{{ ui.explore }}</h4>
-        <nav class="fnav" aria-label="{{ ui.explore }}">
-          <a href="#menu" onClick="{{ goMenu }}">{{ ui.navMenu }}</a>
-          <a href="#location" onClick="{{ goLocation }}">{{ ui.navRestaurants }}</a>
-          <a href="#about" onClick="{{ goAbout }}">{{ ui.navAbout }}</a>
-        </nav>
-      </div>
-      <div>
-        <h4>{{ ui.info }}</h4>
-        <nav class="fnav" aria-label="{{ ui.info }}">
-          <a href="#promotion" onClick="{{ goPromo }}">{{ ui.navNews }}</a>
-          <a href="#careers" onClick="{{ goCareers }}">{{ txt.careersTitle }}</a>
-          <a href="#contact" onClick="{{ goContact }}">{{ txt.contactTitle }}</a>
-        </nav>
-      </div>
-      <div>
-        <h4>{{ ui.connect }}</h4>
-        <div class="social">
-          <sc-if value="{{ hasFacebook }}" hint-placeholder-val="{{ true }}"><a href="{{ social.facebook }}" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1Z"/></svg></a></sc-if>
-          <sc-if value="{{ hasZalo }}" hint-placeholder-val="{{ false }}"><a class="zalo" href="{{ social.zalo }}" target="_blank" rel="noopener" aria-label="Zalo">Zalo</a></sc-if>
-          <sc-if value="{{ hasInstagram }}" hint-placeholder-val="{{ false }}"><a href="{{ social.instagram }}" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="currentColor" stroke="none"/></svg></a></sc-if>
-          <sc-if value="{{ hasTiktok }}" hint-placeholder-val="{{ false }}"><a href="{{ social.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.3 2.2 1.6 3.6 3.8 3.8v2.6c-1.4.1-2.6-.3-3.8-1.1v5.6c0 3.4-2.6 5.9-5.8 5.9a5.7 5.7 0 0 1-1-11.4v2.7a3 3 0 1 0 2.1 2.9V3h2.7Z"/></svg></a></sc-if>
-          <sc-if value="{{ hasYoutube }}" hint-placeholder-val="{{ false }}"><a href="{{ social.youtube }}" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.6 2.6 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8a2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8ZM10 15V9l5.2 3L10 15Z"/></svg></a></sc-if>
+    <div class="wrap fwrap">
+      <div class="fcols">
+        <div>
+          <h4>{{ ui.explore }}</h4>
+          <nav class="fnav" aria-label="{{ ui.explore }}">
+            <a href="#menu" onClick="{{ goMenu }}">{{ ui.navMenu }}</a>
+            <a href="#promotion" onClick="{{ goPromo }}">{{ ui.navNews }}</a>
+            <a href="#location" onClick="{{ goLocation }}">{{ ui.navRestaurants }}</a>
+            <a href="#careers" onClick="{{ goCareers }}">{{ txt.careersTitle }}</a>
+            <a href="#about" onClick="{{ goAbout }}">{{ ui.navAbout }}</a>
+            <a href="#contact" onClick="{{ goContact }}">{{ txt.contactTitle }}</a>
+          </nav>
+        </div>
+        <div>
+          <h4>{{ ui.bookByPhone }}</h4>
+          <ul class="fphones">
+            <sc-for list="{{ footerPhones }}" as="fp" hint-placeholder-count="3">
+              <li><a href="{{ fp.tel }}"><span>{{ fp.short }}</span><b>{{ fp.phone }}</b></a></li>
+            </sc-for>
+          </ul>
+        </div>
+        <div>
+          <h4>{{ ui.connect }}</h4>
+          <div class="social">
+            <sc-if value="{{ hasFacebook }}" hint-placeholder-val="{{ true }}"><a href="{{ social.facebook }}" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1Z"/></svg></a></sc-if>
+            <sc-if value="{{ hasInstagram }}" hint-placeholder-val="{{ false }}"><a href="{{ social.instagram }}" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="currentColor" stroke="none"/></svg></a></sc-if>
+            <sc-if value="{{ hasTiktok }}" hint-placeholder-val="{{ false }}"><a href="{{ social.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 3c.3 2.2 1.6 3.6 3.8 3.8v2.6c-1.4.1-2.6-.3-3.8-1.1v5.6c0 3.4-2.6 5.9-5.8 5.9a5.7 5.7 0 0 1-1-11.4v2.7a3 3 0 1 0 2.1 2.9V3h2.7Z"/></svg></a></sc-if>
+            <sc-if value="{{ hasZalo }}" hint-placeholder-val="{{ false }}"><a class="zalo" href="{{ social.zalo }}" target="_blank" rel="noopener" aria-label="Zalo">Zalo</a></sc-if>
+            <sc-if value="{{ hasYoutube }}" hint-placeholder-val="{{ false }}"><a href="{{ social.youtube }}" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.6 2.6 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8a2.6 2.6 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8ZM10 15V9l5.2 3L10 15Z"/></svg></a></sc-if>
+          </div>
         </div>
       </div>
-      <div class="ftag">
-        <p style="white-space: pre-line">{{ txt.footerTagline }}</p>
-        <span class="redline" aria-hidden="true"></span>
+      <div class="fbot">
         <small>© {{ year }} MUGI Ramen &amp; Izakaya</small>
+        <small>{{ footerHours }}</small>
       </div>
     </div>
   </footer>
@@ -461,7 +474,7 @@ const scrollToContact = (smooth) => {
 };
 
 class Component extends DCLogic {
-  state = { tab: initialTabFromHash(), menuCategory: 'ramen', menuLocation: 'golden-palace', lang: initialLang(), loadedPhotos: new Set(), c: null };
+  state = { tab: initialTabFromHash(), menuCategory: 'ramen', menuLocation: 'golden-palace', lang: initialLang(), loadedPhotos: new Set(), c: null, langOpen: false };
 
   // Once a dish photo has finished loading (or failed) it's remembered for
   // the life of the page — switching categories/locations back to it skips
@@ -500,6 +513,12 @@ class Component extends DCLogic {
       }
     };
     window.addEventListener('hashchange', this._onHashChange);
+    this._closeLang = (e) => {
+      if (!this.state.langOpen) return;
+      if (e.type === 'keydown' ? e.key === 'Escape' : !e.target.closest('.langdd')) this.setState({ langOpen: false });
+    };
+    document.addEventListener('click', this._closeLang);
+    document.addEventListener('keydown', this._closeLang);
     const bar = document.querySelector('.ws .topbar');
     if (bar && typeof ResizeObserver !== 'undefined') {
       this._barObserver = new ResizeObserver(() => document.documentElement.style.setProperty('--topbar-h', bar.offsetHeight + 'px'));
@@ -519,6 +538,10 @@ class Component extends DCLogic {
       window.removeEventListener('hashchange', this._onHashChange);
     }
     if (this._onMessage) window.removeEventListener('message', this._onMessage);
+    if (this._closeLang) {
+      document.removeEventListener('click', this._closeLang);
+      document.removeEventListener('keydown', this._closeLang);
+    }
     if (this._barObserver) this._barObserver.disconnect();
   }
 
@@ -631,9 +654,11 @@ class Component extends DCLogic {
     // Labels for the header and footer navigation.
     const ui = {
       navHome: t('Home', 'Trang chủ', 'ホーム'), navMenu: t('Menu', 'Thực đơn', 'メニュー'),
-      navRestaurants: t('Restaurants', 'Nhà hàng', '店舗'), navAbout: t('About Mugi', 'Về Mugi', 'MUGIについて'),
+      navRestaurants: t('Locations', 'Cơ sở', '店舗'), navAbout: t('About Mugi', 'Về Mugi', 'MUGIについて'),
       navNews: t('News & Offers', 'Tin tức & Ưu đãi', 'お知らせ・特典'),
       explore: t('Explore', 'Khám phá', 'メニュー・店舗'), info: t('Information', 'Thông tin', 'インフォメーション'), connect: t('Connect', 'Kết nối', 'SNS'),
+      viewMenu: t('View the menu', 'Xem thực đơn', 'メニューを見る'), bookByPhone: t('Book by phone', 'Đặt bàn qua điện thoại', 'お電話でのご予約'),
+      language: t('Language', 'Ngôn ngữ', '言語'),
     };
     // News, Careers and Contact are linked from the footer.
     const tabs = [
@@ -645,9 +670,11 @@ class Component extends DCLogic {
       label: tb.label, href: tb.key === 'home' ? 'index.html' : '#' + tb.key,
       current: tab === tb.key ? 'page' : undefined, cls: tab === tb.key ? 'on' : '', select: setTab(tb.key),
     }));
-    const langOpts = [['vi', 'VI'], ['en', 'EN'], ['ja', 'JA']].map(([l, label]) => ({
-      key: l, label, pressed: l === lang, select: setLang(l),
+    // Language: one small button that opens a short list.
+    const langOpts = [['vi', 'VI', 'Tiếng Việt'], ['en', 'EN', 'English'], ['ja', 'JA', '日本語']].map(([l, label, name]) => ({
+      key: l, label, name, pressed: l === lang, select: (e) => { this.setState({ langOpen: false }); setLang(l)(e); },
     }));
+    const langOpen = !!this.state.langOpen;
 
     const loc = this.state.menuLocation;
     const availAt = (d) => !d.locs || d.locs.includes(loc);
@@ -766,7 +793,7 @@ class Component extends DCLogic {
         photo: n.photo || '', alt: p3(n.alt), hasPhoto: !!n.photo,
         hasUntil: n.type === 'offer' && !!n.until, untilLabel: t('Until', 'Đến hết', '期限') + ' ' + dm(n.until),
       }));
-    const branchName = (id) => id === 'all' ? t('All restaurants', 'Tất cả nhà hàng', '全店舗') : ((C.locations.find(l => l.slug === id) || {}).short || '');
+    const branchName = (id) => id === 'all' ? t('All locations', 'Tất cả cơ sở', '全店舗') : ((C.locations.find(l => l.slug === id) || {}).short || '');
     // How to apply, as chosen in the admin: call or Zalo the branch. A job at
     // every branch, or one set to the (not yet built) online form, points to
     // the Contact section, which lists every branch's phone.
@@ -791,7 +818,11 @@ class Component extends DCLogic {
       wsCls: tab === 'home' ? 'ws home' : 'ws', ui, year: new Date().getFullYear(),
       social: this.social, hasFacebook: !!this.social.facebook, hasZalo: !!this.social.zalo, hasTiktok: !!this.social.tiktok, hasInstagram: !!this.social.instagram, hasYoutube: !!this.social.youtube,
       fbHandle: this.social.facebook.replace(/^https?:\/\/(www\.)?facebook\.com\//, '').replace(/\/$/, ''),
-      tabs, langOpts, isHome: tab === 'home', isAbout: tab === 'about', isMenu: tab === 'menu',
+      tabs, langOpts, langOpen, langExpanded: langOpen ? 'true' : 'false',
+      langCode: lang.toUpperCase(), toggleLang: () => this.setState({ langOpen: !langOpen }),
+      footerPhones: this.locationData,
+      footerHours: C.locations.length ? t('Open daily', 'Mở cửa hằng ngày', '毎日営業') + ' · ' + C.locations[0].lunch + ' · ' + C.locations[0].dinner : '',
+      isHome: tab === 'home', isAbout: tab === 'about', isMenu: tab === 'menu',
       isLocation: tab === 'location', isPromo: tab === 'promotion', isCareers: tab === 'careers',
       goHome: setTab('home'), goAbout: setTab('about'), goMenu: setTab('menu'), goLocation: setTab('location'),
       goPromo: setTab('promotion'), goCareers: setTab('careers'),
